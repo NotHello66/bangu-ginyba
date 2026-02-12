@@ -1,0 +1,110 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\bangu-ginyba\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{CBC5FEB6-65BB-49D8-88B2-73B7F64B3910}|proginz grupinis.csproj|c:\\bangu-ginyba\\playercontroller\\playercontrollermouse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CBC5FEB6-65BB-49D8-88B2-73B7F64B3910}|proginz grupinis.csproj|solutionrelative:playercontroller\\playercontrollermouse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CBC5FEB6-65BB-49D8-88B2-73B7F64B3910}|proginz grupinis.csproj|c:\\bangu-ginyba\\playercontroller\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CBC5FEB6-65BB-49D8-88B2-73B7F64B3910}|proginz grupinis.csproj|solutionrelative:playercontroller\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CBC5FEB6-65BB-49D8-88B2-73B7F64B3910}|proginz grupinis.csproj|c:\\bangu-ginyba\\particles\\testingbeam.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CBC5FEB6-65BB-49D8-88B2-73B7F64B3910}|proginz grupinis.csproj|solutionrelative:particles\\testingbeam.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CBC5FEB6-65BB-49D8-88B2-73B7F64B3910}|proginz grupinis.csproj|c:\\bangu-ginyba\\playercontroller\\camera3d.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CBC5FEB6-65BB-49D8-88B2-73B7F64B3910}|proginz grupinis.csproj|solutionrelative:playercontroller\\camera3d.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CBC5FEB6-65BB-49D8-88B2-73B7F64B3910}|proginz grupinis.csproj|c:\\bangu-ginyba\\playercontroller\\camerapostarget.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CBC5FEB6-65BB-49D8-88B2-73B7F64B3910}|proginz grupinis.csproj|solutionrelative:playercontroller\\camerapostarget.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "TestingBeam.cs",
+              "DocumentMoniker": "C:\\bangu-ginyba\\Particles\\TestingBeam.cs",
+              "RelativeDocumentMoniker": "Particles\\TestingBeam.cs",
+              "ToolTip": "C:\\bangu-ginyba\\Particles\\TestingBeam.cs",
+              "RelativeToolTip": "Particles\\TestingBeam.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-12T13:58:34.73Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "PlayerControllerMouse.cs",
+              "DocumentMoniker": "C:\\bangu-ginyba\\PlayerController\\PlayerControllerMouse.cs",
+              "RelativeDocumentMoniker": "PlayerController\\PlayerControllerMouse.cs",
+              "ToolTip": "C:\\bangu-ginyba\\PlayerController\\PlayerControllerMouse.cs",
+              "RelativeToolTip": "PlayerController\\PlayerControllerMouse.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-12T13:29:45.52Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "PlayerController.cs",
+              "DocumentMoniker": "C:\\bangu-ginyba\\PlayerController\\PlayerController.cs",
+              "RelativeDocumentMoniker": "PlayerController\\PlayerController.cs",
+              "ToolTip": "C:\\bangu-ginyba\\PlayerController\\PlayerController.cs",
+              "RelativeToolTip": "PlayerController\\PlayerController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-12T12:39:34.218Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Camera3d.cs",
+              "DocumentMoniker": "C:\\bangu-ginyba\\PlayerController\\Camera3d.cs",
+              "RelativeDocumentMoniker": "PlayerController\\Camera3d.cs",
+              "ToolTip": "C:\\bangu-ginyba\\PlayerController\\Camera3d.cs",
+              "RelativeToolTip": "PlayerController\\Camera3d.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-12T12:35:32.577Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "CameraPosTarget.cs",
+              "DocumentMoniker": "C:\\bangu-ginyba\\PlayerController\\CameraPosTarget.cs",
+              "RelativeDocumentMoniker": "PlayerController\\CameraPosTarget.cs",
+              "ToolTip": "C:\\bangu-ginyba\\PlayerController\\CameraPosTarget.cs",
+              "RelativeToolTip": "PlayerController\\CameraPosTarget.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-12T12:32:32.232Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

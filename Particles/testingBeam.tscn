@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://bln2kifsbcfnt"]
+
+[ext_resource type="Script" uid="uid://cbwrqmjxy3o0p" path="res://Particles/TestingBeam.cs" id="1_0l072"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_irxep"]
+albedo_color = Color(0.9180251, 0.15964454, 0.7817274, 1)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_4djho"]
+gravity = Vector3(0, 5, 0)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_r0x4v"]
+
+[node name="MouseClickPOSTest" type="GPUParticles3D" unique_id=366091853]
+material_override = SubResource("StandardMaterial3D_irxep")
+emitting = false
+amount = 1
+one_shot = true
+preprocess = 0.65
+process_material = SubResource("ParticleProcessMaterial_4djho")
+draw_pass_1 = SubResource("CylinderMesh_r0x4v")
+script = ExtResource("1_0l072")
