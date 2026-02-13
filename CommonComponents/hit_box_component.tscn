@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://chu8vv10twj0q"]
+
+[ext_resource type="Script" uid="uid://bkks35ill38gj" path="res://Enemies/HitBoxComponent.cs" id="1_8dkyx"]
+
+[node name="HitBoxComponent" type="Node3D" unique_id=1495271838]
+script = ExtResource("1_8dkyx")
