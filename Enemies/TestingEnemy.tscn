@@ -27,3 +27,7 @@ mesh = SubResource("CapsuleMesh_38gro")
 
 [node name="HitBoxComponent" parent="." unique_id=1495271838 node_paths=PackedStringArray("healthComponent") instance=ExtResource("3_ie44c")]
 healthComponent = NodePath("../HealthComponent")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=2054314887 groups=["Enemy"]]
+debug_enabled = true
+debug_path_custom_color = Color(0, 1, 0, 1)

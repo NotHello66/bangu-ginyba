@@ -4,6 +4,7 @@ using System.Security.Cryptography.X509Certificates;
 
 public partial class PlayerController : CharacterBody3D
 {
+	// Player Stats
 	[Export] public float speed = 5.0f;
     [Export] public float sprintSpeed = 15.0f;
     //public const float JumpVelocity = 4.5f;
@@ -12,7 +13,6 @@ public partial class PlayerController : CharacterBody3D
     private Vector3 lastDirection = Vector3.Zero;
 	private PlayerControllerMouse MouseController;
 
-	[Export] private CharacterBody3D testEnemy;
     public override void _Ready()
     {
         Node3D body = GetNode<Node3D>("%Meshes");
@@ -23,12 +23,19 @@ public partial class PlayerController : CharacterBody3D
     {
 		if (Input.IsActionJustPressed("debug_dealDamageToTest"))
 		{
-			Attack attack = new Attack(10f, 5f, GlobalPosition);
-			HitBoxComponent hb = testEnemy.GetNode("HitBoxComponent") as HitBoxComponent;
-			if (hb != null)
+            TestingEnemy enemy = GetClosestEnemy();
+			if (enemy == null)
 			{
-				hb.Damage(attack);
+				GD.Print("Enemy is null");
+				return;
 			}
+
+			Attack attack = new Attack(10f, 5f, GlobalPosition);
+			
+			HitBoxComponent hb = enemy.GetNodeOrNull("HitBoxComponent") as HitBoxComponent;
+
+			if (hb != null)
+				hb.Damage(attack);
 		}
     }
 
@@ -92,4 +99,27 @@ public partial class PlayerController : CharacterBody3D
 			}
 		}
 	}
+    private TestingEnemy GetClosestEnemy()
+    {
+        var enemies = GetTree().GetNodesInGroup("Enemy");
+
+        TestingEnemy closest = null;
+        float closestDistance = float.MaxValue;
+
+        foreach (Node node in enemies)
+        {
+            if (node is TestingEnemy enemy)
+            {
+                float distance = GlobalPosition.DistanceTo(enemy.GlobalPosition);
+
+                if (distance < closestDistance)
+                {
+                    closestDistance = distance;
+                    closest = enemy;
+                }
+            }
+        }
+
+        return closest;
+    }
 }
