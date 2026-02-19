@@ -21,22 +21,22 @@ public partial class PlayerController : CharacterBody3D
     }
     public override void _Process(double delta)
     {
-		if (Input.IsActionJustPressed("debug_dealDamageToTest"))
-		{
-            TestingEnemy enemy = GetClosestEnemy();
-			if (enemy == null)
-			{
-				GD.Print("Enemy is null");
-				return;
-			}
+		//if (Input.IsActionJustPressed("debug_dealDamageToTest"))
+		//{
+  //          TestingEnemy enemy = GetClosestEnemy();
+		//	if (enemy == null)
+		//	{
+		//		GD.Print("Enemy is null");
+		//		return;
+		//	}
 
-			Attack attack = new Attack(10f, 5f, GlobalPosition);
+		//	Attack attack = new Attack(10f, 5f, GlobalPosition);
 			
-			HitBoxComponent hb = enemy.GetNodeOrNull("HitBoxComponent") as HitBoxComponent;
+		//	HitBoxComponent hb = enemy.GetNodeOrNull("HitBoxComponent") as HitBoxComponent;
 
-			if (hb != null)
-				hb.Damage(attack);
-		}
+		//	if (hb != null)
+		//		hb.Damage(attack);
+		//}
     }
 
     public override void _PhysicsProcess(double delta)
@@ -98,6 +98,13 @@ public partial class PlayerController : CharacterBody3D
                 }
 			}
 		}
+		if (Input.IsActionJustPressed("debug_dealDamageToTest"))
+		{
+            Attack attack = new Attack(10f, 1f, GlobalPosition);
+            RangedComponent rc = GetNode<RangedComponent>("RangedComponent");
+            TestingEnemy enemy = GetClosestEnemy();
+			rc.Fire(enemy);
+        }
 	}
     private TestingEnemy GetClosestEnemy()
     {
