@@ -24,8 +24,9 @@ public partial class EnemySpawner : Node3D
             GD.PrintErr("EnemySpawner: enemyScene is not assigned.");
             return;
         }
-
-        for(int i=0; i < maxEnemies - enemyCount; i++)
+        //GD.Print("Enemy count " + enemyCount + " out of max " + maxEnemies);
+        int desiredEnemyAmount = maxEnemies - enemyCount;
+        for (int i=0; i < desiredEnemyAmount; i++)
         {
             var enemy = enemyScene.Instantiate<TestingEnemy>();
             GetTree().CurrentScene.AddChild(enemy);
@@ -35,6 +36,7 @@ public partial class EnemySpawner : Node3D
             enemy.AddToGroup("Enemy");
             //GD.Print("spawned group" + enemy.IsInGroup("Enemy"));
             enemyCount++;
+            //GD.Print("Enemy count " + enemyCount + " out of max " + maxEnemies + " i: " + i);
             enemy.TreeExited += OnEnemyRemoved;
         }
         
