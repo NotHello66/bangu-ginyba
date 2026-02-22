@@ -6,21 +6,21 @@ public partial class PlayerController : CharacterBody3D
 {
 	// Player Stats
 	[Export] public float speed = 5.0f;
-    [Export] public float sprintSpeed = 15.0f;
-    //public const float JumpVelocity = 4.5f;
-    [Export] float rotationSpeed = 5f;
+	[Export] public float sprintSpeed = 15.0f;
+	//public const float JumpVelocity = 4.5f;
+	[Export] float rotationSpeed = 5f;
 	float theta = new float();
-    private Vector3 lastDirection = Vector3.Zero;
+	private Vector3 lastDirection = Vector3.Zero;
 	private PlayerControllerMouse MouseController;
 
-    public override void _Ready()
-    {
-        Node3D body = GetNode<Node3D>("%Meshes");
+	public override void _Ready()
+	{
+		Node3D body = GetNode<Node3D>("%Meshes");
 		MouseController = GetNode<PlayerControllerMouse>("PlayerControllerMouse");
 		
-    }
-    public override void _Process(double delta)
-    {
+	}
+	public override void _Process(double delta)
+	{
 		//if (Input.IsActionJustPressed("debug_dealDamageToTest"))
 		//{
   //          TestingEnemy enemy = GetClosestEnemy();
@@ -37,9 +37,9 @@ public partial class PlayerController : CharacterBody3D
 		//	if (hb != null)
 		//		hb.Damage(attack);
 		//}
-    }
+	}
 
-    public override void _PhysicsProcess(double delta)
+	public override void _PhysicsProcess(double delta)
 	{
 		Vector3 velocity = Velocity;
 
@@ -73,8 +73,8 @@ public partial class PlayerController : CharacterBody3D
 			velocity.Z = Mathf.MoveToward(Velocity.Z, 0, speed);
 		}
 		var body = GetNode<Node3D>("%Meshes");
-        body.Rotation = new Vector3(body.Rotation.X, (float)Mathf.LerpAngle(body.Rotation.Y, Mathf.Atan2(lastDirection.X, lastDirection.Z), delta * rotationSpeed), body.Rotation.Z);
-        Velocity = velocity;
+		body.Rotation = new Vector3(body.Rotation.X, (float)Mathf.LerpAngle(body.Rotation.Y, Mathf.Atan2(lastDirection.X, lastDirection.Z), delta * rotationSpeed), body.Rotation.Z);
+		Velocity = velocity;
 		
 		MoveAndSlide();
 	}
@@ -89,44 +89,44 @@ public partial class PlayerController : CharacterBody3D
 				var beamScene = GD.Load<PackedScene>("res://Particles/TestingBeam.tscn");
 				var beamInstance = beamScene.Instantiate();
 				GetTree().CurrentScene.AddChild(beamInstance);
-                if (beamInstance is Node3D beamNode3D)
+				if (beamInstance is Node3D beamNode3D)
 				{
 					beamNode3D.GlobalPosition = hitpos;
 					GD.Print("hit");
 					GD.Print($"Beam spawned at: {beamNode3D.GlobalPosition}");
 
-                }
+				}
 			}
 		}
 		if (Input.IsActionJustPressed("debug_dealDamageToTest"))
 		{
-            Attack attack = new Attack(10f, 1f, GlobalPosition);
-            RangedComponent rc = GetNode<RangedComponent>("RangedComponent");
-            TestingEnemy enemy = GetClosestEnemy();
+			Attack attack = new Attack(10f, 1f, GlobalPosition);
+			RangedComponent rc = GetNode<RangedComponent>("RangedComponent");
+			TestingEnemy enemy = GetClosestEnemy();
 			rc.Fire(enemy);
-        }
+		}
 	}
-    private TestingEnemy GetClosestEnemy()
-    {
-        var enemies = GetTree().GetNodesInGroup("Enemy");
+	private TestingEnemy GetClosestEnemy()
+	{
+		var enemies = GetTree().GetNodesInGroup("Enemy");
 
-        TestingEnemy closest = null;
-        float closestDistance = float.MaxValue;
+		TestingEnemy closest = null;
+		float closestDistance = float.MaxValue;
 
-        foreach (Node node in enemies)
-        {
-            if (node is TestingEnemy enemy)
-            {
-                float distance = GlobalPosition.DistanceTo(enemy.GlobalPosition);
+		foreach (Node node in enemies)
+		{
+			if (node is TestingEnemy enemy)
+			{
+				float distance = GlobalPosition.DistanceTo(enemy.GlobalPosition);
 
-                if (distance < closestDistance)
-                {
-                    closestDistance = distance;
-                    closest = enemy;
-                }
-            }
-        }
-        if (closest == null) GD.Print("no enemies");
-        return closest;
-    }
+				if (distance < closestDistance)
+				{
+					closestDistance = distance;
+					closest = enemy;
+				}
+			}
+		}
+		if (closest == null) GD.Print("no enemies");
+		return closest;
+	}
 }
