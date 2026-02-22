@@ -63,7 +63,7 @@ public partial class ProjectileComponent : Node3D
 		{
 			if (isAoe)
 			{
-                foreach (Node enemyNode in GetTree().GetNodesInGroup("Enemies"))
+                foreach (Node enemyNode in GetTree().GetNodesInGroup("Enemy"))
                 {
                     if (enemyNode is Node3D enemy)
                     {

@@ -126,7 +126,7 @@ public partial class PlayerController : CharacterBody3D
                 }
             }
         }
-
+        if (closest == null) GD.Print("no enemies");
         return closest;
     }
 }

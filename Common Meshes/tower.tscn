@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://cn8sntu4guw1i"]
+
+[ext_resource type="PackedScene" uid="uid://cht2qqn18iwgx" path="res://Common Meshes/tower_mk1.glb" id="1_ri4t3"]
+[ext_resource type="PackedScene" uid="uid://m465nhr8gnac" path="res://CommonComponents/ranged_component.tscn" id="2_euquj"]
+[ext_resource type="PackedScene" uid="uid://88xe1nk2jm3e" path="res://CommonComponents/tower_component.tscn" id="3_pibj7"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ri4t3"]
+size = Vector3(3, 5.98645, 3)
+
+[node name="Tower" type="StaticBody3D" unique_id=267637000]
+
+[node name="tower_mk1" parent="." unique_id=843279452 instance=ExtResource("1_ri4t3")]
+
+[node name="RangedComponent" parent="." unique_id=707547592 instance=ExtResource("2_euquj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.591713, 0)
+damage = 2.0
+knockbackForce = 1.0
+projectileSpeed = 10.0
+cooldown = 0.5
+
+[node name="TowerComponent" parent="." unique_id=2033991700 node_paths=PackedStringArray("rangedComponent") instance=ExtResource("3_pibj7")]
+rangedComponent = NodePath("../RangedComponent")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2140655768]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.0064087, 0)
+shape = SubResource("BoxShape3D_ri4t3")
