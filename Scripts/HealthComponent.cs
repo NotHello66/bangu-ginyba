@@ -20,6 +20,6 @@ public partial class HealthComponent : Node3D
 		{
 			isDead = true;
 		}
-		GD.Print(GetParent().Name + "   " + HP);
+		GD.Print(GetParent().Name + " HP:" + HP);
 	}
 }

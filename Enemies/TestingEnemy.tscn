@@ -11,6 +11,14 @@ albedo_color = Color(2.1633012, 0.48773527, 2.1353745, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_38gro"]
 
+[sub_resource type="BoxMesh" id="BoxMesh_kc58s"]
+size = Vector3(0.5, 0.2, 0.1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_20jf6"]
+albedo_color = Color(0, 1, 1, 1)
+emission_enabled = true
+emission = Color(0, 1, 1, 1)
+
 [node name="TestingEnemy" type="CharacterBody3D" unique_id=1589266389]
 script = ExtResource("1_kc58s")
 
@@ -22,6 +30,11 @@ shape = SubResource("CapsuleShape3D_lvp4c")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 material_override = SubResource("StandardMaterial3D_wcl6h")
 mesh = SubResource("CapsuleMesh_38gro")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D" unique_id=1604482895]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4632032, 0.477432)
+mesh = SubResource("BoxMesh_kc58s")
+surface_material_override/0 = SubResource("StandardMaterial3D_20jf6")
 
 [node name="HealthComponent" parent="." unique_id=581968543 instance=ExtResource("2_20jf6")]
 

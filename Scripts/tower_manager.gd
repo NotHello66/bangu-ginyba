@@ -2,12 +2,12 @@ extends Node3D
 
 @export var tower_scene: PackedScene
 @export var canPlaceTower: bool = false
+@export var navigation_region_3D: NavigationRegion3D
 
 @onready var camera: Camera3D = get_viewport().get_camera_3d()
 
 var preview_tower: Node3D = null
 var preview_material: StandardMaterial3D = null
-
 
 func _process(delta):
 	if canPlaceTower:
@@ -15,13 +15,13 @@ func _process(delta):
 	else:
 		remove_preview()
 
-
 # Handle click input
 func _unhandled_input(event):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed and canPlaceTower:
 			if preview_tower and preview_tower.visible:
 				spawn_tower(preview_tower.global_position)
+				navigation_region_3D.bake_navigation_mesh(true)
 
 func create_preview():
 	if preview_tower != null:
@@ -99,5 +99,5 @@ func remove_preview():
 # Literally just spawns the tower
 func spawn_tower(position: Vector3):
 	var tower = tower_scene.instantiate()
-	get_tree().current_scene.add_child(tower)
+	navigation_region_3D.add_child(tower)
 	tower.global_position = position

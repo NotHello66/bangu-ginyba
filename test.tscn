@@ -24,9 +24,11 @@ albedo_texture = ExtResource("1_37kl0")
 
 [node name="Node3D" type="Node3D" unique_id=2069746429]
 
-[node name="TowerManager" type="Node3D" parent="." unique_id=1953009979]
+[node name="TowerManager" type="Node3D" parent="." unique_id=1953009979 node_paths=PackedStringArray("navigation_region_3D")]
 script = ExtResource("1_ykrsh")
 tower_scene = ExtResource("3_ppyta")
+canPlaceTower = true
+navigation_region_3D = NodePath("../NavigationRegion3D")
 
 [node name="Player" parent="." unique_id=1143986027 instance=ExtResource("1_8uh7m")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15720415, 3.044023)
