@@ -5,4 +5,7 @@
     <EnableDynamicLoading>true</EnableDynamicLoading>
     <RootNamespace>proginzgrupinis</RootNamespace>
   </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="CommonComponents\" />
+  </ItemGroup>
 </Project>

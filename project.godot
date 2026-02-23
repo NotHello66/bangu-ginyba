@@ -23,6 +23,7 @@ project/assembly_name="proginz grupinis"
 
 Player="Player Group"
 Enemy="Enemy Group"
+Ground="Can only place towers on objects that have the Ground group"
 
 [input]
 

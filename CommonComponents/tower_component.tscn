@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://88xe1nk2jm3e"]
+
+[ext_resource type="Script" uid="uid://dgpspki873j2o" path="res://Scripts/TowerComponent.cs" id="1_w0xoo"]
+
+[node name="TowerComponent" type="Node3D" unique_id=2033991700]
+script = ExtResource("1_w0xoo")

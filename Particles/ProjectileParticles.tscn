@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://srxly7ix7lor"]
+
+[sub_resource type="Curve" id="Curve_mdmjv"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_awtoq"]
+curve = SubResource("Curve_mdmjv")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_gka8v"]
+gravity = Vector3(0, 0, 0)
+scale_min = 0.049999997
+scale_max = 0.14999999
+scale_curve = SubResource("CurveTexture_awtoq")
+
+[sub_resource type="BoxMesh" id="BoxMesh_uaob8"]
+
+[node name="ProjectileParticles" type="GPUParticles3D" unique_id=1625525873]
+amount = 30
+lifetime = 0.75
+process_material = SubResource("ParticleProcessMaterial_gka8v")
+draw_pass_1 = SubResource("BoxMesh_uaob8")

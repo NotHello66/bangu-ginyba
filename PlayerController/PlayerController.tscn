@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://beo0euo4okp2f" path="res://PlayerController/Camera3d.cs" id="2_ps8a3"]
 [ext_resource type="Script" uid="uid://bl0fgmdufmlwn" path="res://PlayerController/CameraPosTarget.cs" id="3_t3w4r"]
 [ext_resource type="Script" uid="uid://l6yynh7igr78" path="res://PlayerController/PlayerControllerMouse.cs" id="4_ps8a3"]
+[ext_resource type="PackedScene" uid="uid://m465nhr8gnac" path="res://CommonComponents/ranged_component.tscn" id="5_t3w4r"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_71ti0"]
 
@@ -51,3 +52,8 @@ target = NodePath("../Meshes/MeshInstance3D")
 [node name="PlayerControllerMouse" type="Node3D" parent="." unique_id=1734387411 node_paths=PackedStringArray("camera")]
 script = ExtResource("4_ps8a3")
 camera = NodePath("../Camera3D")
+
+[node name="RangedComponent" parent="." unique_id=707547592 instance=ExtResource("5_t3w4r")]
+damage = 10.0
+knockbackForce = 1.0
+projectileSpeed = 10.0

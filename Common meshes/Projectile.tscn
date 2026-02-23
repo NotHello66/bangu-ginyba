@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://dfqyairt8hut8"]
+
+[ext_resource type="Script" uid="uid://drghw08xnbvcc" path="res://Scripts/ProjectileComponent.cs" id="1_kmrcy"]
+[ext_resource type="PackedScene" uid="uid://srxly7ix7lor" path="res://Particles/ProjectileParticles.tscn" id="2_1gvr0"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_1gvr0"]
+size = Vector3(0.1, 0.1, 0.7)
+
+[node name="Node3D" type="Node3D" unique_id=606167312]
+script = ExtResource("1_kmrcy")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1328944111]
+mesh = SubResource("BoxMesh_1gvr0")
+
+[node name="ProjectileParticles" parent="." unique_id=1625525873 instance=ExtResource("2_1gvr0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.37307236)
