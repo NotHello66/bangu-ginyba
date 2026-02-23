@@ -11,9 +11,18 @@ config_version=5
 [application]
 
 config/name="proginz grupinis"
-run/main_scene="uid://b6812d6hv5npy"
+run/main_scene="uid://dsecyuopao5x2"
 config/features=PackedStringArray("4.6", "C#", "Forward Plus")
 config/icon="res://icon.svg"
+
+[audio]
+
+buses/default_bus_layout="uid://fvyugimcpynp"
+
+[display]
+
+window/subwindows/embed_subwindows=false
+window/stretch/mode="canvas_items"
 
 [dotnet]
 
