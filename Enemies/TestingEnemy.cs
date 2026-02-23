@@ -7,6 +7,10 @@ public partial class TestingEnemy : CharacterBody3D
     [Export] private float speed = 5f;
     [Export] private float knockBackResist = 10f;
 
+    // Position Rotation
+    private Vector3 lastDirection = Vector3.Zero;
+    [Export] float bodyRotationSpeed = 5f;
+
     // Dead timer
     private double deadTimer = 0;
 
@@ -54,6 +58,13 @@ public partial class TestingEnemy : CharacterBody3D
         Vector3 targetVelocity = direction * speed;
 
         Vector3 currentVelocity = Velocity;
+
+        // Rotation 
+        if (direction != Vector3.Zero)
+        {
+            lastDirection = direction;
+        }
+        Rotation = new Vector3(Rotation.X, (float)Mathf.LerpAngle(Rotation.Y, Mathf.Atan2(lastDirection.X, lastDirection.Z), delta * bodyRotationSpeed), Rotation.Z);
 
         // Gravity
         if (!IsOnFloor())

@@ -30,10 +30,10 @@ public partial class EnemySpawner : Node3D
         {
             var enemy = enemyScene.Instantiate<TestingEnemy>();
             GetTree().CurrentScene.AddChild(enemy);
-            Vector3 randomOffset = new Vector3(rng.RandfRange(-1f, 1f), 0f, rng.RandfRange(-1f, 1f)
-        );
+            Vector3 randomOffset = new Vector3(rng.RandfRange(-1f, 1f), 0f, rng.RandfRange(-1f, 1f));
             enemy.GlobalPosition = GlobalPosition + randomOffset;
             enemy.AddToGroup("Enemy");
+            enemy.SetName("Testing Enemy nr:" + i);
             //GD.Print("spawned group" + enemy.IsInGroup("Enemy"));
             enemyCount++;
             //GD.Print("Enemy count " + enemyCount + " out of max " + maxEnemies + " i: " + i);
