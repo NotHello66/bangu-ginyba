@@ -7,7 +7,10 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_ri4t3"]
 size = Vector3(3, 5.98645, 3)
 
-[node name="Tower" type="StaticBody3D" unique_id=267637000]
+[sub_resource type="BoxShape3D" id="BoxShape3D_euquj"]
+size = Vector3(3.0830078, 6.076294, 3.0272217)
+
+[node name="Tower" type="StaticBody3D" unique_id=267637000 groups=["Tower"]]
 
 [node name="tower_mk1" parent="." unique_id=843279452 instance=ExtResource("1_ri4t3")]
 
@@ -24,3 +27,9 @@ rangedComponent = NodePath("../RangedComponent")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2140655768]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.0064087, 0)
 shape = SubResource("BoxShape3D_ri4t3")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=1932112]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=562308237]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.009277344, 3.0050845, -6.1035156e-05)
+shape = SubResource("BoxShape3D_euquj")
