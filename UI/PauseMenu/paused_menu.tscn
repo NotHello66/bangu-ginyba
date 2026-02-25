@@ -1,0 +1,202 @@
+[gd_scene format=3 uid="uid://dtwg1ifxprse1"]
+
+[ext_resource type="Script" uid="uid://dv4codyty7qlb" path="res://UI/PauseMenu/paused_menu.gd" id="1_q68yk"]
+[ext_resource type="Script" uid="uid://8gqxtipcmi6c" path="res://UI/MainMenu/audio_control.gd" id="2_3hgkl"]
+[ext_resource type="Script" uid="uid://cmv2qv42ycay6" path="res://UI/MainMenu/full_screen_control.gd" id="3_lrnew"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mj2wu"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+shadow_size = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cskox"]
+bg_color = Color(0.7919991, 0.79199916, 0.7919991, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+shadow_size = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r465m"]
+bg_color = Color(0.7480997, 0.7480997, 0.7480996, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+shadow_size = 6
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4mj14"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_qcnoj"]
+color = Color(1, 1, 1, 1)
+thickness = 6
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_gsvbw"]
+color = Color(0.18897107, 0.43343776, 0.7977702, 1)
+thickness = 6
+
+[node name="pausedMenu" type="Control" unique_id=1657814942]
+process_mode = 3
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_q68yk")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1863714882]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.2509804, 0.2509804, 0.2509804, 0.7058824)
+
+[node name="mainButtons" type="GridContainer" parent="." unique_id=1008174317]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/v_separation = 8
+
+[node name="Label" type="Label" parent="mainButtons" unique_id=1385760592]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Paused"
+
+[node name="resumeButton" type="Button" parent="mainButtons" unique_id=1089413937]
+layout_mode = 2
+text = "Resume"
+
+[node name="optionsButton" type="Button" parent="mainButtons" unique_id=2087641999]
+layout_mode = 2
+text = "Options"
+
+[node name="mainMenuButton" type="Button" parent="mainButtons" unique_id=1915524087]
+layout_mode = 2
+text = "Main Menu
+"
+
+[node name="quitButton" type="Button" parent="mainButtons" unique_id=1667138685]
+layout_mode = 2
+text = "Quit"
+
+[node name="options" type="Panel" parent="." unique_id=273291324]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -197.5
+offset_top = -124.0
+offset_right = 197.5
+offset_bottom = 298.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="options" type="Label" parent="options" unique_id=1367608251]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -86.0
+offset_right = 86.0
+offset_bottom = 62.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 36
+text = "Options"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="backButton" type="Button" parent="options" unique_id=911643661]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -111.75
+offset_top = -74.0
+offset_right = 111.75
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_mj2wu")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_cskox")
+theme_override_styles/hover = SubResource("StyleBoxFlat_r465m")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_4mj14")
+text = "Back"
+
+[node name="audioControl" type="HSlider" parent="options" unique_id=857464843]
+layout_mode = 0
+offset_left = 96.5
+offset_top = 83.0
+offset_right = 296.5
+offset_bottom = 152.0
+theme_override_styles/slider = SubResource("StyleBoxLine_qcnoj")
+theme_override_styles/grabber_area = SubResource("StyleBoxLine_gsvbw")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxLine_gsvbw")
+max_value = 1.0
+step = 0.01
+value = 0.5
+script = ExtResource("2_3hgkl")
+audio_bus_name = "Music"
+
+[node name="music" type="Label" parent="options" unique_id=1720509784]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -68.5
+offset_top = -148.0
+offset_right = 68.5
+offset_bottom = -98.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 23
+text = "Music"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="fullScreenControl" type="CheckButton" parent="options" unique_id=686267933]
+layout_mode = 0
+offset_left = 123.5
+offset_top = 161.0
+offset_right = 275.5
+offset_bottom = 205.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 19
+text = "FullScreen"
+script = ExtResource("3_lrnew")
+
+[connection signal="pressed" from="mainButtons/resumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="mainButtons/optionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="mainButtons/mainMenuButton" to="." method="_on_main_menu_button_pressed"]
+[connection signal="pressed" from="mainButtons/quitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="options/backButton" to="." method="_on_back_button_pressed"]
+[connection signal="value_changed" from="options/audioControl" to="options/audioControl" method="_on_value_changed"]
+[connection signal="toggled" from="options/fullScreenControl" to="options/fullScreenControl" method="_on_toggled"]
