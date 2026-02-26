@@ -11,8 +11,15 @@ public partial class TestingEnemy : CharacterBody3D
     private Vector3 lastDirection = Vector3.Zero;
     [Export] float bodyRotationSpeed = 5f;
 
-    // Dead timer
+    // Combat framework
+    [Export] private double stunTimer = 2;
+    [Export] private float attackRange = 2f;
+    [Export] private float stopChaseDistance = 1.8f;
+    [Export] private MeleeComponent meleeComponent;
+    private bool isAttacking = false;
+    private double attackTimer = 0;
     private double deadTimer = 0;
+    private EnemyState currentState = EnemyState.Idle;
 
     // Child Nodes
     private HealthComponent healthComponent;
@@ -30,57 +37,184 @@ public partial class TestingEnemy : CharacterBody3D
 
     public override void _Process(double delta)
     {
-        if (Input.IsActionJustPressed("debug_moveTestEnemyToRandomPos"))
-        {
-            Vector3 randomPosition = Vector3.Zero;
-            Random r = new Random();
-            randomPosition.X = r.Next(-5, 5);
-            randomPosition.Z = r.Next(-5, 5);
-            navigationAgent3D.SetTargetPosition(randomPosition);
-        }
+
     }
 
     public override void _PhysicsProcess(double delta)
     {
-        // Navigation Agent 3D
-        if (player != null)
+        Vector3 currentVelocity = Velocity;
+        UpdateTimers(delta);
+
+        if (healthComponent.isDead && currentState != EnemyState.Dead)
         {
-            navigationAgent3D.TargetPosition = player.GlobalPosition;
+            ChangeState(EnemyState.Dead);
+        }
+
+        switch (currentState)
+        {
+            case EnemyState.Idle:
+                HandleIdle(ref currentVelocity, delta);
+                break;
+
+            case EnemyState.Chasing:
+                HandleChasing(ref currentVelocity, delta);
+                break;
+
+            case EnemyState.Attacking:
+                HandleAttacking(ref currentVelocity, delta);
+                break;
+
+            case EnemyState.Stunned:
+                HandleStunned(ref currentVelocity, delta);
+                break;
+
+            case EnemyState.Dead:
+                HandleDead(ref currentVelocity, delta);
+                break;
+        }
+
+        Velocity = currentVelocity;
+        MoveAndSlide();
+    }
+
+    private Vector3 HandleNavigation()
+    {
+        if (player == null)
+        {
+            GD.Print("Player is null");
+            return Vector3.Zero;
+        }
+
+        navigationAgent3D.TargetPosition = player.GlobalPosition;
+
+        var destination = navigationAgent3D.GetNextPathPosition();
+        var direction = (destination - GlobalPosition).Normalized();
+
+        return direction;
+    }
+
+    private void HandleMovement(ref Vector3 velocity, Vector3 targetVelocity, double delta)
+    {
+        velocity.X = Mathf.MoveToward(velocity.X, targetVelocity.X, (float)delta * knockBackResist);
+        velocity.Z = Mathf.MoveToward(velocity.Z, targetVelocity.Z, (float)delta * knockBackResist);
+    }
+
+    private void HandleRotation(Vector3 direction, double delta)
+    {
+        if (direction != Vector3.Zero)
+            lastDirection = direction;
+
+        Rotation = new Vector3(Rotation.X, (float)Mathf.LerpAngle(Rotation.Y, Mathf.Atan2(lastDirection.X, lastDirection.Z), (float)(delta * bodyRotationSpeed)), Rotation.Z);
+    }
+
+    private void HandleGravity(ref Vector3 velocity, double delta)
+    {
+        if (!IsOnFloor())
+            velocity += GetGravity() * (float)delta;
+    }
+
+    private void HandleDeath(ref Vector3 velocity, double delta)
+    {
+        velocity.X = Mathf.MoveToward(velocity.X, 0, (float)delta * knockBackResist);
+        velocity.Z = Mathf.MoveToward(velocity.Z, 0, (float)delta * knockBackResist);
+
+        if (deadTimer < healthComponent.deathDespawnTimer)
+        {
+            deadTimer += delta;
+            Vector3 fallDirection = Velocity.Normalized();
+            Vector3 fallAxis = Vector3.Up.Cross(fallDirection).Normalized();
+
+            if (fallAxis.LengthSquared() > 0.0001f)
+            {
+                RotateObjectLocal(fallAxis, GetGravity().Length() * (float)delta);
+            }
         }
         else
         {
-            GD.Print("Player is null");
+            QueueFree();
         }
-        var destination = navigationAgent3D.GetNextPathPosition();
-        var localDestination = destination - GlobalPosition;
-        var direction = localDestination.Normalized();
+    }
 
-        Vector3 targetVelocity = direction * speed;
+    private void ChangeState(EnemyState newState)
+    {
+        currentState = newState;
+    }
 
-        Vector3 currentVelocity = Velocity;
+    private void HandleDead(ref Vector3 currentVelocity, double delta)
+    {
+        // Drop Some Loot
+        HandleDeath(ref currentVelocity, delta);
+    }
 
-        // Rotation 
-        if (direction != Vector3.Zero)
-        {
-            lastDirection = direction;
-        }
-        Rotation = new Vector3(Rotation.X, (float)Mathf.LerpAngle(Rotation.Y, Mathf.Atan2(lastDirection.X, lastDirection.Z), delta * bodyRotationSpeed), Rotation.Z);
+    private void HandleStunned(ref Vector3 currentVelocity, double delta)
+    {
+        //currentVelocity = Vector3.Zero;
+        stunTimer -= delta;
+        // spining stars above head (worst case change collor)
 
-        // Gravity
-        if (!IsOnFloor())
-        {
-            currentVelocity += GetGravity() * (float)delta;
-        }
+        if (stunTimer <= 0)
+            ChangeState(EnemyState.Chasing);
+    }
 
-        // Knockback
-        currentVelocity.X = Mathf.MoveToward(currentVelocity.X, targetVelocity.X, (float)delta * knockBackResist);
-        currentVelocity.Z = Mathf.MoveToward(currentVelocity.Z, targetVelocity.Z, (float)delta * knockBackResist);
+    private void HandleAttacking(ref Vector3 currentVelocity, double delta)
+    {
+        currentVelocity = Vector3.Zero;
 
-        // Dying
+        //FacePlayer(delta); //Rotate towards player
+
+        if (!IsPlayerInAttackRange())
+            ChangeState(EnemyState.Chasing);
+
+        if (CanPerformAttack())
+            PerformAttack();
+    }
+
+    private bool IsPlayerInAttackRange()
+    {
+        if (player == null)
+            return false;
+
+        return player.GlobalPosition.DistanceSquaredTo(GlobalPosition) <= attackRange * attackRange;
+    }
+
+    private bool CanPerformAttack()
+    {
+        if (isAttacking)
+            return false;
+
+        if (attackTimer > 0f)
+            return false;
+
+        if (!IsPlayerInAttackRange())
+            return false;
+
+        if (currentState == EnemyState.Stunned)
+            return false;
+
         if (healthComponent.isDead)
+            return false;
+
+        // Check if the component itself is off cooldown
+        if (meleeComponent != null && !meleeComponent.CanAttack())
+            return false;
+
+        return true;
+    }
+
+    private void PerformAttack()
+    {
+        isAttacking = true;
+
+        if (meleeComponent != null)
         {
-            currentVelocity.X = Mathf.MoveToward(Velocity.X, 0, (float)delta * knockBackResist);
-            currentVelocity.Z = Mathf.MoveToward(Velocity.Z, 0, (float)delta * knockBackResist);
+            // Sync the enemy's state timer with the component's cooldown
+            attackTimer = meleeComponent.cooldown;
+            meleeComponent.PerformMeleeAttack();
+        }
+        else
+        {
+            GD.PrintErr("MeleeComponent is missing on TestingEnemy!");
+        }
 
             if (deadTimer < healthComponent.deathDespawnTimer)
             {
@@ -97,9 +231,47 @@ public partial class TestingEnemy : CharacterBody3D
             {
                 QueueFree();
             }
+            ChangeState(EnemyState.Attacking);
+            return;
         }
 
-        Velocity = currentVelocity;
-        MoveAndSlide();
-	}
+        Vector3 direction = HandleNavigation();
+
+        // Stop moving when close enough
+        if (distance <= stopChaseSq)
+            direction = Vector3.Zero;
+
+        HandleRotation(direction, delta);
+
+        Vector3 targetVelocity = direction * speed;
+
+        HandleGravity(ref currentVelocity, delta);
+        HandleMovement(ref currentVelocity, targetVelocity, delta);
+    }
+
+    private void HandleIdle(ref Vector3 currentVelocity, double delta)
+    {
+        currentVelocity = Vector3.Zero;
+
+        //if (CanSeePlayer()) // || !player.isDead)
+        ChangeState(EnemyState.Chasing);
+    }
+
+    private void UpdateTimers(double delta)
+    {
+        if (attackTimer > 0)
+            attackTimer -= delta;
+
+        if (attackTimer <= 0)
+            isAttacking = false;
+    }
+
+    private enum EnemyState
+    {
+        Idle,
+        Chasing,
+        Attacking,
+        Stunned,
+        Dead
+    }
 }

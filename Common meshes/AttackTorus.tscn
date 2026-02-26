@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://ciirnwesrt0as"]
+
+[ext_resource type="Script" uid="uid://dc7t84rgd7oq0" path="res://Scripts/AttackTorus.cs" id="1_e12gd"]
+
+[sub_resource type="TorusMesh" id="TorusMesh_fq2ew"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_e12gd"]
+height = 0.44433594
+
+[node name="AttackTorus" type="Node3D" unique_id=762091575]
+script = ExtResource("1_e12gd")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=2055550763]
+mesh = SubResource("TorusMesh_fq2ew")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=2051428626]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1015115445]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+shape = SubResource("CylinderShape3D_e12gd")

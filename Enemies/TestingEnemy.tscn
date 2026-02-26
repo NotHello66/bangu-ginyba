@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://bqfi3l68wjp8p" path="res://Enemies/TestingEnemy.cs" id="1_kc58s"]
 [ext_resource type="PackedScene" uid="uid://f1qjftfkuhr" path="res://CommonComponents/health_component.tscn" id="2_20jf6"]
 [ext_resource type="PackedScene" uid="uid://chu8vv10twj0q" path="res://CommonComponents/hit_box_component.tscn" id="3_ie44c"]
+[ext_resource type="PackedScene" uid="uid://cc2glgwhr8yu1" path="res://CommonComponents/melee_component.tscn" id="4_20jf6"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lvp4c"]
 
@@ -19,8 +20,9 @@ albedo_color = Color(0, 1, 1, 1)
 emission_enabled = true
 emission = Color(0, 1, 1, 1)
 
-[node name="TestingEnemy" type="CharacterBody3D" unique_id=1589266389]
+[node name="TestingEnemy" type="CharacterBody3D" unique_id=1589266389 node_paths=PackedStringArray("meleeComponent")]
 script = ExtResource("1_kc58s")
+meleeComponent = NodePath("MeleeComponent")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1944393571]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -40,6 +42,11 @@ surface_material_override/0 = SubResource("StandardMaterial3D_20jf6")
 
 [node name="HitBoxComponent" parent="." unique_id=1495271838 node_paths=PackedStringArray("healthComponent") instance=ExtResource("3_ie44c")]
 healthComponent = NodePath("../HealthComponent")
+
+[node name="MeleeComponent" parent="." unique_id=121852746 instance=ExtResource("4_20jf6")]
+damage = 10.0
+knockbackForce = 5.0
+cooldown = 1.5
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=2054314887 groups=["Enemy"]]
 debug_enabled = true

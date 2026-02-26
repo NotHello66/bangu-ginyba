@@ -17,9 +17,7 @@ public partial class HealthComponent : Node3D
 	{
 		HP -= attack.damage;
 		if(HP <= 0)
-		{
 			isDead = true;
-		}
-		GD.Print(GetParent().Name + " HP:" + HP);
+		GD.Print($"| { GetParent().Name} | HP: {HP} | isDead: {isDead} |");
 	}
 }

@@ -5,6 +5,8 @@
 [ext_resource type="Script" uid="uid://bl0fgmdufmlwn" path="res://PlayerController/CameraPosTarget.cs" id="3_t3w4r"]
 [ext_resource type="Script" uid="uid://l6yynh7igr78" path="res://PlayerController/PlayerControllerMouse.cs" id="4_ps8a3"]
 [ext_resource type="PackedScene" uid="uid://m465nhr8gnac" path="res://CommonComponents/ranged_component.tscn" id="5_t3w4r"]
+[ext_resource type="PackedScene" uid="uid://chu8vv10twj0q" path="res://CommonComponents/hit_box_component.tscn" id="6_7oo2a"]
+[ext_resource type="PackedScene" uid="uid://f1qjftfkuhr" path="res://CommonComponents/health_component.tscn" id="7_3o4bl"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_71ti0"]
 
@@ -57,3 +59,9 @@ camera = NodePath("../Camera3D")
 damage = 10.0
 knockbackForce = 1.0
 projectileSpeed = 10.0
+
+[node name="HitBoxComponent" parent="." unique_id=1495271838 node_paths=PackedStringArray("healthComponent") instance=ExtResource("6_7oo2a")]
+healthComponent = NodePath("../HealthComponent")
+
+[node name="HealthComponent" parent="." unique_id=581968543 instance=ExtResource("7_3o4bl")]
+MaxHP = 10000.0
