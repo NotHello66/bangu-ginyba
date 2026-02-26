@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cn8sntu4guw1i" path="res://Common meshes/tower.tscn" id="3_ppyta"]
 [ext_resource type="PackedScene" uid="uid://bk2tm65rltpyu" path="res://EnemySpawner/EnemySpawner.tscn" id="4_ppyta"]
 [ext_resource type="PackedScene" uid="uid://dtwg1ifxprse1" path="res://UI/PauseMenu/paused_menu.tscn" id="6_g14j6"]
+[ext_resource type="PackedScene" uid="uid://b1dwbiegtujwp" path="res://UI/Design/fade.tscn" id="7_vbegm"]
 
 [sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_8uh7m"]
 
@@ -58,8 +59,10 @@ AoeRadius = 3.0
 [node name="EnemySpawner" parent="." unique_id=1712601701 instance=ExtResource("4_ppyta")]
 maxEnemies = 5
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=59243751]
+[node name="pause" type="CanvasLayer" parent="." unique_id=59243751]
 
-[node name="pausedMenu" parent="CanvasLayer" unique_id=1657814942 instance=ExtResource("6_g14j6")]
+[node name="pausedMenu" parent="pause" unique_id=1657814942 instance=ExtResource("6_g14j6")]
+
+[node name="fade" parent="." unique_id=101411894 instance=ExtResource("7_vbegm")]
 
 [editable path="NavigationRegion3D/Tower"]

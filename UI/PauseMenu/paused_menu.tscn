@@ -2,41 +2,149 @@
 
 [ext_resource type="Script" uid="uid://dv4codyty7qlb" path="res://UI/PauseMenu/paused_menu.gd" id="1_q68yk"]
 [ext_resource type="Script" uid="uid://8gqxtipcmi6c" path="res://UI/MainMenu/audio_control.gd" id="2_3hgkl"]
+[ext_resource type="FontFile" uid="uid://bxheo3lrppx2b" path="res://UI/Design/Metamorphous-Regular.ttf" id="2_wf64y"]
+[ext_resource type="FontFile" uid="uid://b3j35mctvp06h" path="res://UI/Design/MedievalSharp-Regular.ttf" id="3_gdxvx"]
 [ext_resource type="Script" uid="uid://cmv2qv42ycay6" path="res://UI/MainMenu/full_screen_control.gd" id="3_lrnew"]
+[ext_resource type="Texture2D" uid="uid://ddpfuc2dtne5n" path="res://UI/Design/palletee.png" id="4_eqad8"]
+[ext_resource type="Script" uid="uid://d18wsoin00pdo" path="res://UI/MainMenu/options.gd" id="7_crblw"]
+[ext_resource type="Script" uid="uid://b20hf4co10j50" path="res://UI/MainMenu/audio_settings.gd" id="8_n5uun"]
+[ext_resource type="Script" uid="uid://dyq7elpihckcr" path="res://UI/MainMenu/controls_settings.gd" id="9_07s63"]
+[ext_resource type="Script" uid="uid://e7qfomujym76" path="res://UI/MainMenu/graphics_settings.gd" id="10_fbg08"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mj2wu"]
-bg_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 15
-corner_radius_top_right = 15
-corner_radius_bottom_right = 15
-corner_radius_bottom_left = 15
-shadow_size = 6
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6gpg8"]
+texture = ExtResource("4_eqad8")
+texture_margin_left = 75.0
+region_rect = Rect2(30, 160, 266, 47)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cskox"]
-bg_color = Color(0.7919991, 0.79199916, 0.7919991, 1)
-corner_radius_top_left = 15
-corner_radius_top_right = 15
-corner_radius_bottom_right = 15
-corner_radius_bottom_left = 15
-shadow_size = 6
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_crblw"]
+texture = ExtResource("4_eqad8")
+region_rect = Rect2(318, 161, 261, 45)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r465m"]
-bg_color = Color(0.7480997, 0.7480997, 0.7480996, 1)
-corner_radius_top_left = 15
-corner_radius_top_right = 15
-corner_radius_bottom_right = 15
-corner_radius_bottom_left = 15
-shadow_size = 6
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_n5uun"]
+texture = ExtResource("4_eqad8")
+region_rect = Rect2(318, 161, 261, 45)
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4mj14"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_07s63"]
 
-[sub_resource type="StyleBoxLine" id="StyleBoxLine_qcnoj"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fbg08"]
+texture = ExtResource("4_eqad8")
+texture_margin_left = 75.0
+region_rect = Rect2(30, 160, 266, 47)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_p6f7d"]
+texture = ExtResource("4_eqad8")
+region_rect = Rect2(318, 161, 261, 45)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8uj5o"]
+texture = ExtResource("4_eqad8")
+texture_margin_left = 75.0
+region_rect = Rect2(30, 160, 266, 47)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tu5bd"]
+texture = ExtResource("4_eqad8")
+region_rect = Rect2(318, 161, 261, 45)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_358ah"]
+texture = ExtResource("4_eqad8")
+region_rect = Rect2(318, 161, 261, 45)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_p6f7d"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1sjie"]
+texture = ExtResource("4_eqad8")
+texture_margin_left = 75.0
+region_rect = Rect2(30, 160, 266, 47)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_grby8"]
+texture = ExtResource("4_eqad8")
+region_rect = Rect2(318, 161, 261, 45)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sv45o"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_s6sq4"]
+texture = ExtResource("4_eqad8")
+texture_margin_left = 75.0
+region_rect = Rect2(30, 160, 266, 47)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kse1a"]
+texture = ExtResource("4_eqad8")
+region_rect = Rect2(318, 161, 261, 45)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_iumos"]
+texture = ExtResource("4_eqad8")
+region_rect = Rect2(318, 161, 261, 45)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xa8aj"]
+texture = ExtResource("4_eqad8")
+region_rect = Rect2(318, 161, 261, 45)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4ef6m"]
+texture = ExtResource("4_eqad8")
+texture_margin_left = 75.0
+region_rect = Rect2(30, 160, 266, 47)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bcmv8"]
+texture = ExtResource("4_eqad8")
+region_rect = Rect2(318, 161, 261, 45)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3wc10"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xfw5a"]
+texture = ExtResource("4_eqad8")
+texture_margin_left = 75.0
+region_rect = Rect2(30, 160, 266, 47)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_grg7d"]
 color = Color(1, 1, 1, 1)
 thickness = 6
 
-[sub_resource type="StyleBoxLine" id="StyleBoxLine_gsvbw"]
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_oc4i2"]
 color = Color(0.18897107, 0.43343776, 0.7977702, 1)
 thickness = 6
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_27a1q"]
+texture = ExtResource("4_eqad8")
+region_rect = Rect2(318, 161, 261, 45)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ryk3q"]
+texture = ExtResource("4_eqad8")
+region_rect = Rect2(318, 161, 261, 45)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_52vxw"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dg55r"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_o3ieq"]
+texture = ExtResource("4_eqad8")
+texture_margin_left = 75.0
+region_rect = Rect2(30, 160, 266, 47)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_f7he0"]
+texture = ExtResource("4_eqad8")
+region_rect = Rect2(318, 161, 261, 45)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xifby"]
+texture = ExtResource("4_eqad8")
+region_rect = Rect2(318, 161, 261, 45)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_57iwd"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_neyoc"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_u6unm"]
+texture = ExtResource("4_eqad8")
+texture_margin_left = 75.0
+region_rect = Rect2(30, 160, 266, 47)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_25wbb"]
+texture = ExtResource("4_eqad8")
+region_rect = Rect2(318, 161, 261, 45)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kbbp3"]
+texture = ExtResource("4_eqad8")
+region_rect = Rect2(318, 161, 261, 45)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ecn8v"]
 
 [node name="pausedMenu" type="Control" unique_id=1657814942]
 process_mode = 3
@@ -54,11 +162,94 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 11.0
+offset_top = 17.0
+offset_right = 11.0
+offset_bottom = 17.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.2509804, 0.2509804, 0.2509804, 0.7058824)
 
-[node name="mainButtons" type="GridContainer" parent="." unique_id=1008174317]
+[node name="Label" type="Label" parent="." unique_id=1385760592]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -95.5
+offset_top = 155.0
+offset_right = 95.5
+offset_bottom = 219.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_wf64y")
+theme_override_font_sizes/font_size = 50
+text = "Paused"
+
+[node name="mainButtons" type="VBoxContainer" parent="." unique_id=110921745]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -128.21875
+offset_top = -90.0
+offset_right = 128.21875
+offset_bottom = 90.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="resumeButton" type="Button" parent="mainButtons" unique_id=1536358442]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_gdxvx")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxTexture_6gpg8")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_crblw")
+theme_override_styles/hover = SubResource("StyleBoxTexture_n5uun")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_07s63")
+alignment = 0
+
+[node name="resumeLabel" type="Label" parent="mainButtons/resumeButton" unique_id=622296085]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -122.78125
+offset_top = -20.0
+offset_right = 120.21875
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_wf64y")
+theme_override_font_sizes/font_size = 25
+text = "Resume"
+horizontal_alignment = 1
+
+[node name="settingsButton" type="Button" parent="mainButtons" unique_id=247691753]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_gdxvx")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxTexture_fbg08")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_p6f7d")
+theme_override_styles/hover = SubResource("StyleBoxTexture_p6f7d")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_07s63")
+text = "
+"
+
+[node name="settingsLabel" type="Label" parent="mainButtons/settingsButton" unique_id=182046786]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -66,36 +257,78 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -20.0
-offset_top = -20.0
+offset_top = -11.5
 offset_right = 20.0
-offset_bottom = 20.0
+offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/v_separation = 8
+theme_override_fonts/font = ExtResource("2_wf64y")
+theme_override_font_sizes/font_size = 25
+text = "Settings"
 
-[node name="Label" type="Label" parent="mainButtons" unique_id=1385760592]
+[node name="mainMenuButton" type="Button" parent="mainButtons" unique_id=898113687]
 layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "Paused"
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_gdxvx")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxTexture_8uj5o")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_tu5bd")
+theme_override_styles/hover = SubResource("StyleBoxTexture_358ah")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_07s63")
 
-[node name="resumeButton" type="Button" parent="mainButtons" unique_id=1089413937]
+[node name="mainMenuLabel" type="Label" parent="mainButtons/mainMenuButton" unique_id=207580462]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_wf64y")
+theme_override_font_sizes/font_size = 25
+text = "Main Menu"
+
+[node name="exitButton" type="Button" parent="mainButtons" unique_id=1004233654]
 layout_mode = 2
-text = "Resume"
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_gdxvx")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxTexture_8uj5o")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_tu5bd")
+theme_override_styles/hover = SubResource("StyleBoxTexture_358ah")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_07s63")
 
-[node name="optionsButton" type="Button" parent="mainButtons" unique_id=2087641999]
-layout_mode = 2
-text = "Options"
+[node name="exitLabel" type="Label" parent="mainButtons/exitButton" unique_id=1164182001]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_wf64y")
+theme_override_font_sizes/font_size = 25
+text = "Exit"
 
-[node name="mainMenuButton" type="Button" parent="mainButtons" unique_id=1915524087]
-layout_mode = 2
-text = "Main Menu
-"
-
-[node name="quitButton" type="Button" parent="mainButtons" unique_id=1667138685]
-layout_mode = 2
-text = "Quit"
-
-[node name="options" type="Panel" parent="." unique_id=273291324]
+[node name="settings" type="Panel" parent="." unique_id=1040830110]
 visible = false
 layout_mode = 1
 anchors_preset = 8
@@ -103,38 +336,42 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -197.5
-offset_top = -124.0
-offset_right = 197.5
-offset_bottom = 298.0
+offset_left = -96.0
+offset_top = -137.0
+offset_right = 96.0
+offset_bottom = 137.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_p6f7d")
+script = ExtResource("7_crblw")
 
-[node name="options" type="Label" parent="options" unique_id=1367608251]
+[node name="settings" type="Label" parent="settings" unique_id=449579340]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -86.0
-offset_right = 86.0
-offset_bottom = 62.0
+offset_left = -84.0
+offset_top = 20.0
+offset_right = 88.0
+offset_bottom = 82.0
 grow_horizontal = 2
-theme_override_font_sizes/font_size = 36
-text = "Options"
+theme_override_fonts/font = ExtResource("2_wf64y")
+theme_override_font_sizes/font_size = 40
+text = "Settings"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="backButton" type="Button" parent="options" unique_id=911643661]
+[node name="backButton" type="Button" parent="settings" unique_id=1479807448]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -111.75
-offset_top = -74.0
-offset_right = 111.75
-offset_bottom = -20.0
+offset_left = -107.0
+offset_top = 78.0
+offset_right = 116.5
+offset_bottom = 132.0
 grow_horizontal = 2
 grow_vertical = 0
 size_flags_vertical = 3
@@ -143,60 +380,510 @@ theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 30
-theme_override_styles/normal = SubResource("StyleBoxFlat_mj2wu")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_cskox")
-theme_override_styles/hover = SubResource("StyleBoxFlat_r465m")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_4mj14")
-text = "Back"
+theme_override_styles/normal = SubResource("StyleBoxTexture_1sjie")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_grby8")
+theme_override_styles/hover = SubResource("StyleBoxTexture_grby8")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_sv45o")
 
-[node name="audioControl" type="HSlider" parent="options" unique_id=857464843]
-layout_mode = 0
-offset_left = 96.5
-offset_top = 83.0
-offset_right = 296.5
-offset_bottom = 152.0
-theme_override_styles/slider = SubResource("StyleBoxLine_qcnoj")
-theme_override_styles/grabber_area = SubResource("StyleBoxLine_gsvbw")
-theme_override_styles/grabber_area_highlight = SubResource("StyleBoxLine_gsvbw")
-max_value = 1.0
-step = 0.01
-value = 0.5
-script = ExtResource("2_3hgkl")
-audio_bus_name = "Music"
-
-[node name="music" type="Label" parent="options" unique_id=1720509784]
+[node name="backLabel" type="Label" parent="settings/backButton" unique_id=472032269]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -68.5
-offset_top = -148.0
-offset_right = 68.5
-offset_bottom = -98.0
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_font_sizes/font_size = 23
-text = "Music"
-horizontal_alignment = 1
-vertical_alignment = 1
+theme_override_fonts/font = ExtResource("2_wf64y")
+theme_override_font_sizes/font_size = 25
+text = "Back"
 
-[node name="fullScreenControl" type="CheckButton" parent="options" unique_id=686267933]
+[node name="mainButtons" type="VBoxContainer" parent="settings" unique_id=1132833957]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -149.875
+offset_top = -34.0
+offset_right = 149.875
+offset_bottom = 194.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="audioButton" type="Button" parent="settings/mainButtons" unique_id=1955904084]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_gdxvx")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxTexture_s6sq4")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_kse1a")
+theme_override_styles/hover = SubResource("StyleBoxTexture_iumos")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_sv45o")
+alignment = 0
+
+[node name="audioLabel" type="Label" parent="settings/mainButtons/audioButton" unique_id=2028061881]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -121.5
+offset_top = -25.5
+offset_right = 121.5
+offset_bottom = 25.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_wf64y")
+theme_override_font_sizes/font_size = 37
+text = "Audio"
+horizontal_alignment = 1
+
+[node name="controlsButton" type="Button" parent="settings/mainButtons" unique_id=277555220]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_gdxvx")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxTexture_1sjie")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_xa8aj")
+theme_override_styles/hover = SubResource("StyleBoxTexture_xa8aj")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_sv45o")
+text = "
+"
+
+[node name="controlsLabel" type="Label" parent="settings/mainButtons/controlsButton" unique_id=1139617172]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_wf64y")
+theme_override_font_sizes/font_size = 37
+text = "Controls"
+
+[node name="graphicsButton" type="Button" parent="settings/mainButtons" unique_id=83256857]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_gdxvx")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxTexture_4ef6m")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_grby8")
+theme_override_styles/hover = SubResource("StyleBoxTexture_bcmv8")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_sv45o")
+
+[node name="graphicsLabel" type="Label" parent="settings/mainButtons/graphicsButton" unique_id=2051645196]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_wf64y")
+theme_override_font_sizes/font_size = 37
+text = "Graphics"
+
+[node name="audioSettings" type="Panel" parent="." unique_id=1530114646]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -105.0
+offset_top = -145.5
+offset_right = 105.0
+offset_bottom = 145.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_3wc10")
+script = ExtResource("8_n5uun")
+
+[node name="audioSettingsLabel" type="Label" parent="audioSettings" unique_id=1845737060]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -117.0
+offset_top = 34.5
+offset_right = 117.0
+offset_bottom = 72.5
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_wf64y")
+theme_override_font_sizes/font_size = 40
+text = "Audio Settings"
+
+[node name="musicLabel" type="Label" parent="audioSettings" unique_id=551011366]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -151.0
+offset_top = -33.0
+offset_right = 148.0
+offset_bottom = 35.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_xfw5a")
+
+[node name="musicLabelTe" type="Label" parent="audioSettings/musicLabel" unique_id=2046242617]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 33.0
+offset_top = -17.0
+offset_right = 150.0
+offset_bottom = 17.0
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_wf64y")
+theme_override_font_sizes/font_size = 24
+text = "Music"
+
+[node name="audioControl" type="HSlider" parent="audioSettings" unique_id=49637393]
 layout_mode = 0
-offset_left = 123.5
-offset_top = 161.0
-offset_right = 275.5
-offset_bottom = 205.0
+offset_left = 86.0
+offset_top = 123.5
+offset_right = 226.0
+offset_bottom = 166.5
+theme_override_styles/slider = SubResource("StyleBoxLine_grg7d")
+theme_override_styles/grabber_area = SubResource("StyleBoxLine_oc4i2")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxLine_oc4i2")
+max_value = 1.0
+step = 0.01
+value = 0.5
+script = ExtResource("2_3hgkl")
+audio_bus_name = "Music"
+
+[node name="backButton" type="Button" parent="audioSettings" unique_id=117546952]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -106.0
+offset_top = 69.5
+offset_right = 118.0
+offset_bottom = 120.5
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_gdxvx")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxTexture_xfw5a")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_27a1q")
+theme_override_styles/hover = SubResource("StyleBoxTexture_ryk3q")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_52vxw")
+alignment = 0
+
+[node name="backLabel" type="Label" parent="audioSettings/backButton" unique_id=863372649]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -33.5
+offset_top = -16.5
+offset_right = 33.5
+offset_bottom = 16.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_wf64y")
+theme_override_font_sizes/font_size = 25
+text = "Back"
+horizontal_alignment = 1
+
+[node name="controlsSettings" type="Panel" parent="." unique_id=850776534]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -105.0
+offset_top = -145.5
+offset_right = 105.0
+offset_bottom = 145.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_dg55r")
+script = ExtResource("9_07s63")
+
+[node name="controlsSettingsLabel" type="Label" parent="controlsSettings" unique_id=1060897979]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -117.0
+offset_top = 34.5
+offset_right = 117.0
+offset_bottom = 72.5
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_wf64y")
+theme_override_font_sizes/font_size = 40
+text = "Controls Settings"
+
+[node name="movementLabel" type="Label" parent="controlsSettings" unique_id=100314762]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -151.0
+offset_top = -33.0
+offset_right = 148.0
+offset_bottom = 35.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_o3ieq")
+
+[node name="movementLabelTe" type="Label" parent="controlsSettings/movementLabel" unique_id=1503394734]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 33.0
+offset_top = -17.0
+offset_right = 150.0
+offset_bottom = 17.0
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_wf64y")
+theme_override_font_sizes/font_size = 24
+text = "Movement"
+
+[node name="backButton" type="Button" parent="controlsSettings" unique_id=104422105]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -106.0
+offset_top = 69.5
+offset_right = 118.0
+offset_bottom = 120.5
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_gdxvx")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxTexture_o3ieq")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_f7he0")
+theme_override_styles/hover = SubResource("StyleBoxTexture_xifby")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_57iwd")
+alignment = 0
+
+[node name="backLabel" type="Label" parent="controlsSettings/backButton" unique_id=1897149137]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -112.0
+offset_top = -12.5
+offset_right = 112.0
+offset_bottom = 26.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_wf64y")
+theme_override_font_sizes/font_size = 25
+text = "Back"
+horizontal_alignment = 1
+
+[node name="wasdButton" type="CheckButton" parent="controlsSettings" unique_id=912808587]
+layout_mode = 0
+offset_left = 139.0
+offset_top = 119.5
+offset_right = 240.0
+offset_bottom = 156.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 19
-text = "FullScreen"
+theme_override_fonts/font = ExtResource("2_wf64y")
+text = "WASD "
+
+[node name="arrowButton" type="CheckButton" parent="controlsSettings" unique_id=1432897781]
+layout_mode = 0
+offset_left = 138.0
+offset_top = 140.5
+offset_right = 239.0
+offset_bottom = 177.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_wf64y")
+text = "Arrow"
+
+[node name="graphicsSettings" type="Panel" parent="." unique_id=1367069912]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -105.0
+offset_top = -145.5
+offset_right = 105.0
+offset_bottom = 145.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_neyoc")
+script = ExtResource("10_fbg08")
+
+[node name="graphicsSettingsLabel" type="Label" parent="graphicsSettings" unique_id=1915180047]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -117.0
+offset_top = 34.5
+offset_right = 117.0
+offset_bottom = 72.5
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_wf64y")
+theme_override_font_sizes/font_size = 40
+text = "Graphics Settings"
+
+[node name="graphicsLabel" type="Label" parent="graphicsSettings" unique_id=1735602342]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -151.0
+offset_top = -33.0
+offset_right = 148.0
+offset_bottom = 35.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_u6unm")
+
+[node name="graphicsLabelTe" type="Label" parent="graphicsSettings/graphicsLabel" unique_id=1903395539]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 33.0
+offset_top = -17.0
+offset_right = 150.0
+offset_bottom = 17.0
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_wf64y")
+theme_override_font_sizes/font_size = 24
+text = "Fullscreen"
+
+[node name="backButton" type="Button" parent="graphicsSettings" unique_id=639082171]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -106.0
+offset_top = 69.5
+offset_right = 118.0
+offset_bottom = 120.5
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_gdxvx")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxTexture_u6unm")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_25wbb")
+theme_override_styles/hover = SubResource("StyleBoxTexture_kbbp3")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ecn8v")
+alignment = 0
+
+[node name="backLabel" type="Label" parent="graphicsSettings/backButton" unique_id=1937031825]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -112.0
+offset_top = -19.5
+offset_right = 112.0
+offset_bottom = 19.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_wf64y")
+theme_override_font_sizes/font_size = 25
+text = "Back"
+horizontal_alignment = 1
+
+[node name="fullScreenControl" type="CheckButton" parent="graphicsSettings" unique_id=935980736]
+layout_mode = 0
+offset_left = 157.0
+offset_top = 130.5
+offset_right = 207.0
+offset_bottom = 165.5
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_wf64y")
+theme_override_font_sizes/font_size = 20
 script = ExtResource("3_lrnew")
 
 [connection signal="pressed" from="mainButtons/resumeButton" to="." method="_on_resume_button_pressed"]
-[connection signal="pressed" from="mainButtons/optionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="mainButtons/settingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="mainButtons/mainMenuButton" to="." method="_on_main_menu_button_pressed"]
-[connection signal="pressed" from="mainButtons/quitButton" to="." method="_on_quit_button_pressed"]
-[connection signal="pressed" from="options/backButton" to="." method="_on_back_button_pressed"]
-[connection signal="value_changed" from="options/audioControl" to="options/audioControl" method="_on_value_changed"]
-[connection signal="toggled" from="options/fullScreenControl" to="options/fullScreenControl" method="_on_toggled"]
+[connection signal="pressed" from="mainButtons/exitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="pressed" from="settings/backButton" to="settings" method="_on_back_button_pressed"]
+[connection signal="pressed" from="settings/mainButtons/audioButton" to="settings" method="_on_audio_button_pressed"]
+[connection signal="pressed" from="settings/mainButtons/controlsButton" to="settings" method="_on_controls_button_pressed"]
+[connection signal="pressed" from="settings/mainButtons/graphicsButton" to="settings" method="_on_graphics_button_pressed"]
+[connection signal="value_changed" from="audioSettings/audioControl" to="audioSettings/audioControl" method="_on_value_changed"]
+[connection signal="pressed" from="audioSettings/backButton" to="audioSettings" method="_on_back_button_pressed"]
+[connection signal="pressed" from="controlsSettings/backButton" to="controlsSettings" method="_on_back_button_pressed"]
+[connection signal="pressed" from="controlsSettings/wasdButton" to="controlsSettings" method="_on_wasd_button_pressed"]
+[connection signal="pressed" from="controlsSettings/arrowButton" to="controlsSettings" method="_on_arrow_button_pressed"]
+[connection signal="pressed" from="graphicsSettings/backButton" to="graphicsSettings" method="_on_back_button_pressed"]
+[connection signal="toggled" from="graphicsSettings/fullScreenControl" to="graphicsSettings/fullScreenControl" method="_on_toggled"]
