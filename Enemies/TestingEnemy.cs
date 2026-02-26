@@ -215,22 +215,18 @@ public partial class TestingEnemy : CharacterBody3D
         {
             GD.PrintErr("MeleeComponent is missing on TestingEnemy!");
         }
+    }
 
-            if (deadTimer < healthComponent.deathDespawnTimer)
-            {
-                deadTimer += delta;
-                Vector3 fallDirection = Velocity.Normalized();
-                fallDirection = fallDirection.Normalized();
-                Vector3 fallAxis = Vector3.Up.Cross(fallDirection).Normalized();
-                if (fallAxis.LengthSquared() > 0.0001f)
-                {
-                    RotateObjectLocal(fallAxis, GetGravity().Length() * (float)delta);
-                }
-            }
-            else
-            {
-                QueueFree();
-            }
+    private void HandleChasing(ref Vector3 currentVelocity, double delta)
+    {
+        float distance = player.GlobalPosition.DistanceSquaredTo(GlobalPosition);
+
+        float attackRangeSq = attackRange * attackRange;
+        float stopChaseSq = stopChaseDistance * stopChaseDistance;
+
+        // Enter attack state
+        if (distance <= attackRangeSq)
+        {
             ChangeState(EnemyState.Attacking);
             return;
         }
