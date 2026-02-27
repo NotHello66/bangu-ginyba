@@ -23,7 +23,7 @@ public partial class PlayerController : CharacterBody3D
 	{
 		//if (Input.IsActionJustPressed("debug_dealDamageToTest"))
 		//{
-  //          TestingEnemy enemy = GetClosestEnemy();
+		//TestingEnemy enemy = GetClosestEnemy();
 		//	if (enemy == null)
 		//	{
 		//		GD.Print("Enemy is null");
