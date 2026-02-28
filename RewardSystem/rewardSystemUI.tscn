@@ -1,0 +1,296 @@
+[gd_scene format=3 uid="uid://boe1vnxfmybh4"]
+
+[ext_resource type="Script" uid="uid://chqtar51d8t1h" path="res://RewardSystem/reward_system_ui.gd" id="1_vllfr"]
+[ext_resource type="FontFile" uid="uid://bxheo3lrppx2b" path="res://UI/Design/Metamorphous-Regular.ttf" id="2_3xhr2"]
+[ext_resource type="Texture2D" uid="uid://rsp5c57eqtfa" path="res://RewardSystem/panel_bg_v4.png" id="2_vllfr"]
+[ext_resource type="Texture2D" uid="uid://ddpfuc2dtne5n" path="res://UI/Design/palletee.png" id="3_n1qum"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nukt6"]
+texture = ExtResource("2_vllfr")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vllfr"]
+texture = ExtResource("3_n1qum")
+texture_margin_left = 75.0
+region_rect = Rect2(30, 160, 266, 47)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nywnf"]
+texture = ExtResource("3_n1qum")
+region_rect = Rect2(318, 161, 261, 45)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nukt6"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ovsqs"]
+
+[node name="rewardSystemUI" type="Control" unique_id=2074621282]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_vllfr")
+
+[node name="background" type="ColorRect" parent="." unique_id=100452985]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.2509804, 0.2509804, 0.2509804, 0.7058824)
+
+[node name="Panel" type="Panel" parent="." unique_id=1645610717]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -152.4375
+offset_top = -226.375
+offset_right = 152.4375
+offset_bottom = 226.375
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_nukt6")
+
+[node name="titleLabel" type="Label" parent="Panel" unique_id=115926966]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -53.0
+offset_top = 6.75
+offset_right = 53.0
+offset_bottom = 35.75
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_3xhr2")
+theme_override_font_sizes/font_size = 22
+text = "Item Pull"
+
+[node name="goldLabel" type="Label" parent="Panel" unique_id=303056880]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -287.4375
+offset_top = 66.375
+offset_right = -193.4375
+offset_bottom = 90.375
+grow_horizontal = 0
+theme_override_colors/font_color = Color(1, 0.6745098, 0.14901961, 1)
+theme_override_fonts/font = ExtResource("2_3xhr2")
+theme_override_font_sizes/font_size = 16
+text = "Gold:"
+
+[node name="chanceContainer" type="VBoxContainer" parent="Panel" unique_id=245883768]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -161.4375
+offset_top = -156.0
+offset_right = -15.4375
+offset_bottom = -73.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_constants/separation = 1
+
+[node name="investmentContainer" type="HBoxContainer" parent="Panel" unique_id=1985768204]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -134.0
+offset_top = -55.0
+offset_right = 139.0
+offset_bottom = -23.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 4
+
+[node name="investLabel" type="Label" parent="Panel/investmentContainer" unique_id=1321638819]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_fonts/font = ExtResource("2_3xhr2")
+theme_override_font_sizes/font_size = 18
+text = "Invest:"
+
+[node name="investSlider" type="HSlider" parent="Panel/investmentContainer" unique_id=34683881]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+max_value = 500.0
+step = 100.0
+
+[node name="investValueLabel" type="Label" parent="Panel/investmentContainer" unique_id=241279709]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_3xhr2")
+theme_override_font_sizes/font_size = 18
+
+[node name="boostLabel" type="Label" parent="Panel" unique_id=924804917]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 20.4375
+offset_top = -21.0
+offset_right = 148.4375
+offset_bottom = 2.5
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_3xhr2")
+theme_override_font_sizes/font_size = 13
+text = "Current Boost:"
+
+[node name="pullButton" type="Button" parent="Panel" unique_id=1870120672]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -89.0
+offset_top = 8.0
+offset_right = 86.375
+offset_bottom = 45.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxTexture_vllfr")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_nywnf")
+theme_override_styles/hover = SubResource("StyleBoxTexture_nywnf")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_nukt6")
+
+[node name="pullLabel" type="Label" parent="Panel/pullButton" unique_id=1107885640]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -34.0
+offset_top = -9.5
+offset_right = 35.0
+offset_bottom = 13.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_3xhr2")
+theme_override_font_sizes/font_size = 14
+text = "Pull Item"
+
+[node name="resultPanel" type="Panel" parent="Panel" unique_id=1594684361]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -203.0
+offset_top = -162.375
+offset_right = 203.0
+offset_bottom = -18.375
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_ovsqs")
+
+[node name="resultRarityLabel" type="Label" parent="Panel/resultPanel" unique_id=912458091]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_3xhr2")
+
+[node name="resultItemLabel" type="Label" parent="Panel/resultPanel" unique_id=238732371]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -36.5
+offset_top = -109.0
+offset_right = 36.5
+offset_bottom = -81.5
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("2_3xhr2")
+theme_override_font_sizes/font_size = 18
+
+[node name="resultBuffLabel" type="Label" parent="Panel/resultPanel" unique_id=842515488]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -48.0
+offset_top = -3.0
+offset_right = 49.0
+offset_bottom = 23.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_3xhr2")
+theme_override_font_sizes/font_size = 16
+
+[node name="CloseButton" type="Button" parent="Panel" unique_id=1394513476]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -49.34375
+offset_top = -28.75
+offset_right = 49.34375
+offset_bottom = -9.5
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxTexture_vllfr")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_nywnf")
+theme_override_styles/hover = SubResource("StyleBoxTexture_nywnf")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_nukt6")
+
+[node name="CloseLabel" type="Label" parent="Panel/CloseButton" unique_id=262966995]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -11.0
+offset_top = -7.625
+offset_right = 32.0
+offset_bottom = 15.375
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_3xhr2")
+theme_override_font_sizes/font_size = 10
+text = "Close"
+
+[connection signal="value_changed" from="Panel/investmentContainer/investSlider" to="." method="_on_invest_slider_value_changed"]
+[connection signal="pressed" from="Panel/pullButton" to="." method="_on_pull_button_pressed"]
+[connection signal="pressed" from="Panel/CloseButton" to="." method="_on_close_button_pressed"]
