@@ -16,24 +16,27 @@ public partial class CameraObstructionFade : Node3D
         Vector3 to = player.GlobalTransform.Origin;
 
         var space = GetWorld3D().DirectSpaceState;
-
         RestoreObjects();
 
-        var query = PhysicsRayQueryParameters3D.Create(from, to);
-        query.CollideWithAreas = false;
-        query.Exclude = new Godot.Collections.Array<Rid> { player.GetRid() };
+        var exceptions = new Godot.Collections.Array<Rid> { player.GetRid() };
 
-        var result = space.IntersectRay(query);
-
-        if (result.Count > 0)
+        for (int i = 0; i < 10; i++) //max 10 object see thru
         {
+            var query = PhysicsRayQueryParameters3D.Create(from, to);
+            query.CollideWithAreas = false;
+            query.Exclude = exceptions;
+
+            var result = space.IntersectRay(query);
+            if (result.Count == 0) break;
+
             CollisionObject3D collider = result["collider"].As<CollisionObject3D>();
-            if (collider != null)
-            {
-                var meshes = FindAllMeshes(collider);
-                foreach (var mesh in meshes)
-                    FadeObject(mesh);
-            }
+            if (collider == null) break;
+
+            var meshes = FindAllMeshes(collider);
+            foreach (var mesh in meshes)
+                FadeObject(mesh);
+
+            exceptions.Add(collider.GetRid());
         }
     }
 
