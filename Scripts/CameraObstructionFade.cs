@@ -29,14 +29,18 @@ public partial class CameraObstructionFade : Node3D
             var result = space.IntersectRay(query);
             if (result.Count == 0) break;
 
-            CollisionObject3D collider = result["collider"].As<CollisionObject3D>();
-            if (collider == null) break;
+            var collider = result["collider"].As<GodotObject>();
+            if (collider is CollisionObject3D collision)
+            {
 
-            var meshes = FindAllMeshes(collider);
-            foreach (var mesh in meshes)
-                FadeObject(mesh);
+                if (collision == null) break;
 
-            exceptions.Add(collider.GetRid());
+                var meshes = FindAllMeshes(collision);
+                foreach (var mesh in meshes)
+                    FadeObject(mesh);
+
+                exceptions.Add(collision.GetRid());
+            }
         }
     }
 
