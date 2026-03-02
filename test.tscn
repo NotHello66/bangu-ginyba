@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://cjhwvn2bxs5i" path="res://PlayerController/PlayerController.tscn" id="1_8uh7m"]
 [ext_resource type="Texture2D" uid="uid://6r00oi4kcwpv" path="res://Textures/SL-072622-51930-14.jpg" id="1_37kl0"]
 [ext_resource type="Script" uid="uid://mc4w82onwil4" path="res://Scripts/tower_manager.gd" id="1_ykrsh"]
-[ext_resource type="PackedScene" uid="uid://cn8sntu4guw1i" path="res://Common meshes/tower.tscn" id="3_ppyta"]
+[ext_resource type="PackedScene" uid="uid://cn8sntu4guw1i" path="res://Common Meshes/tower.tscn" id="3_ppyta"]
 [ext_resource type="PackedScene" uid="uid://bk2tm65rltpyu" path="res://EnemySpawner/EnemySpawner.tscn" id="4_ppyta"]
 [ext_resource type="PackedScene" uid="uid://dtwg1ifxprse1" path="res://UI/PauseMenu/paused_menu.tscn" id="6_g14j6"]
 [ext_resource type="PackedScene" uid="uid://b1dwbiegtujwp" path="res://UI/Design/fade.tscn" id="7_vbegm"]
@@ -51,7 +51,7 @@ transform = Transform3D(26.60132, 0, 0, 0, 0.13341707, 0, 0, 0, 39.054703, -3.82
 use_collision = true
 material = SubResource("StandardMaterial3D_8uh7m")
 
-[node name="Tower" parent="NavigationRegion3D" unique_id=1361753452 instance=ExtResource("3_ppyta")]
+[node name="Tower" parent="NavigationRegion3D" unique_id=1361753452 groups=["SeeThru"] instance=ExtResource("3_ppyta")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.718266, 0, 12.438829)
 
 [node name="RangedComponent" parent="NavigationRegion3D/Tower" index="1" unique_id=707547592]

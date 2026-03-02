@@ -38,6 +38,7 @@ Player="Player Group"
 Enemy="Enemy Group"
 Ground="Can only place towers on objects that have the Ground group"
 Tower="Any tower (that includes walls)"
+SeeThru=""
 
 [input]
 
