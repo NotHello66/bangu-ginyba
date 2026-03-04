@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://m465nhr8gnac"]
 
 [ext_resource type="Script" uid="uid://dq7qqk1lohe26" path="res://Scripts/RangedComponent.cs" id="1_isjjt"]
-[ext_resource type="PackedScene" uid="uid://ckb18aa0bvfky" path="res://Common meshes/Projectile.tscn" id="2_mwar3"]
+[ext_resource type="PackedScene" uid="uid://dfqyairt8hut8" path="res://Common meshes/Projectile.tscn" id="2_mwar3"]
 
 [node name="RangedComponent" type="Node3D" unique_id=707547592]
 script = ExtResource("1_isjjt")
