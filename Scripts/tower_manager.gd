@@ -148,3 +148,4 @@ func spawn_tower(position: Vector3):
 	var tower = tower_scene.instantiate()
 	navigation_region_3D.add_child(tower)
 	tower.global_position = position
+	tower.add_to_group("SeeThru")

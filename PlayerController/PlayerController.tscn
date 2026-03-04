@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://nfaskd34qe25" path="res://PlayerController/PlayerController.cs" id="1_ycagd"]
 [ext_resource type="Script" uid="uid://beo0euo4okp2f" path="res://PlayerController/Camera3d.cs" id="2_ps8a3"]
+[ext_resource type="Script" uid="uid://bx3ucfvo8g1r6" path="res://Scripts/CameraObstructionFade.cs" id="3_3o4bl"]
 [ext_resource type="Script" uid="uid://bl0fgmdufmlwn" path="res://PlayerController/CameraPosTarget.cs" id="3_t3w4r"]
 [ext_resource type="Script" uid="uid://l6yynh7igr78" path="res://PlayerController/PlayerControllerMouse.cs" id="4_ps8a3"]
 [ext_resource type="PackedScene" uid="uid://m465nhr8gnac" path="res://CommonComponents/ranged_component.tscn" id="5_t3w4r"]
@@ -45,6 +46,10 @@ unique_name_in_owner = true
 transform = Transform3D(0.99994516, -0.0072082994, 0.0075959633, 0, 0.72537434, 0.6883545, -0.010471784, -0.68831676, 0.7253346, 0.027, 10, 10)
 script = ExtResource("2_ps8a3")
 Target = NodePath("../CameraPosTarget")
+
+[node name="CameraObstructionFade" type="Node3D" parent="Camera3D" unique_id=707555746 node_paths=PackedStringArray("player")]
+script = ExtResource("3_3o4bl")
+player = NodePath("../..")
 
 [node name="CameraPosTarget" type="Node3D" parent="." unique_id=443845736 node_paths=PackedStringArray("target")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 10)

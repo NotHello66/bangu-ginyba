@@ -8,7 +8,7 @@ public partial class ProjectileComponent : Node3D
 	Attack attack;
 	bool isAoe;
 	float aoeRadius;
-	float turnspeed = 5f;
+	public float turnspeed = 5f;
 
 	public void Initialize(Node3D target, float speed, Attack attack, bool isAoe, float AoeRadius = 0f)
 	{

@@ -4,7 +4,7 @@ using System;
 public partial class HealthComponent : Node3D
 {
 	[Export] float MaxHP;
-	float HP;
+	public float HP;
 	public bool isDead = false;
 	public double deathDespawnTimer = 2;
 	// Called when the node enters the scene tree for the first time.
