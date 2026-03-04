@@ -7,6 +7,10 @@
 [ext_resource type="PackedScene" uid="uid://bk2tm65rltpyu" path="res://EnemySpawner/EnemySpawner.tscn" id="4_ppyta"]
 [ext_resource type="PackedScene" uid="uid://dtwg1ifxprse1" path="res://UI/PauseMenu/paused_menu.tscn" id="6_g14j6"]
 [ext_resource type="PackedScene" uid="uid://b1dwbiegtujwp" path="res://UI/Design/fade.tscn" id="7_vbegm"]
+[ext_resource type="Texture2D" uid="uid://ddpfuc2dtne5n" path="res://UI/Design/palletee.png" id="8_ehkex"]
+[ext_resource type="Script" uid="uid://cy6kjm537b1ja" path="res://reward_button.gd" id="9_77dp3"]
+[ext_resource type="FontFile" uid="uid://bxheo3lrppx2b" path="res://UI/Design/Metamorphous-Regular.ttf" id="9_xersf"]
+[ext_resource type="PackedScene" uid="uid://boe1vnxfmybh4" path="res://RewardSystem/rewardSystemUI.tscn" id="11_5tkv4"]
 
 [sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_8uh7m"]
 
@@ -23,6 +27,18 @@ polygons = [PackedInt32Array(1, 0, 2), PackedInt32Array(2, 0, 3), PackedInt32Arr
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8uh7m"]
 albedo_texture = ExtResource("1_37kl0")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xersf"]
+texture = ExtResource("8_ehkex")
+region_rect = Rect2(29, 161, 266, 43)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_00tp4"]
+texture = ExtResource("8_ehkex")
+region_rect = Rect2(318, 159, 263, 46)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_77dp3"]
+texture = ExtResource("8_ehkex")
+region_rect = Rect2(318, 159, 263, 46)
 
 [node name="Node3D" type="Node3D" unique_id=2069746429]
 
@@ -66,5 +82,51 @@ maxEnemies = 5
 [node name="pausedMenu" parent="pause" unique_id=1657814942 instance=ExtResource("6_g14j6")]
 
 [node name="fade" parent="." unique_id=101411894 instance=ExtResource("7_vbegm")]
+visible = false
+
+[node name="rewardButton" type="Button" parent="." unique_id=233835179]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -51.0
+offset_right = -7.0
+offset_bottom = -8.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_styles/normal = SubResource("StyleBoxTexture_xersf")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_00tp4")
+theme_override_styles/hover = SubResource("StyleBoxTexture_77dp3")
+script = ExtResource("9_77dp3")
+
+[node name="rewardLabel" type="Label" parent="rewardButton" unique_id=1505001586]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -0.5
+offset_top = -11.5
+offset_right = 0.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("9_xersf")
+theme_override_font_sizes/font_size = 22
+text = "Reward"
+
+[node name="reward" type="CanvasLayer" parent="." unique_id=1694413127]
+
+[node name="rewardSystemUI" parent="reward" unique_id=2074621282 instance=ExtResource("11_5tkv4")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+
+[connection signal="pressed" from="rewardButton" to="rewardButton" method="_on_pressed"]
 
 [editable path="NavigationRegion3D/Tower"]
