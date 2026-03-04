@@ -19,15 +19,14 @@ public partial class TestingEnemy : CharacterBody3D
     private bool isAttacking = false;
     private double attackTimer = 0;
     private double deadTimer = 0;
-    private EnemyState currentState = EnemyState.Idle;
+    public EnemyState currentState = EnemyState.Idle;
 
     // Child Nodes
-    private HealthComponent healthComponent;
+    public HealthComponent healthComponent;
     private NavigationAgent3D navigationAgent3D;
 
     // Player Node
     private Node3D player;
-
     public override void _Ready()
     {
         healthComponent = GetNode("HealthComponent") as HealthComponent;
@@ -262,7 +261,7 @@ public partial class TestingEnemy : CharacterBody3D
             isAttacking = false;
     }
 
-    private enum EnemyState
+    public enum EnemyState
     {
         Idle,
         Chasing,

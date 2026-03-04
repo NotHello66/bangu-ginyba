@@ -1,0 +1,9 @@
+<Project>
+  <PropertyGroup Condition="$(MSBuildProjectName) == 'TestProject'">
+    <BaseIntermediateOutputPath>obj\tests\</BaseIntermediateOutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+</Project>
