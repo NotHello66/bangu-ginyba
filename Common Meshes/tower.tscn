@@ -11,8 +11,10 @@ size = Vector3(3, 5.98645, 3)
 size = Vector3(3.0830078, 6.076294, 3.0272217)
 
 [node name="Tower" type="StaticBody3D" unique_id=267637000 groups=["Tower"]]
+transform = Transform3D(0.9999413, 0.010838282, 0, -0.010838282, 0.9999413, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="tower_mk1" parent="." unique_id=843279452 instance=ExtResource("1_ri4t3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.017, 0)
 
 [node name="RangedComponent" parent="." unique_id=707547592 instance=ExtResource("2_euquj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.591713, 0)
