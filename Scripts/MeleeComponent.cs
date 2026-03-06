@@ -3,7 +3,8 @@ using System;
 
 public partial class MeleeComponent : Node3D
 {
-    [Export] PackedScene meleeAttackScene; 
+    [Export] PackedScene torusAttackScene;
+    [Export] PackedScene clawAttackScene;
     [Export] float damage = 10f;
     [Export] float knockbackForce = 5f;
     [Export] public float cooldown = 1.5f;
@@ -30,7 +31,7 @@ public partial class MeleeComponent : Node3D
         return timer >= cooldown;
     }
 
-    public void PerformMeleeAttack()
+    public void PerformTorusAttack()
     {
         if (CanAttack())
         {
@@ -38,15 +39,39 @@ public partial class MeleeComponent : Node3D
 
             attackData ??= new Attack(damage, knockbackForce, GlobalPosition);
 
-            if (meleeAttackScene == null)
+            if (torusAttackScene == null)
             {
                 GD.PrintErr("Melee attack scene is null");
                 return;
             }
 
-            AttackTorus attackNode = (AttackTorus)meleeAttackScene.Instantiate();
+            AttackTorus attackNode = (AttackTorus)torusAttackScene.Instantiate();
             GetTree().CurrentScene.AddChild(attackNode);
             attackNode.GlobalPosition = this.GlobalPosition;
+            attackNode.Initialize(attackData);
+        }
+    }
+
+    public void PerformClawAttack()
+    {
+        if (CanAttack())
+        {
+            timer = 0f;
+
+            attackData ??= new Attack(damage, knockbackForce, GlobalPosition);
+
+            if (clawAttackScene == null)
+            {
+                GD.PrintErr("Melee attack scene is null");
+                return;
+            }
+
+            AttackClaw attackNode = (AttackClaw)clawAttackScene.Instantiate();
+            GetTree().CurrentScene.AddChild(attackNode);
+
+            attackNode.GlobalPosition = this.GlobalPosition;
+            attackNode.GlobalRotation = this.GlobalRotation;
+            
             attackNode.Initialize(attackData);
         }
     }

@@ -39,8 +39,8 @@ public partial class TestingEnemy : CharacterBody3D
     {
         healthComponent = GetNode("HealthComponent") as HealthComponent;
         navigationAgent3D = GetNode("NavigationAgent3D") as NavigationAgent3D;
-        player = GetTree().GetFirstNodeInGroup("Player") as Node3D;
 
+        player = GetTree().GetFirstNodeInGroup("Player") as Node3D;
         if (player != null)
         {
             slotManager = player.GetNodeOrNull<EnemySlotManager>("EnemySlotManager");
@@ -211,6 +211,13 @@ public partial class TestingEnemy : CharacterBody3D
 
     private void HandleAttacking(ref Vector3 currentVelocity, double delta)
     {
+        if (meleeComponent == null)
+        {
+            GD.PrintErr("MeleeComponent is missing on TestingEnemy!");
+            return;
+        }
+
+        // Stop horizontal movement while attacking/jumping
         currentVelocity.X = 0;
         currentVelocity.Z = 0;
 
@@ -220,7 +227,18 @@ public partial class TestingEnemy : CharacterBody3D
         {
             if (CanPerformAttack())
             {
-                PerformJump(ref currentVelocity);
+                if (enemyLevel < 5)
+                {
+                    PerformJump(ref currentVelocity);
+                }
+                else
+                {
+                    PerformStrikeAttack();
+                    attackTimer = meleeComponent.cooldown;
+
+                    // Note: You may need to manually set isAttacking = true here if 
+                    // PerformStrikeAttack() doesn't do it internally.
+                }
             }
             else if (!IsPlayerInAttackRange())
             {
@@ -233,6 +251,7 @@ public partial class TestingEnemy : CharacterBody3D
             {
                 isJumping = false;
                 PerformSlamAttack();
+                attackTimer = meleeComponent.cooldown;
             }
         }
     }
@@ -273,22 +292,17 @@ public partial class TestingEnemy : CharacterBody3D
 
     private void PerformSlamAttack()
     {
-        if (meleeComponent != null)
-        {
-            meleeComponent.PerformMeleeAttack();
-            attackTimer = meleeComponent.cooldown;
-        }
-        else
-        {
-            GD.PrintErr("MeleeComponent is missing on TestingEnemy!");
-        }
+        meleeComponent.PerformTorusAttack();
+    }
+
+    private void PerformStrikeAttack()
+    {
+        meleeComponent.PerformClawAttack();
     }
 
     private void PerformJump(ref Vector3 currentVelocity)
     {
         isJumping = true;
-        isAttacking = true;
-
         currentVelocity.Y = jumpForce;
     }
 
@@ -346,6 +360,6 @@ public partial class TestingEnemy : CharacterBody3D
     {
         this.enemyLevel = level;
         GD.Print($"++++++++++++++++++++++++++++++++++++++ Enemy Stats ++++++++++++++++++++++++++++++++++++++");
-        GD.Print($"                                 Level: {enemyLevel} ");
+        GD.Print($"                                Level: {enemyLevel} ");
     }
 }

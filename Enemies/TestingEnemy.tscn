@@ -28,12 +28,12 @@ meleeComponent = NodePath("MeleeComponent")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_lvp4c")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=543675349]
+[node name="BodyMesh" type="MeshInstance3D" parent="." unique_id=543675349]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 material_override = SubResource("StandardMaterial3D_wcl6h")
 mesh = SubResource("CapsuleMesh_38gro")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D" unique_id=1604482895]
+[node name="FaceMesh" type="MeshInstance3D" parent="BodyMesh" unique_id=1604482895]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4632032, 0.477432)
 mesh = SubResource("BoxMesh_kc58s")
 surface_material_override/0 = SubResource("StandardMaterial3D_20jf6")
