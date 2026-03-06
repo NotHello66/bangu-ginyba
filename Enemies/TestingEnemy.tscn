@@ -49,5 +49,7 @@ knockbackForce = 5.0
 cooldown = 1.5
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=2054314887 groups=["Enemy"]]
+avoidance_enabled = true
 debug_enabled = true
+debug_use_custom = true
 debug_path_custom_color = Color(0, 1, 0, 1)
