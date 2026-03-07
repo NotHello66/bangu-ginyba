@@ -12,5 +12,6 @@ func _on_pressed() -> void:
 		reward_system_ui.visible = false
 		get_tree().paused = false
 	else:
+		reward_system_ui.update_ui()
 		reward_system_ui.visible = true
 		get_tree().paused = true

@@ -1,7 +1,7 @@
 extends Node
 
 const DB = preload("res://RewardSystem/item_database.gd")
-
+var PlayerEcon
 const INVESTMENT_TIERS = [
 	{ "cost": 0, "multiplier": 1.0, "label": "No Boost" },
 	{ "cost": 100, "multiplier": 2.0, "label": "Small Boost" },
@@ -11,7 +11,13 @@ const INVESTMENT_TIERS = [
 	{ "cost": 500, "multiplier": 10.0, "label": "MAX Boost" },
 ]
 
-var player_gold: int = 1000
+var player_gold
+func _ready() -> void:
+	PlayerEcon = get_tree().get_first_node_in_group("Player").get_node("EconomyComponent")
+	player_gold = PlayerEcon.currentGold
+func _process(delta: float) -> void:
+	player_gold = PlayerEcon.currentGold
+	#print("PlayerGold %d" % player_gold)
 
 func get_investment_tier(investment: int) -> Dictionary:
 	var best_tier = INVESTMENT_TIERS[0]

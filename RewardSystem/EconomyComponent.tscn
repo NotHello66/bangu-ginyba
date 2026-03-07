@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://rtoq6dwjnfjw"]
+
+[ext_resource type="Script" uid="uid://le8e7m5w16dw" path="res://RewardSystem/EconomyComponent.cs" id="1_gu2rg"]
+
+[node name="EconomyComponent" type="Node3D" unique_id=111476471]
+script = ExtResource("1_gu2rg")

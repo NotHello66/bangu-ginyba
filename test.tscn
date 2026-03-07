@@ -74,10 +74,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.718266, 0, 12.438829)
 
 [node name="RangedComponent" parent="NavigationRegion3D/Tower" index="1" unique_id=707547592]
 isAOE = true
+damage = 5.0
 AoeRadius = 3.0
 
 [node name="EnemySpawner" parent="." unique_id=1712601701 instance=ExtResource("4_ppyta")]
-maxEnemies = 5
+maxEnemies = 10
 
 [node name="pause" type="CanvasLayer" parent="." unique_id=59243751]
 
@@ -131,4 +132,5 @@ anchor_bottom = 0.5
 
 [connection signal="pressed" from="rewardButton" to="rewardButton" method="_on_pressed"]
 
+[editable path="Player"]
 [editable path="NavigationRegion3D/Tower"]

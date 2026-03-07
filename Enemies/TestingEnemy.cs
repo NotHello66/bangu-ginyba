@@ -35,6 +35,11 @@ public partial class TestingEnemy : CharacterBody3D
     private EnemySlotManager slotManager;
     private int mySlotIndex = -1;
 
+    [Export] float GoldReward = 5f;
+
+
+    [Signal]
+    public delegate void EnemyKilledEventHandler(float goldReward);
     public override void _Ready()
     {
         healthComponent = GetNode("HealthComponent") as HealthComponent;
@@ -65,6 +70,7 @@ public partial class TestingEnemy : CharacterBody3D
         if (healthComponent.isDead && currentState != EnemyState.Dead)
         {
             ChangeState(EnemyState.Dead);
+            EmitSignal(SignalName.EnemyKilled, GoldReward);
         }
 
         switch (currentState)
