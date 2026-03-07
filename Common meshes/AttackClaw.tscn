@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bisshrab8be2c"]
 
 [ext_resource type="Script" uid="uid://2p40mnoc3svo" path="res://Scripts/AttackClaw.cs" id="1_mq0bp"]
-[ext_resource type="PackedScene" uid="uid://dpy6dgc78uw8b" path="res://Models/claw.fbx" id="1_r2ybq"]
+[ext_resource type="PackedScene" uid="uid://dpy6dgc78uw8b" path="res://Common Meshes/claw.fbx" id="1_r2ybq"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_r2ybq"]
 

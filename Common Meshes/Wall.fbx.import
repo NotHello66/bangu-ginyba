@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://dpy6dgc78uw8b"
-path="res://.godot/imported/claw.fbx-efcf6de8d96a7cd5c0366f788d11d216.scn"
+uid="uid://du5pekekmsgyi"
+path="res://.godot/imported/Wall.fbx-2ccab1695aaf9e20cc7677a84f44c6f3.scn"
 
 [deps]
 
-source_file="res://Models/claw.fbx"
-dest_files=["res://.godot/imported/claw.fbx-efcf6de8d96a7cd5c0366f788d11d216.scn"]
+source_file="res://Common Meshes/Wall.fbx"
+dest_files=["res://.godot/imported/Wall.fbx-2ccab1695aaf9e20cc7677a84f44c6f3.scn"]
 
 [params]
 
