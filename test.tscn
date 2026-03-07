@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cn8sntu4guw1i" path="res://Common Meshes/tower.tscn" id="3_ppyta"]
 [ext_resource type="PackedScene" uid="uid://bk2tm65rltpyu" path="res://EnemySpawner/EnemySpawner.tscn" id="4_ppyta"]
 [ext_resource type="PackedScene" uid="uid://dtwg1ifxprse1" path="res://UI/PauseMenu/paused_menu.tscn" id="6_g14j6"]
+[ext_resource type="PackedScene" uid="uid://brnpevcbx63ri" path="res://CommonComponents/BoundingBoxComponent.tscn" id="7_0m0f1"]
 [ext_resource type="PackedScene" uid="uid://b1dwbiegtujwp" path="res://UI/Design/fade.tscn" id="7_vbegm"]
 [ext_resource type="Texture2D" uid="uid://ddpfuc2dtne5n" path="res://UI/Design/palletee.png" id="8_ehkex"]
 [ext_resource type="Script" uid="uid://cy6kjm537b1ja" path="res://reward_button.gd" id="9_77dp3"]
@@ -53,6 +54,10 @@ navigation_region_3D = NodePath("../NavigationRegion3D")
 [node name="Player" parent="." unique_id=1143986027 instance=ExtResource("1_8uh7m")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15720415, 3.044023)
 
+[node name="RangedComponent" parent="Player" index="5" unique_id=707547592]
+damage = 1.0
+knockbackForce = 20.0
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=748383864]
 transform = Transform3D(0.90659547, -0.42200133, 0, -0.09707414, -0.20854668, 0.9731831, -0.41068438, -0.8822829, -0.23003279, 0, 12.917353, 0)
 light_energy = 1.634
@@ -78,7 +83,12 @@ damage = 5.0
 AoeRadius = 3.0
 
 [node name="EnemySpawner" parent="." unique_id=1712601701 instance=ExtResource("4_ppyta")]
-maxEnemies = 10
+maxEnemies = 1
+spawnDelay = 0.1
+
+[node name="BoundingBoxComponent" parent="." unique_id=1878699487 node_paths=PackedStringArray("player") instance=ExtResource("7_0m0f1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.725789, 3.0738106, 0)
+player = NodePath("../Player")
 
 [node name="pause" type="CanvasLayer" parent="." unique_id=59243751]
 
