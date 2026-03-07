@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://m465nhr8gnac" path="res://CommonComponents/ranged_component.tscn" id="5_t3w4r"]
 [ext_resource type="PackedScene" uid="uid://chu8vv10twj0q" path="res://CommonComponents/hit_box_component.tscn" id="6_7oo2a"]
 [ext_resource type="PackedScene" uid="uid://f1qjftfkuhr" path="res://CommonComponents/health_component.tscn" id="7_3o4bl"]
+[ext_resource type="Script" uid="uid://cbv1qp3ij15ys" path="res://PlayerController/EnemySlotManager.cs" id="9_s3jlx"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_71ti0"]
 
@@ -70,3 +71,6 @@ healthComponent = NodePath("../HealthComponent")
 
 [node name="HealthComponent" parent="." unique_id=581968543 instance=ExtResource("7_3o4bl")]
 MaxHP = 10000.0
+
+[node name="EnemySlotManager" type="Node3D" parent="." unique_id=2132138387]
+script = ExtResource("9_s3jlx")

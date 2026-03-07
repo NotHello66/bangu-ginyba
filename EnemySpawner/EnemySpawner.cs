@@ -45,12 +45,12 @@ public partial class EnemySpawner : Node3D
         
         enemy.AddToGroup("Enemy");
         enemy.SetName("Testing Enemy nr:" + spawnCount);
-        
+        enemy.SetEnemyLevel(spawnCount);
+
         enemyCount++;
         spawnCount++;
 
         enemy.TreeExited += OnEnemyRemoved;
-        GD.Print($"++++++++++++++++++++++++++++++++++++++ Total Spawned: {spawnCount} | Currently Active: {enemyCount}");
     }
 
     private async void OnEnemyRemoved()
