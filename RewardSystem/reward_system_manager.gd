@@ -1,17 +1,14 @@
 extends Node
 
 const DB = preload("res://RewardSystem/item_database.gd")
-
 const INVESTMENT_TIERS = [
-	{ "cost": 0, "multiplier": 1.0, "label": "No Boost" },
-	{ "cost": 100, "multiplier": 2.0, "label": "Small Boost" },
-	{ "cost": 200, "multiplier": 3.0, "label": "Medium Boost" },
-	{ "cost": 300, "multiplier": 5.0, "label": "Large Boost" },
-	{ "cost": 400, "multiplier": 7.5, "label": "Huge Boost" },
+	{ "cost": 0,   "multiplier": 1.0,  "label": "No Boost" },
+	{ "cost": 100, "multiplier": 2.0,  "label": "Small Boost" },
+	{ "cost": 200, "multiplier": 3.0,  "label": "Medium Boost" },
+	{ "cost": 300, "multiplier": 5.0,  "label": "Large Boost" },
+	{ "cost": 400, "multiplier": 7.5,  "label": "Huge Boost" },
 	{ "cost": 500, "multiplier": 10.0, "label": "MAX Boost" },
 ]
-
-var player_gold: int = 1000
 
 func get_investment_tier(investment: int) -> Dictionary:
 	var best_tier = INVESTMENT_TIERS[0]
@@ -23,21 +20,18 @@ func get_investment_tier(investment: int) -> Dictionary:
 func calculate_chances(investment: int) -> Dictionary:
 	var tier = get_investment_tier(investment)
 	var multiplier = tier.multiplier
-	
 	var chances = {}
-	chances[DB.Rarity.GREY] = DB.BASE_CHANCES[DB.Rarity.GREY] / multiplier
-	chances[DB.Rarity.BLUE] = DB.BASE_CHANCES[DB.Rarity.BLUE] / multiplier
+	chances[DB.Rarity.GREY]   = DB.BASE_CHANCES[DB.Rarity.GREY]   / multiplier
+	chances[DB.Rarity.BLUE]   = DB.BASE_CHANCES[DB.Rarity.BLUE]   / multiplier
 	chances[DB.Rarity.PURPLE] = DB.BASE_CHANCES[DB.Rarity.PURPLE] * multiplier
-	chances[DB.Rarity.PINK] = DB.BASE_CHANCES[DB.Rarity.PINK] * multiplier
-	chances[DB.Rarity.RED] = DB.BASE_CHANCES[DB.Rarity.RED] * multiplier
-	chances[DB.Rarity.GOLD] = DB.BASE_CHANCES[DB.Rarity.GOLD] * multiplier
-	
+	chances[DB.Rarity.PINK]   = DB.BASE_CHANCES[DB.Rarity.PINK]   * multiplier
+	chances[DB.Rarity.RED]    = DB.BASE_CHANCES[DB.Rarity.RED]    * multiplier
+	chances[DB.Rarity.GOLD]   = DB.BASE_CHANCES[DB.Rarity.GOLD]   * multiplier
 	var total = 0.0
 	for key in chances:
 		total += chances[key]
 	for key in chances:
 		chances[key] = (chances[key] / total) * 100.0
-	
 	return chances
 
 func roll_rarity(investment: int) -> DB.Rarity:
@@ -49,19 +43,15 @@ func roll_rarity(investment: int) -> DB.Rarity:
 		cumulative += chances[rarity]
 		if roll <= cumulative:
 			return rarity
-	
 	return DB.Rarity.GREY
 
 func pull_item(investment: int) -> Dictionary:
-	player_gold -= investment
+	Global.gold -= investment
 	var rarity = roll_rarity(investment)
-	
 	var pool = DB.new().get_items_by_rarity(rarity)
 	if pool.is_empty():
 		return {}
-	
-	var item = pool[randi() % pool.size()]
-	return item
+	return pool[randi() % pool.size()]
 
 func can_afford(investment: int) -> bool:
-	return player_gold >= investment
+	return Global.gold >= investment

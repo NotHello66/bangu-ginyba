@@ -24,7 +24,7 @@ func _ready() -> void:
 
 func update_ui() -> void:
 	var investment = int(invest_slider.value)
-	gold_label.text = "Gold: %d" % manager.player_gold
+	gold_label.text = "Gold: %d" % Global.gold
 	invest_value_label.text = "%d gold" % investment
 	var tier = manager.get_investment_tier(investment)
 	boost_label.text = "Boost: %s (x%.1f)" % [tier.label, tier.multiplier]
