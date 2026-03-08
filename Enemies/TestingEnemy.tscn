@@ -4,39 +4,14 @@
 [ext_resource type="PackedScene" uid="uid://f1qjftfkuhr" path="res://CommonComponents/health_component.tscn" id="2_20jf6"]
 [ext_resource type="PackedScene" uid="uid://chu8vv10twj0q" path="res://CommonComponents/hit_box_component.tscn" id="3_ie44c"]
 [ext_resource type="PackedScene" uid="uid://cc2glgwhr8yu1" path="res://CommonComponents/melee_component.tscn" id="4_20jf6"]
+[ext_resource type="PackedScene" uid="uid://bntpfouhik3y4" path="res://Models/scorpo mk1.glb" id="5_ie44c"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lvp4c"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wcl6h"]
-albedo_color = Color(2.1633012, 0.48773527, 2.1353745, 1)
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_38gro"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_kc58s"]
-size = Vector3(0.5, 0.2, 0.1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_20jf6"]
-albedo_color = Color(0, 1, 1, 1)
-emission_enabled = true
-emission = Color(0, 1, 1, 1)
+[sub_resource type="BoxShape3D" id="BoxShape3D_ie44c"]
+size = Vector3(1, 0.5526123, 1.6323853)
 
 [node name="TestingEnemy" type="CharacterBody3D" unique_id=1589266389 node_paths=PackedStringArray("meleeComponent")]
 script = ExtResource("1_kc58s")
 meleeComponent = NodePath("MeleeComponent")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1944393571]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("CapsuleShape3D_lvp4c")
-
-[node name="BodyMesh" type="MeshInstance3D" parent="." unique_id=543675349]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-material_override = SubResource("StandardMaterial3D_wcl6h")
-mesh = SubResource("CapsuleMesh_38gro")
-
-[node name="FaceMesh" type="MeshInstance3D" parent="BodyMesh" unique_id=1604482895]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4632032, 0.477432)
-mesh = SubResource("BoxMesh_kc58s")
-surface_material_override/0 = SubResource("StandardMaterial3D_20jf6")
 
 [node name="HealthComponent" parent="." unique_id=581968543 instance=ExtResource("2_20jf6")]
 
@@ -53,3 +28,10 @@ avoidance_enabled = true
 debug_enabled = true
 debug_use_custom = true
 debug_path_custom_color = Color(0, 1, 0, 1)
+
+[node name="scorpo mk1" parent="." unique_id=1213134229 instance=ExtResource("5_ie44c")]
+transform = Transform3D(-1.3113417e-08, 0, -0.3, 0, 0.3, 0, 0.3, 0, -1.3113417e-08, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=774993414]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.26507568, -0.0016174316)
+shape = SubResource("BoxShape3D_ie44c")

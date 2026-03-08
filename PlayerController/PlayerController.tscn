@@ -1,61 +1,44 @@
 [gd_scene format=3 uid="uid://cjhwvn2bxs5i"]
 
 [ext_resource type="Script" uid="uid://nfaskd34qe25" path="res://PlayerController/PlayerController.cs" id="1_ycagd"]
+[ext_resource type="PackedScene" uid="uid://x6pq7bid0kk0" path="res://PlayerController/player model mk1.glb" id="2_0458q"]
 [ext_resource type="Script" uid="uid://beo0euo4okp2f" path="res://PlayerController/Camera3d.cs" id="2_ps8a3"]
 [ext_resource type="Script" uid="uid://bx3ucfvo8g1r6" path="res://Scripts/CameraObstructionFade.cs" id="3_3o4bl"]
-[ext_resource type="Script" uid="uid://bl0fgmdufmlwn" path="res://PlayerController/CameraPosTarget.cs" id="3_t3w4r"]
 [ext_resource type="Script" uid="uid://l6yynh7igr78" path="res://PlayerController/PlayerControllerMouse.cs" id="4_ps8a3"]
 [ext_resource type="PackedScene" uid="uid://m465nhr8gnac" path="res://CommonComponents/ranged_component.tscn" id="5_t3w4r"]
 [ext_resource type="PackedScene" uid="uid://chu8vv10twj0q" path="res://CommonComponents/hit_box_component.tscn" id="6_7oo2a"]
 [ext_resource type="PackedScene" uid="uid://f1qjftfkuhr" path="res://CommonComponents/health_component.tscn" id="7_3o4bl"]
 [ext_resource type="Script" uid="uid://cbv1qp3ij15ys" path="res://PlayerController/EnemySlotManager.cs" id="9_s3jlx"]
+[ext_resource type="PackedScene" uid="uid://rtoq6dwjnfjw" path="res://RewardSystem/EconomyComponent.tscn" id="10_m11co"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_71ti0"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7oo2a"]
-albedo_color = Color(0.94, 0.376, 0.188, 1)
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_3o4bl"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s3jlx"]
-albedo_color = Color(0.685, 4.165, 4.165, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_m11co"]
+radius = 0.5180664
+height = 2.1499023
 
 [node name="Player" type="CharacterBody3D" unique_id=1143986027 groups=["Player"]]
 script = ExtResource("1_ycagd")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=110225932]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0744629, -0.013867676)
 shape = SubResource("CapsuleShape3D_71ti0")
 
 [node name="Meshes" type="Node3D" parent="." unique_id=1135105009]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Meshes" unique_id=860424263]
-material_override = SubResource("StandardMaterial3D_7oo2a")
-mesh = SubResource("CapsuleMesh_3o4bl")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="Meshes" unique_id=906235303]
-transform = Transform3D(0.4348334, 0, 0, 0, 0.16763186, 0, 0, 0, 0.18495351, -0.007820249, 0.44117564, 0.46314836)
-material_override = SubResource("StandardMaterial3D_s3jlx")
-mesh = SubResource("BoxMesh_m11co")
+[node name="player model mk1" parent="Meshes" unique_id=1734594285 instance=ExtResource("2_0458q")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.0215195, 0)
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=536660127 node_paths=PackedStringArray("Target")]
 unique_name_in_owner = true
-transform = Transform3D(0.99994516, -0.0072082994, 0.0075959633, 0, 0.72537434, 0.6883545, -0.010471784, -0.68831676, 0.7253346, 0.027, 10, 10)
+transform = Transform3D(0.9573127, -0.19888328, 0.20975684, 0.006369446, 0.7400035, 0.6725729, -0.28898427, -0.64252657, 0.70968145, 3.027, 11.015719, 10.702759)
 script = ExtResource("2_ps8a3")
-Target = NodePath("../CameraPosTarget")
+Target = NodePath("..")
+MinDistance = 2.0
 
 [node name="CameraObstructionFade" type="Node3D" parent="Camera3D" unique_id=707555746 node_paths=PackedStringArray("player")]
 script = ExtResource("3_3o4bl")
 player = NodePath("../..")
-
-[node name="CameraPosTarget" type="Node3D" parent="." unique_id=443845736 node_paths=PackedStringArray("target")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 10)
-script = ExtResource("3_t3w4r")
-target = NodePath("../Meshes/MeshInstance3D")
 
 [node name="PlayerControllerMouse" type="Node3D" parent="." unique_id=1734387411 node_paths=PackedStringArray("camera")]
 script = ExtResource("4_ps8a3")
@@ -74,3 +57,5 @@ MaxHP = 10000.0
 
 [node name="EnemySlotManager" type="Node3D" parent="." unique_id=2132138387]
 script = ExtResource("9_s3jlx")
+
+[node name="EconomyComponent" parent="." unique_id=111476471 instance=ExtResource("10_m11co")]

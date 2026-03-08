@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://rgb0jq431ckp"]
 
-[ext_resource type="PackedScene" uid="uid://du5pekekmsgyi" path="res://Models/Wall.fbx" id="1_1xl55"]
+[ext_resource type="PackedScene" uid="uid://du5pekekmsgyi" path="res://Common Meshes/Wall.fbx" id="1_1xl55"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1xl55"]
 size = Vector3(9.845566, 2.2269611, 1.6271973)

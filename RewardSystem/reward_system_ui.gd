@@ -14,7 +14,7 @@ const DB = preload("res://RewardSystem/item_database.gd")
 @onready var chance_container: VBoxContainer = $Panel/chanceContainer
 
 var manager: GamblingManager
-
+signal gold_changed(newGold: float)
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	manager = GamblingManager.new()
@@ -53,6 +53,7 @@ func _on_pull_button_pressed() -> void:
 	if !manager.can_afford(investment):
 		return
 	var item = manager.pull_item(investment)
+	emit_signal("gold_changed", investment)
 	if item.is_empty():
 		return
 	show_result(item)
