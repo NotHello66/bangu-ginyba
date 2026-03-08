@@ -83,7 +83,7 @@ damage = 5.0
 AoeRadius = 3.0
 
 [node name="EnemySpawner" parent="." unique_id=1712601701 instance=ExtResource("4_ppyta")]
-maxEnemies = 1
+maxEnemies = 20
 spawnDelay = 0.1
 
 [node name="BoundingBoxComponent" parent="." unique_id=1878699487 node_paths=PackedStringArray("player") instance=ExtResource("7_0m0f1")]

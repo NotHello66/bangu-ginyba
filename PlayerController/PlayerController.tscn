@@ -4,7 +4,6 @@
 [ext_resource type="PackedScene" uid="uid://x6pq7bid0kk0" path="res://PlayerController/player model mk1.glb" id="2_0458q"]
 [ext_resource type="Script" uid="uid://beo0euo4okp2f" path="res://PlayerController/Camera3d.cs" id="2_ps8a3"]
 [ext_resource type="Script" uid="uid://bx3ucfvo8g1r6" path="res://Scripts/CameraObstructionFade.cs" id="3_3o4bl"]
-[ext_resource type="Script" uid="uid://bl0fgmdufmlwn" path="res://PlayerController/CameraPosTarget.cs" id="3_t3w4r"]
 [ext_resource type="Script" uid="uid://l6yynh7igr78" path="res://PlayerController/PlayerControllerMouse.cs" id="4_ps8a3"]
 [ext_resource type="PackedScene" uid="uid://m465nhr8gnac" path="res://CommonComponents/ranged_component.tscn" id="5_t3w4r"]
 [ext_resource type="PackedScene" uid="uid://chu8vv10twj0q" path="res://CommonComponents/hit_box_component.tscn" id="6_7oo2a"]
@@ -32,18 +31,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.0215195, 0)
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=536660127 node_paths=PackedStringArray("Target")]
 unique_name_in_owner = true
-transform = Transform3D(0.99994516, -0.0072082994, 0.0075959633, 0, 0.72537434, 0.6883545, -0.010471784, -0.68831676, 0.7253346, 0.027, 10, 10)
+transform = Transform3D(0.9573127, -0.19888328, 0.20975684, 0.006369446, 0.7400035, 0.6725729, -0.28898427, -0.64252657, 0.70968145, 3.027, 11.015719, 10.702759)
 script = ExtResource("2_ps8a3")
-Target = NodePath("../CameraPosTarget")
+Target = NodePath("..")
+MinDistance = 2.0
 
 [node name="CameraObstructionFade" type="Node3D" parent="Camera3D" unique_id=707555746 node_paths=PackedStringArray("player")]
 script = ExtResource("3_3o4bl")
 player = NodePath("../..")
-
-[node name="CameraPosTarget" type="Node3D" parent="." unique_id=443845736 node_paths=PackedStringArray("target")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 10)
-script = ExtResource("3_t3w4r")
-target = NodePath("../Meshes/player model mk1")
 
 [node name="PlayerControllerMouse" type="Node3D" parent="." unique_id=1734387411 node_paths=PackedStringArray("camera")]
 script = ExtResource("4_ps8a3")

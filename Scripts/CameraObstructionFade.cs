@@ -30,14 +30,18 @@ public partial class CameraObstructionFade : Node3D
             if (result.Count == 0) break;
 
             var collider = result["collider"].As<GodotObject>();
+           // GD.Print("Collider: " + collider.GetType());
             if (collider is CollisionObject3D collision)
             {
-
+                //GD.Print("Hit: " + collision.Name);
                 if (collision == null) break;
 
                 var meshes = FindAllMeshes(collision);
                 foreach (var mesh in meshes)
+                {
+                    //GD.Print("Mesh: " + mesh.Name);
                     FadeObject(mesh);
+                }
 
                 exceptions.Add(collision.GetRid());
             }
@@ -53,7 +57,7 @@ public partial class CameraObstructionFade : Node3D
 
     private void SearchAllRecursive(Node node, List<MeshInstance3D> meshes)
     {
-        if (node is MeshInstance3D mesh)
+        if (node is MeshInstance3D mesh && mesh.IsInGroup("SeeThru"))
             meshes.Add(mesh);
 
         foreach (Node child in node.GetChildren())
@@ -65,7 +69,19 @@ public partial class CameraObstructionFade : Node3D
         if (fadedObjects.ContainsKey(mesh)) return;
 
         var original = mesh.GetActiveMaterial(0);
-        if (original == null) return;
+        if (original == null)
+        {
+            var fallback = new StandardMaterial3D();
+            fallback.AlbedoColor = new Color(0.8f, 0.8f, 0.8f, 1.0f);
+            fallback.Transparency = BaseMaterial3D.TransparencyEnum.Alpha;
+            fallback.ShadingMode = BaseMaterial3D.ShadingModeEnum.Unshaded;
+            Color fc = fallback.AlbedoColor;
+            fc.A = fadeAlpha;
+            fallback.AlbedoColor = fc;
+            mesh.SetSurfaceOverrideMaterial(0, fallback);
+            fadedObjects[mesh] = null;
+            return;
+        }
 
         fadedObjects[mesh] = original;
 
