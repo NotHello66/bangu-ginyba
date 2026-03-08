@@ -18,6 +18,8 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	player_gold = PlayerEcon.currentGold
 	#print("PlayerGold %d" % player_gold)
+func _physics_process(delta: float) -> void:
+	Global.gold = player_gold
 
 func get_investment_tier(investment: int) -> Dictionary:
 	var best_tier = INVESTMENT_TIERS[0]
@@ -60,6 +62,7 @@ func roll_rarity(investment: int) -> DB.Rarity:
 
 func pull_item(investment: int) -> Dictionary:
 	player_gold -= investment
+	Global.gold = Global.gold - investment
 	var rarity = roll_rarity(investment)
 	
 	var pool = DB.new().get_items_by_rarity(rarity)

@@ -30,20 +30,22 @@ public partial class CameraObstructionFade : Node3D
             if (result.Count == 0) break;
 
             var collider = result["collider"].As<GodotObject>();
-           // GD.Print("Collider: " + collider.GetType());
+            GD.Print("Collider: " + collider.GetType());
             if (collider is CollisionObject3D collision)
             {
-                //GD.Print("Hit: " + collision.Name);
+                GD.Print("Hit: " + collision.Name);
                 if (collision == null) break;
-
-                var meshes = FindAllMeshes(collision);
-                foreach (var mesh in meshes)
+                if (collision.IsInGroup("SeeThru"))
                 {
-                    //GD.Print("Mesh: " + mesh.Name);
-                    FadeObject(mesh);
-                }
+                    var meshes = FindAllMeshes(collision);
+                    foreach (var mesh in meshes)
+                    {
+                        GD.Print("Mesh: " + mesh.Name);
+                        FadeObject(mesh);
+                    }
 
-                exceptions.Add(collision.GetRid());
+                    exceptions.Add(collision.GetRid());
+                }
             }
         }
     }
@@ -57,7 +59,7 @@ public partial class CameraObstructionFade : Node3D
 
     private void SearchAllRecursive(Node node, List<MeshInstance3D> meshes)
     {
-        if (node is MeshInstance3D mesh && mesh.IsInGroup("SeeThru"))
+        if (node is MeshInstance3D mesh)
             meshes.Add(mesh);
 
         foreach (Node child in node.GetChildren())

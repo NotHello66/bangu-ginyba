@@ -5,7 +5,7 @@ var pause_reasons: Array = []
 
 signal gold_changed(amount: int)  # add this line
 
-var gold: int = 1000:
+var gold: int = 100:
 	set(value):
 		gold = value
 		gold_changed.emit(gold)

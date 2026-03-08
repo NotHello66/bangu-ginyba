@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://ct8g8pmvm2ot8"]
 
 [ext_resource type="PackedScene" uid="uid://cjhwvn2bxs5i" path="res://PlayerController/PlayerController.tscn" id="1_fivl7"]
-[ext_resource type="Material" uid="uid://bp01s281adhtp" path="res://Textures/rock material.tres" id="2_amkr4"]
+[ext_resource type="Material" path="res://Textures/rock material.tres" id="2_amkr4"]
 [ext_resource type="Texture2D" uid="uid://8wx25lb8pwff" path="res://Textures/4571-normal.jpg" id="2_lali3"]
 [ext_resource type="PackedScene" uid="uid://bk2tm65rltpyu" path="res://EnemySpawner/EnemySpawner.tscn" id="4_6r4m0"]
 [ext_resource type="Script" uid="uid://mc4w82onwil4" path="res://Scripts/tower_manager.gd" id="5_bspht"]
@@ -275,7 +275,7 @@ shape = SubResource("BoxShape3D_bspht")
 transform = Transform3D(0.9526243, 0, 0.30414945, 0, 1, 0, -0.30414945, 0, 0.9526243, 53.425217, 1.645935, 12.281843)
 shape = SubResource("BoxShape3D_bspht")
 
-[node name="palisade" type="StaticBody3D" parent="NavigationRegion3D/Meshes" unique_id=526851613]
+[node name="palisade" type="StaticBody3D" parent="NavigationRegion3D/Meshes" unique_id=526851613 groups=["SeeThru"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -69.05206, 0, 0)
 
 [node name="MeshInstance3D12" type="MeshInstance3D" parent="NavigationRegion3D/Meshes/palisade" unique_id=693983518 groups=["SeeThru"]]
@@ -286,7 +286,7 @@ mesh = SubResource("BoxMesh_amkr4")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3511963, 5.5628986, 0.29364383)
 shape = SubResource("BoxShape3D_amkr4")
 
-[node name="palisade2" type="StaticBody3D" parent="NavigationRegion3D/Meshes" unique_id=1244523531]
+[node name="palisade2" type="StaticBody3D" parent="NavigationRegion3D/Meshes" unique_id=1244523531 groups=["SeeThru"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -61.832726, -1.9383335, 0)
 
 [node name="MeshInstance3D12" type="MeshInstance3D" parent="NavigationRegion3D/Meshes/palisade2" unique_id=1615425910 groups=["SeeThru"]]
@@ -297,7 +297,7 @@ mesh = SubResource("BoxMesh_amkr4")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3511963, 5.5628986, 0.29364383)
 shape = SubResource("BoxShape3D_amkr4")
 
-[node name="palisade3" type="StaticBody3D" parent="NavigationRegion3D/Meshes" unique_id=700309432]
+[node name="palisade3" type="StaticBody3D" parent="NavigationRegion3D/Meshes" unique_id=700309432 groups=["SeeThru"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -54.826088, 0, 0)
 
 [node name="MeshInstance3D12" type="MeshInstance3D" parent="NavigationRegion3D/Meshes/palisade3" unique_id=928273270 groups=["SeeThru"]]
@@ -308,7 +308,7 @@ mesh = SubResource("BoxMesh_amkr4")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3511963, 5.5628986, 0.29364383)
 shape = SubResource("BoxShape3D_amkr4")
 
-[node name="palisade4" type="StaticBody3D" parent="NavigationRegion3D/Meshes" unique_id=713808475]
+[node name="palisade4" type="StaticBody3D" parent="NavigationRegion3D/Meshes" unique_id=713808475 groups=["SeeThru"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.7245, -1.5127516, 0)
 
 [node name="MeshInstance3D12" type="MeshInstance3D" parent="NavigationRegion3D/Meshes/palisade4" unique_id=1999602479 groups=["SeeThru"]]
@@ -319,7 +319,7 @@ mesh = SubResource("BoxMesh_amkr4")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3511963, 5.5628986, 0.29364383)
 shape = SubResource("BoxShape3D_amkr4")
 
-[node name="palisade5" type="StaticBody3D" parent="NavigationRegion3D/Meshes" unique_id=1013413755]
+[node name="palisade5" type="StaticBody3D" parent="NavigationRegion3D/Meshes" unique_id=1013413755 groups=["SeeThru"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40.614124, 0, 0)
 
 [node name="MeshInstance3D12" type="MeshInstance3D" parent="NavigationRegion3D/Meshes/palisade5" unique_id=211945176 groups=["SeeThru"]]
@@ -330,7 +330,7 @@ mesh = SubResource("BoxMesh_amkr4")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3511963, 5.5628986, 0.29364383)
 shape = SubResource("BoxShape3D_amkr4")
 
-[node name="palisade6" type="StaticBody3D" parent="NavigationRegion3D/Meshes" unique_id=1796060468]
+[node name="palisade6" type="StaticBody3D" parent="NavigationRegion3D/Meshes" unique_id=1796060468 groups=["SeeThru"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.565617, -1.7771139, 0)
 
 [node name="MeshInstance3D12" type="MeshInstance3D" parent="NavigationRegion3D/Meshes/palisade6" unique_id=683211971 groups=["SeeThru"]]
@@ -341,7 +341,7 @@ mesh = SubResource("BoxMesh_amkr4")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3511963, 5.5628986, 0.29364383)
 shape = SubResource("BoxShape3D_amkr4")
 
-[node name="palisade7" type="StaticBody3D" parent="NavigationRegion3D/Meshes" unique_id=1158731305]
+[node name="palisade7" type="StaticBody3D" parent="NavigationRegion3D/Meshes" unique_id=1158731305 groups=["SeeThru"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.262886, 0, 0)
 
 [node name="MeshInstance3D12" type="MeshInstance3D" parent="NavigationRegion3D/Meshes/palisade7" unique_id=2007086227 groups=["SeeThru"]]
@@ -352,7 +352,7 @@ mesh = SubResource("BoxMesh_amkr4")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3511963, 5.5628986, 0.29364383)
 shape = SubResource("BoxShape3D_amkr4")
 
-[node name="palisade8" type="StaticBody3D" parent="NavigationRegion3D/Meshes" unique_id=1554327743]
+[node name="palisade8" type="StaticBody3D" parent="NavigationRegion3D/Meshes" unique_id=1554327743 groups=["SeeThru"]]
 transform = Transform3D(-0.016579822, 0, -0.99986255, 0, 1, 0, 0.99986255, 0, -0.016579822, -21.966791, 0, -47.001568)
 
 [node name="MeshInstance3D12" type="MeshInstance3D" parent="NavigationRegion3D/Meshes/palisade8" unique_id=1971679198 groups=["SeeThru"]]
@@ -363,7 +363,7 @@ mesh = SubResource("BoxMesh_amkr4")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3511963, 5.5628986, 0.29364383)
 shape = SubResource("BoxShape3D_amkr4")
 
-[node name="palisade9" type="StaticBody3D" parent="NavigationRegion3D/Meshes" unique_id=418919123]
+[node name="palisade9" type="StaticBody3D" parent="NavigationRegion3D/Meshes" unique_id=418919123 groups=["SeeThru"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.135052, -1.3511724, -50.32396)
 
 [node name="MeshInstance3D12" type="MeshInstance3D" parent="NavigationRegion3D/Meshes/palisade9" unique_id=1019697584 groups=["SeeThru"]]
