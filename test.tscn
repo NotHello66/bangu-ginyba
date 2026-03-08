@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://cy6kjm537b1ja" path="res://reward_button.gd" id="9_77dp3"]
 [ext_resource type="FontFile" uid="uid://bxheo3lrppx2b" path="res://UI/Design/Metamorphous-Regular.ttf" id="9_xersf"]
 [ext_resource type="PackedScene" uid="uid://boe1vnxfmybh4" path="res://RewardSystem/rewardSystemUI.tscn" id="11_5tkv4"]
+[ext_resource type="PackedScene" uid="uid://dxq2mkw7qqwy0" path="res://UI/HUD/hud.tscn" id="12_5tkv4"]
 
 [sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_8uh7m"]
 
@@ -126,6 +127,8 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
+
+[node name="HUD" parent="." unique_id=1459602689 instance=ExtResource("12_5tkv4")]
 
 [connection signal="pressed" from="rewardButton" to="rewardButton" method="_on_pressed"]
 

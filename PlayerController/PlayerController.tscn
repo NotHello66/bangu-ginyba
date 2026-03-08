@@ -64,4 +64,4 @@ projectileSpeed = 10.0
 healthComponent = NodePath("../HealthComponent")
 
 [node name="HealthComponent" parent="." unique_id=581968543 instance=ExtResource("7_3o4bl")]
-MaxHP = 10000.0
+MaxHP = 500.0

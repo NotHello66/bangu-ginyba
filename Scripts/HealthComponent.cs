@@ -3,6 +3,7 @@ using System;
 
 public partial class HealthComponent : Node3D
 {
+	[Signal] public delegate void HealthChangedEventHandler(float current, float max);
 	[Export] float MaxHP;
 	float HP;
 	public bool isDead = false;
@@ -16,8 +17,10 @@ public partial class HealthComponent : Node3D
 	public void Damage(Attack attack)
 	{
 		HP -= attack.damage;
-		if(HP <= 0)
+		if (HP <= 0)
 			isDead = true;
-		GD.Print($"| { GetParent().Name} | HP: {HP} | isDead: {isDead} |");
+
+		EmitSignal(SignalName.HealthChanged, HP, MaxHP);
+		GD.Print($"| {GetParent().Name} | HP: {HP} | isDead: {isDead} |");
 	}
 }

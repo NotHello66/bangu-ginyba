@@ -3,6 +3,13 @@ extends Node
 var using_wasd: bool = true
 var pause_reasons: Array = []
 
+signal gold_changed(amount: int)  # add this line
+
+var gold: int = 1000:
+	set(value):
+		gold = value
+		gold_changed.emit(gold)
+
 func add_pause(reason: String) -> void:
 	if reason not in pause_reasons:
 		pause_reasons.append(reason)
