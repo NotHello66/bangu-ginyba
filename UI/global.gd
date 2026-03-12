@@ -3,7 +3,7 @@ extends Node
 var using_wasd: bool = true
 var pause_reasons: Array = []
 
-signal gold_changed(amount: int)  # add this line
+signal gold_changed(amount: int)
 
 var gold: int = 1000:
 	set(value):
