@@ -45,15 +45,20 @@ public partial class TowerComponent : Node3D
 		{
 			if (node is TestingEnemy enemy)
 			{
-				float distance = GlobalPosition.DistanceTo(enemy.GlobalPosition);
-
-				if (distance < closestDistance)
+				if (!enemy.healthComponent.isDead)
 				{
-					closestDistance = distance;
-					closest = enemy;
+					float distance = GlobalPosition.DistanceTo(enemy.GlobalPosition);
+
+					if (distance < closestDistance)
+					{
+						closestDistance = distance;
+						closest = enemy;
+					}
+
 				}
 			}
 		}
+
 		return closest;
 	}
 }

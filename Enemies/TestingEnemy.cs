@@ -3,16 +3,19 @@ using System;
 
 public partial class TestingEnemy : CharacterBody3D
 {
-    // Stats
+    [ExportGroup("Stats")]
     [Export] private float speed = 5f;
     [Export] private float knockBackResist = 10f;
-    public int enemyLevel;
+    private int enemyLevel;
 
-    // Position Rotation
-    private Vector3 lastDirection = Vector3.Zero;
+    [ExportGroup("Position & Rotation")]
     [Export] float bodyRotationSpeed = 5f;
+    [Export] private float WobbleAmplitude = 3.0f;
+    [Export] private float WobbleFrequency = 4.0f;
+    private float randomPhaseOffset;
+    private Vector3 lastDirection = Vector3.Zero;
 
-    // Combat framework
+    [ExportGroup("Combat framework")]
     [Export] private double stunTimer = 2;
     [Export] private float attackRange = 2f;
     [Export] private float stopChaseDistance = 1.8f;
@@ -22,7 +25,7 @@ public partial class TestingEnemy : CharacterBody3D
     private bool isJumping = false;
     private double attackTimer = 0;
     private double deadTimer = 0;
-    public EnemyState currentState = EnemyState.Idle;
+    private EnemyState currentState = EnemyState.Idle;
 
     // Child Nodes
     public HealthComponent healthComponent;
@@ -33,13 +36,24 @@ public partial class TestingEnemy : CharacterBody3D
 
     // Slot Management
     private EnemySlotManager slotManager;
-    private int mySlotIndex = -1;
 
+    [ExportGroup("Rewards")]
     [Export] float GoldReward = 5f;
-
-
     [Signal]
     public delegate void EnemyKilledEventHandler(float goldReward);
+
+    public void SetEnemyLevel(int level)
+    {
+        this.enemyLevel = level;
+        GD.Print($"++++++++++++++++++++++++++++++++++++++ Enemy Stats ++++++++++++++++++++++++++++++++++++++");
+        GD.Print($"                                Level: {enemyLevel} ");
+    }
+    
+    private void ChangeState(EnemyState newState)
+    {
+        currentState = newState;
+    }
+
     public override void _Ready()
     {
         healthComponent = GetNode("HealthComponent") as HealthComponent;
@@ -50,12 +64,11 @@ public partial class TestingEnemy : CharacterBody3D
         {
             slotManager = player.GetNodeOrNull<EnemySlotManager>("EnemySlotManager");
         }
+
+        randomPhaseOffset = (float)GD.RandRange(0.0, Mathf.Pi * 2);
     }
 
-    public override void _Process(double delta)
-    {
-
-    }
+    public override void _Process(double delta){}
 
     public override void _PhysicsProcess(double delta)
     {
@@ -102,11 +115,49 @@ public partial class TestingEnemy : CharacterBody3D
 
     public override void _ExitTree()
     {
-        if (slotManager != null && mySlotIndex != -1)
+        if (slotManager != null)
         {
-            slotManager.ReleaseSlot(mySlotIndex, this);
-            mySlotIndex = -1;
+            int currentIndex = slotManager.GetEnemySlotIndex(this);
+            if (currentIndex != -1)
+            {
+                slotManager.ReleaseSlot(currentIndex, this);
+            }
         }
+    }
+
+    #region #################################################################### Chase State ####################################################################
+    private void HandleChasing(ref Vector3 currentVelocity, double delta)
+    {
+        float distance = player.GlobalPosition.DistanceSquaredTo(GlobalPosition);
+
+        float attackRangeSq = attackRange * attackRange;
+        float stopChaseSq = stopChaseDistance * stopChaseDistance;
+
+        if (distance <= attackRangeSq)
+        {
+            ChangeState(EnemyState.Attacking);
+            return;
+        }
+
+        Vector3 direction = HandleNavigation();
+
+        if (distance <= stopChaseSq)
+            direction = Vector3.Zero;
+
+        Vector3 targetVelocity = direction * speed;
+
+        if (direction != Vector3.Zero)
+        {
+            Vector3 rightVector = Vector3.Up.Cross(direction).Normalized();
+
+            float time = Time.GetTicksMsec() / 1000.0f;
+            float wobbleMultiplier = Mathf.Sin((time * WobbleFrequency) + randomPhaseOffset) * WobbleAmplitude;
+
+            targetVelocity += rightVector * wobbleMultiplier;
+        }
+
+        HandleGravity(ref currentVelocity, delta);
+        HandleMovement(ref currentVelocity, targetVelocity, delta);
     }
 
     private Vector3 HandleNavigation()
@@ -117,22 +168,24 @@ public partial class TestingEnemy : CharacterBody3D
             return Vector3.Zero;
         }
 
-        if (mySlotIndex == -1 && slotManager != null)
+        Vector3 targetPos = player.GlobalPosition; 
+
+        if (slotManager != null)
         {
-            mySlotIndex = slotManager.RequestSlot(this);
+            int currentIndex = slotManager.GetEnemySlotIndex(this);
+
+            if (currentIndex == -1)
+            {
+                currentIndex = slotManager.RequestSlot(this);
+            }
+
+            if (currentIndex != -1)
+            {
+                targetPos = slotManager.GetSlotPosition(currentIndex);
+            }
         }
 
-        Vector3 targetPos;
-        if (mySlotIndex != -1 && slotManager != null)
-        {
-            targetPos = slotManager.GetSlotPosition(mySlotIndex);
-        }
-        else
-        {
-            targetPos = player.GlobalPosition;
-        }
-
-        navigationAgent3D.TargetPosition = targetPos;
+        navigationAgent3D.TargetPosition = navigationAgent3D.TargetPosition.Lerp(targetPos, 0.1f); ;
 
         var destination = navigationAgent3D.GetNextPathPosition();
         var direction = (destination - GlobalPosition).Normalized();
@@ -165,11 +218,13 @@ public partial class TestingEnemy : CharacterBody3D
             Rotation.Z
         );
     }
+    #endregion
 
-    private void HandleGravity(ref Vector3 velocity, double delta)
+    #region #################################################################### Dead State ####################################################################
+    private void HandleDead(ref Vector3 currentVelocity, double delta)
     {
-        if (!IsOnFloor())
-            velocity += GetGravity() * (float)delta;
+        // Drop Some Loot
+        HandleDeath(ref currentVelocity, delta);
     }
 
     private void HandleDeath(ref Vector3 velocity, double delta)
@@ -193,28 +248,9 @@ public partial class TestingEnemy : CharacterBody3D
             QueueFree();
         }
     }
+    #endregion
 
-    private void ChangeState(EnemyState newState)
-    {
-        currentState = newState;
-    }
-
-    private void HandleDead(ref Vector3 currentVelocity, double delta)
-    {
-        // Drop Some Loot
-        HandleDeath(ref currentVelocity, delta);
-    }
-
-    private void HandleStunned(ref Vector3 currentVelocity, double delta)
-    {
-        //currentVelocity = Vector3.Zero;
-        stunTimer -= delta;
-        // spining stars above head (worst case change collor)
-
-        if (stunTimer <= 0)
-            ChangeState(EnemyState.Chasing);
-    }
-
+    #region #################################################################### Attack State ####################################################################
     private void HandleAttacking(ref Vector3 currentVelocity, double delta)
     {
         if (meleeComponent == null)
@@ -223,7 +259,6 @@ public partial class TestingEnemy : CharacterBody3D
             return;
         }
 
-        // Stop horizontal movement while attacking/jumping
         currentVelocity.X = 0;
         currentVelocity.Z = 0;
 
@@ -241,9 +276,6 @@ public partial class TestingEnemy : CharacterBody3D
                 {
                     PerformStrikeAttack();
                     attackTimer = meleeComponent.cooldown;
-
-                    // Note: You may need to manually set isAttacking = true here if 
-                    // PerformStrikeAttack() doesn't do it internally.
                 }
             }
             else if (!IsPlayerInAttackRange())
@@ -305,35 +337,28 @@ public partial class TestingEnemy : CharacterBody3D
     {
         meleeComponent.PerformClawAttack();
     }
+    #endregion
+
+    private void HandleGravity(ref Vector3 velocity, double delta)
+    {
+        if (!IsOnFloor())
+            velocity += GetGravity() * (float)delta;
+    }
+
+    private void HandleStunned(ref Vector3 currentVelocity, double delta)
+    {
+        //currentVelocity = Vector3.Zero;
+        stunTimer -= delta;
+        // spining stars above head (worst case change collor)
+
+        if (stunTimer <= 0)
+            ChangeState(EnemyState.Chasing);
+    }
 
     private void PerformJump(ref Vector3 currentVelocity)
     {
         isJumping = true;
         currentVelocity.Y = jumpForce;
-    }
-
-    private void HandleChasing(ref Vector3 currentVelocity, double delta)
-    {
-        float distance = player.GlobalPosition.DistanceSquaredTo(GlobalPosition);
-
-        float attackRangeSq = attackRange * attackRange;
-        float stopChaseSq = stopChaseDistance * stopChaseDistance;
-
-        if (distance <= attackRangeSq)
-        {
-            ChangeState(EnemyState.Attacking);
-            return;
-        }
-
-        Vector3 direction = HandleNavigation();
-
-        if (distance <= stopChaseSq)
-            direction = Vector3.Zero;
-
-        Vector3 targetVelocity = direction * speed;
-
-        HandleGravity(ref currentVelocity, delta);
-        HandleMovement(ref currentVelocity, targetVelocity, delta);
     }
 
     private void HandleIdle(ref Vector3 currentVelocity, double delta)
@@ -360,12 +385,5 @@ public partial class TestingEnemy : CharacterBody3D
         Attacking,
         Stunned,
         Dead
-    }
-
-    public void SetEnemyLevel(int level)
-    {
-        this.enemyLevel = level;
-        GD.Print($"++++++++++++++++++++++++++++++++++++++ Enemy Stats ++++++++++++++++++++++++++++++++++++++");
-        GD.Print($"                                Level: {enemyLevel} ");
     }
 }
