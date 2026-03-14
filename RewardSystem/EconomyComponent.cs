@@ -19,7 +19,7 @@ public partial class EconomyComponent : Node3D
 
     private void OnNodeAdded(Node node)
     {
-        if (node is TestingEnemy enemy)
+        if (node is Enemy enemy)
         {
             enemy.EnemyKilled += OnEnemyKilled;
         }

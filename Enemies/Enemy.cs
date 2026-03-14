@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class TestingEnemy : CharacterBody3D
+public partial class Enemy : CharacterBody3D
 {
     [ExportGroup("Stats")]
     [Export] private float speed = 5f;
@@ -19,13 +19,17 @@ public partial class TestingEnemy : CharacterBody3D
     [Export] private double stunTimer = 2;
     [Export] private float attackRange = 2f;
     [Export] private float stopChaseDistance = 1.8f;
-    [Export] private MeleeComponent meleeComponent;
     [Export] private float jumpForce = 5f;
+    [Export] private bool isJumpingType = false;
     private bool isAttacking = false;
     private bool isJumping = false;
     private double attackTimer = 0;
     private double deadTimer = 0;
     private EnemyState currentState = EnemyState.Idle;
+    private MeleeComponent meleeComponent;
+    private RangedComponent rangedComponent;
+    private bool IsMelee => meleeComponent != null;
+    private bool IsRanged => rangedComponent != null;
 
     // Child Nodes
     public HealthComponent healthComponent;
@@ -58,6 +62,9 @@ public partial class TestingEnemy : CharacterBody3D
     {
         healthComponent = GetNode("HealthComponent") as HealthComponent;
         navigationAgent3D = GetNode("NavigationAgent3D") as NavigationAgent3D;
+
+        meleeComponent = GetNodeOrNull<MeleeComponent>("MeleeComponent");
+        rangedComponent = GetNodeOrNull<RangedComponent>("RangedComponent");
 
         player = GetTree().GetFirstNodeInGroup("Player") as Node3D;
         if (player != null)
@@ -250,46 +257,51 @@ public partial class TestingEnemy : CharacterBody3D
     }
     #endregion
 
-    #region #################################################################### Attack State ####################################################################
+    #region #################################################################### Attack State ###################################################################
     private void HandleAttacking(ref Vector3 currentVelocity, double delta)
     {
-        if (meleeComponent == null)
-        {
-            GD.PrintErr("MeleeComponent is missing on TestingEnemy!");
-            return;
-        }
-
         currentVelocity.X = 0;
         currentVelocity.Z = 0;
 
         HandleGravity(ref currentVelocity, delta);
 
-        if (!isJumping && !isAttacking)
+        if (!IsPlayerInAttackRange())
         {
-            if (CanPerformAttack())
+            ChangeState(EnemyState.Chasing);
+            return;
+        }
+
+        if (CanPerformAttack())
+        {
+            if (IsMelee)
             {
-                if (enemyLevel < 5)
+                if (isJumpingType)
                 {
                     PerformJump(ref currentVelocity);
                 }
                 else
                 {
-                    PerformStrikeAttack();
+                    meleeComponent.PerformAttack();
                     attackTimer = meleeComponent.cooldown;
                 }
             }
-            else if (!IsPlayerInAttackRange())
+            else if (IsRanged)
             {
-                ChangeState(EnemyState.Chasing);
+                rangedComponent.Fire(player);
+                attackTimer = rangedComponent.cooldown;
             }
         }
-        else if (isJumping)
+
+        if (isJumping && isJumpingType)
         {
             if (IsOnFloor() && currentVelocity.Y <= 0)
             {
                 isJumping = false;
-                PerformSlamAttack();
-                attackTimer = meleeComponent.cooldown;
+                if (IsMelee)
+                {
+                    meleeComponent.PerformAttack();
+                    attackTimer = meleeComponent.cooldown;
+                }
             }
         }
     }
@@ -322,20 +334,7 @@ public partial class TestingEnemy : CharacterBody3D
         if (healthComponent.isDead)
             return false;
 
-        if (meleeComponent != null && !meleeComponent.CanAttack())
-            return false;
-
         return true;
-    }
-
-    private void PerformSlamAttack()
-    {
-        meleeComponent.PerformTorusAttack();
-    }
-
-    private void PerformStrikeAttack()
-    {
-        meleeComponent.PerformClawAttack();
     }
     #endregion
 

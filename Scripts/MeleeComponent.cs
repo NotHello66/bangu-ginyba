@@ -3,18 +3,15 @@ using System;
 
 public partial class MeleeComponent : Node3D
 {
-    [Export] PackedScene torusAttackScene;
-    [Export] PackedScene clawAttackScene;
-    [Export] float damage = 10f;
-    [Export] float knockbackForce = 5f;
+    [Export] PackedScene attackScene;
+    [Export] private float damage = 10f;
+    [Export] private float knockbackForce = 5f;
     [Export] public float cooldown = 1.5f;
 
     float timer;
-    private Attack attackData;
 
     public override void _Ready()
     {
-        attackData = new Attack(damage, knockbackForce, GlobalPosition);
         timer = cooldown;
     }
 
@@ -31,48 +28,25 @@ public partial class MeleeComponent : Node3D
         return timer >= cooldown;
     }
 
-    public void PerformTorusAttack()
+    public void PerformAttack()
     {
-        if (CanAttack())
+        if (!CanAttack())
+            return;
+
+        timer = 0f;
+
+        if (attackScene == null)
         {
-            timer = 0f;
-
-            attackData ??= new Attack(damage, knockbackForce, GlobalPosition);
-
-            if (torusAttackScene == null)
-            {
-                GD.PrintErr("Melee attack scene is null");
-                return;
-            }
-
-            AttackTorus attackNode = (AttackTorus)torusAttackScene.Instantiate();
-            GetTree().CurrentScene.AddChild(attackNode);
-            attackNode.GlobalPosition = this.GlobalPosition;
-            attackNode.Initialize(attackData);
+            GD.PrintErr("Melee attack scene is null");
+            return;
         }
-    }
 
-    public void PerformClawAttack()
-    {
-        if (CanAttack())
-        {
-            timer = 0f;
+        Attack attackNode = attackScene.Instantiate<Attack>();
+        GetParent().AddChild(attackNode);
 
-            attackData ??= new Attack(damage, knockbackForce, GlobalPosition);
-
-            if (clawAttackScene == null)
-            {
-                GD.PrintErr("Melee attack scene is null");
-                return;
-            }
-
-            AttackClaw attackNode = (AttackClaw)clawAttackScene.Instantiate();
-            GetTree().CurrentScene.AddChild(attackNode);
-
-            attackNode.GlobalPosition = this.GlobalPosition;
-            attackNode.GlobalRotation = this.GlobalRotation;
+        attackNode.GlobalPosition = this.GlobalPosition;
+        attackNode.GlobalRotation = this.GlobalRotation;
             
-            attackNode.Initialize(attackData);
-        }
+        attackNode.Initialize(new Attack(damage, knockbackForce, GlobalPosition));
     }
 }

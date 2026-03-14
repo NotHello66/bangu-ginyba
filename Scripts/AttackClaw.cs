@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class AttackClaw : Node3D
+public partial class AttackClaw : Attack
 {
     [Export] private float swingAngleDegrees = 60f;
     [Export] private float windupTime = 0.2f;
@@ -10,13 +10,12 @@ public partial class AttackClaw : Node3D
     private float timer = 0f;
     private float initialRotationX;
 
-    private Attack attack;
     private bool hasDamaged = false;
     private Area3D area;
 
-    public void Initialize(Attack attack)
+    public override void Initialize(Attack data)
     {
-        this.attack = attack;
+        base.Initialize(data);
     }
 
     public override void _Ready()
@@ -56,16 +55,15 @@ public partial class AttackClaw : Node3D
 
     private void OnBodyEntered(Node body)
     {
-        if (hasDamaged)
-            return;
+        if (hasDamaged) return;
 
         if (body.IsInGroup("Player"))
         {
-            HitBoxComponent hitbox = body.GetNodeOrNull<HitBoxComponent>("HitBoxComponent");
+            var hitbox = body.GetNodeOrNull<HitBoxComponent>("HitBoxComponent");
 
             if (hitbox != null)
             {
-                hitbox.Damage(attack);
+                hitbox.Damage(this);
                 hasDamaged = true;
             }
         }

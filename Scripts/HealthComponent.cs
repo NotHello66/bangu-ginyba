@@ -16,7 +16,8 @@ public partial class HealthComponent : Node3D
 
 	public void Damage(Attack attack)
 	{
-		HP -= attack.damage;
+		HP -= attack.Damage;
+
 		if (HP <= 0)
 			isDead = true;
 
