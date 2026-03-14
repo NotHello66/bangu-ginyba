@@ -25,35 +25,39 @@ public partial class TowerComponent : Node3D
 	{
 		if(isPreview) return; // Checks if the tower is a display tower
 		
-		TestingEnemy enemy = GetClosestEnemy();
+		Enemy enemy = GetClosestEnemy();
 		if(isRanged)
 		{
 			rangedComponent.Fire(enemy);
 		}
 	}
-	public override void _PhysicsProcess(double delta)
-	{
-	}
-	private TestingEnemy GetClosestEnemy()
+	public override void _PhysicsProcess(double delta) {}
+
+	private Enemy GetClosestEnemy()
 	{
 		var enemies = GetTree().GetNodesInGroup("Enemy");
 
-		TestingEnemy closest = null;
+		Enemy closest = null;
 		float closestDistance = float.MaxValue;
 
 		foreach (Node node in enemies)
 		{
-			if (node is TestingEnemy enemy)
+			if (node is Enemy enemy)
 			{
-				float distance = GlobalPosition.DistanceTo(enemy.GlobalPosition);
-
-				if (distance < closestDistance)
+				if (!enemy.healthComponent.isDead)
 				{
-					closestDistance = distance;
-					closest = enemy;
+					float distance = GlobalPosition.DistanceTo(enemy.GlobalPosition);
+
+					if (distance < closestDistance)
+					{
+						closestDistance = distance;
+						closest = enemy;
+					}
+
 				}
 			}
 		}
+
 		return closest;
 	}
 }

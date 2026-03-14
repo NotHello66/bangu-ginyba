@@ -102,31 +102,36 @@ public partial class PlayerController : CharacterBody3D
 		{
 			Attack attack = new Attack(10f, 1f, GlobalPosition);
 			RangedComponent rc = GetNode<RangedComponent>("RangedComponent");
-			TestingEnemy enemy = GetClosestEnemy();
+			Enemy enemy = GetClosestEnemy();
 			rc.Fire(enemy);
 		}
 	}
-	private TestingEnemy GetClosestEnemy()
+	private Enemy GetClosestEnemy()
 	{
 		var enemies = GetTree().GetNodesInGroup("Enemy");
 
-		TestingEnemy closest = null;
+		Enemy closest = null;
 		float closestDistance = float.MaxValue;
 
 		foreach (Node node in enemies)
 		{
-			if (node is TestingEnemy enemy)
+			if (node is Enemy enemy)
 			{
-				float distance = GlobalPosition.DistanceTo(enemy.GlobalPosition);
-
-				if (distance < closestDistance)
+				if (!enemy.healthComponent.isDead)
 				{
-					closestDistance = distance;
-					closest = enemy;
+					float distance = GlobalPosition.DistanceTo(enemy.GlobalPosition);
+
+					if (distance < closestDistance)
+					{
+						closestDistance = distance;
+						closest = enemy;
+					}
 				}
 			}
 		}
+
 		if (closest == null) GD.Print("no enemies");
+		
 		return closest;
 	}
 }

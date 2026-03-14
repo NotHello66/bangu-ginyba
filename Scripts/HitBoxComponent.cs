@@ -3,16 +3,17 @@ using System;
 
 public partial class HitBoxComponent : Node3D
 {
-	[Export] HealthComponent healthComponent;
-	CharacterBody3D parent;
+	private HealthComponent healthComponent;
+	private CharacterBody3D parent;
 	public override void _Ready()
 	{
-		parent = GetParent() as CharacterBody3D;
-	}
-	public void Damage(Attack attack)
+		parent = GetParent<CharacterBody3D>();
+        healthComponent = GetParent().GetNode<HealthComponent>("HealthComponent");
+    }
+    public void Damage(Attack attack)
 	{
 		healthComponent.Damage(attack);
-		Vector3 direction = (GlobalPosition - attack.attackOrigin).Normalized();
-		parent.Velocity += direction * attack.knockbackForce;
+		Vector3 direction = (GlobalPosition - attack.AttackOrigin).Normalized();
+		parent.Velocity += direction * attack.Knockback;
 	}
 }
