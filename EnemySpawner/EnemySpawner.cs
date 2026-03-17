@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public partial class EnemySpawner : Node3D
 {
@@ -7,39 +8,60 @@ public partial class EnemySpawner : Node3D
     [Export] private PackedScene scorpionEnemyScene;
     [Export] private PackedScene grasshopperEnemyScene;
     [Export] private PackedScene bombardierbeetleEnemyScene;
+    private List<PackedScene> availableScenes;
 
     [ExportGroup("Stats")]
-    [Export] int maxEnemies;
-    [Export] private float spawnDelay = 2f;
+    [Export] private float spawnDelay = 0.5f;
+    [Export] private int waveLevelToSpawnGrassHopperEnemy = 5;
+    [Export] private int waveLevelToSpawnBombardierEnemy = 10;
     private float spawnTimer = 0f;
-    int enemyCount;
-    int spawnCount;
+    private int maxEnemies = 5;
+    private int enemyLevel = 0;
+    private int waveLevel = 0;
+    private int enemiesToSpawn = 0;
+    private int enemiesInScene = 0;
     private RandomNumberGenerator rng = new RandomNumberGenerator();
 
     public override void _Ready()
     {
-        spawnCount = 0;
+        availableScenes = new List<PackedScene>
+        {
+            scorpionEnemyScene
+        };
     }
 
     public override void _PhysicsProcess(double delta)
     {
-        spawnTimer -= (float)delta;
-
-        if (spawnTimer <= 0f)
+        if (Input.IsActionJustPressed("debug_StartNewWave") && enemiesInScene == 0)
         {
-            if (enemyCount < maxEnemies)
-            {
-                SpawnEnemy();
-                spawnTimer = spawnDelay;
-            }
+            waveLevel++;
+
+            if (waveLevel >= waveLevelToSpawnGrassHopperEnemy && !availableScenes.Contains(grasshopperEnemyScene))
+                availableScenes.Add(grasshopperEnemyScene);
+            if (waveLevel >= waveLevelToSpawnBombardierEnemy && !availableScenes.Contains(bombardierbeetleEnemyScene))
+                availableScenes.Add(bombardierbeetleEnemyScene);
+
+            string poolNames = string.Join(", ", availableScenes.ConvertAll(scene => scene.ResourcePath.GetFile()));
+            GD.Print($"Wave Level: {waveLevel} | Enemy Pool: [{poolNames}]");
+
+            enemiesToSpawn = 0;
+
+            SpawnEnemyWave();
+        }
+    }
+
+    private async void SpawnEnemyWave()
+    {
+        while (enemiesToSpawn < maxEnemies)
+        {
+            SpawnEnemy();
+            await ToSignal(GetTree().CreateTimer(spawnDelay), SceneTreeTimer.SignalName.Timeout);
         }
     }
 
     private void SpawnEnemy()
     {
-        PackedScene[] availableScenes = { scorpionEnemyScene, grasshopperEnemyScene, bombardierbeetleEnemyScene};
-
-        int randomIndex = rng.RandiRange(0, availableScenes.Length - 1);
+        int randomIndex = rng.RandiRange(0, availableScenes.Count - 1);
         PackedScene chosenScene = availableScenes[randomIndex];
 
         if (chosenScene == null)
@@ -56,17 +78,18 @@ public partial class EnemySpawner : Node3D
         enemy.GlobalPosition = GlobalPosition + randomOffset;
         
         enemy.AddToGroup("Enemy");
-        enemy.SetName("Testing Enemy nr:" + spawnCount);
-        enemy.SetEnemyLevel(spawnCount); 
+        enemy.SetName("Testing Enemy nr:" + enemyLevel);
+        enemy.SetEnemyLevel(enemyLevel); 
 
-        enemyCount++;
-        spawnCount++;
+        enemiesToSpawn++;
+        enemyLevel++;
+        enemiesInScene++;
 
         enemy.TreeExited += OnEnemyRemoved;
     }
 
     private async void OnEnemyRemoved()
     {
-        enemyCount--;
+        enemiesInScene--;
     }
 }

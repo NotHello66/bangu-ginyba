@@ -22,6 +22,6 @@ public partial class HealthComponent : Node3D
 			isDead = true;
 
 		EmitSignal(SignalName.HealthChanged, HP, MaxHP);
-		GD.Print($"| {GetParent().Name} | HP: {HP} | isDead: {isDead} |");
+		//GD.Print($"| {GetParent().Name} | HP: {HP} | isDead: {isDead} |");
 	}
 }

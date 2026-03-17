@@ -21,9 +21,6 @@ attackRange = 10.0
 [node name="HitBoxComponent" parent="." unique_id=1495271838 instance=ExtResource("3_86fep")]
 
 [node name="RangedComponent" parent="." unique_id=707547592 instance=ExtResource("4_8ix8s")]
-damage = 10.0
-knockbackForce = 5.0
-projectileSpeed = 7.0
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=2054314887 groups=["Enemy"]]
 avoidance_enabled = true

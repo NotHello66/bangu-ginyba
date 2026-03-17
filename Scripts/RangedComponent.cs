@@ -45,7 +45,7 @@ public partial class RangedComponent : Node3D
         timer = 0f;
 
         ProjectileComponent proj = projectile.Instantiate<ProjectileComponent>();
-        GetParent().AddChild(proj);
+        GetTree().CurrentScene.AddChild(proj);
 
         proj.GlobalPosition = GlobalPosition + (GlobalTransform.Basis.Z * 1.5f);
 
