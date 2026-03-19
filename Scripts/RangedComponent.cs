@@ -18,6 +18,7 @@ public partial class RangedComponent : Node3D
 	{
 		timer = cooldown;
     }
+
     public override void _PhysicsProcess(double delta)
 	{
         if (timer < cooldown)

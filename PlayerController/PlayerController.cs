@@ -12,13 +12,17 @@ public partial class PlayerController : CharacterBody3D
 	float theta = new float();
 	private Vector3 lastDirection = Vector3.Zero;
 	private PlayerControllerMouse MouseController;
-
+	public HealthComponent healthComponent;
+	private HitBoxComponent hitBoxComponent;
+	private Node body;
 	public override void _Ready()
 	{
-		Node3D body = GetNode<Node3D>("%Meshes");
-		MouseController = GetNode<PlayerControllerMouse>("PlayerControllerMouse");
-		
+		body = GetNodeOrNull<Node3D>("%Meshes");
+		MouseController = GetNodeOrNull<PlayerControllerMouse>("PlayerControllerMouse");
+		healthComponent = GetNodeOrNull<HealthComponent>("HealthComponent");
+		hitBoxComponent = GetNodeOrNull<HitBoxComponent>("HitBoxComponent");
 	}
+
 	public override void _Process(double delta)
 	{
 		//if (Input.IsActionJustPressed("debug_dealDamageToTest"))
@@ -106,6 +110,7 @@ public partial class PlayerController : CharacterBody3D
 			rc.Fire(enemy);
 		}
 	}
+
 	private Enemy GetClosestEnemy()
 	{
 		var enemies = GetTree().GetNodesInGroup("Enemy");

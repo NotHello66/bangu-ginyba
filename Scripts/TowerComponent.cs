@@ -3,25 +3,34 @@ using System;
 
 public partial class TowerComponent : Node3D
 {
-	[Export] RangedComponent rangedComponent;
-	   
-	[Export] public bool isPreview = false;
+	private RangedComponent rangedComponent;
+	private HitBoxComponent hitBoxComponent;
+    public HealthComponent healthComponent;
+
+    [Export] public bool isPreview = false;
 
 	private bool isRanged = false;
-//    private bool isAoe = false;
+	// private bool isAoe = false;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+        rangedComponent = GetNodeOrNull<RangedComponent>("RangedComponent");
+		if (rangedComponent == null)
+			GD.PrintErr("Ranged Coponent == null");
+
+        healthComponent = GetNodeOrNull<HealthComponent>("HealthComponent");
+		hitBoxComponent = GetNodeOrNull<HitBoxComponent>("HitBoxComponent");
+        
 		if (rangedComponent != null)
 		{
 			isRanged = true;
 		   // if(rangedComponent.isAOE == true) isAoe = true;
 		}
-	}
+    }
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
+    // Called every frame. 'delta' is the elapsed time since the previous frame.
+    public override void _Process(double delta)
 	{
 		if(isPreview) return; // Checks if the tower is a display tower
 		

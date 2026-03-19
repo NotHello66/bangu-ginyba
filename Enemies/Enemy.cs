@@ -26,19 +26,19 @@ public partial class Enemy : CharacterBody3D
     private double attackTimer = 0;
     private double deadTimer = 0;
     private EnemyState currentState = EnemyState.Idle;
-    private MeleeComponent meleeComponent;
-    private RangedComponent rangedComponent;
     private bool IsMelee => meleeComponent != null;
     private bool IsRanged => rangedComponent != null;
 
     // Child Nodes
     public HealthComponent healthComponent;
     private NavigationAgent3D navigationAgent3D;
+    private MeleeComponent meleeComponent;
+    private RangedComponent rangedComponent;
 
-    // Player Node
-    private Node3D player;
-
-    // Slot Management
+    // Target System
+    private Node3D currentTarget;
+    private double targetSearchTimer = 0;
+    private const double TargetSearchInterval = 0.5; 
     private EnemySlotManager slotManager;
 
     [ExportGroup("Rewards")]
@@ -60,17 +60,13 @@ public partial class Enemy : CharacterBody3D
 
     public override void _Ready()
     {
-        healthComponent = GetNode("HealthComponent") as HealthComponent;
-        navigationAgent3D = GetNode("NavigationAgent3D") as NavigationAgent3D;
+        healthComponent = GetNodeOrNull<HealthComponent>("HealthComponent");
+        navigationAgent3D = GetNodeOrNull<NavigationAgent3D>("NavigationAgent3D");
 
         meleeComponent = GetNodeOrNull<MeleeComponent>("MeleeComponent");
         rangedComponent = GetNodeOrNull<RangedComponent>("RangedComponent");
 
-        player = GetTree().GetFirstNodeInGroup("Player") as Node3D;
-        if (player != null)
-        {
-            slotManager = player.GetNodeOrNull<EnemySlotManager>("EnemySlotManager");
-        }
+        UpdateClosestTarget();
 
         randomPhaseOffset = (float)GD.RandRange(0.0, Mathf.Pi * 2);
     }
@@ -79,6 +75,13 @@ public partial class Enemy : CharacterBody3D
 
     public override void _PhysicsProcess(double delta)
     {
+        targetSearchTimer += delta;
+        if (targetSearchTimer >= TargetSearchInterval)
+        {
+            UpdateClosestTarget();
+            targetSearchTimer = 0;
+        }
+
         Vector3 currentVelocity = Velocity;
         UpdateTimers(delta);
 
@@ -135,7 +138,8 @@ public partial class Enemy : CharacterBody3D
     #region #################################################################### Chase State ####################################################################
     private void HandleChasing(ref Vector3 currentVelocity, double delta)
     {
-        float distance = player.GlobalPosition.DistanceSquaredTo(GlobalPosition);
+        if (!HasValidTarget()) return;
+        float distance = currentTarget.GlobalPosition.DistanceSquaredTo(GlobalPosition);
 
         float attackRangeSq = attackRange * attackRange;
         float stopChaseSq = stopChaseDistance * stopChaseDistance;
@@ -169,13 +173,13 @@ public partial class Enemy : CharacterBody3D
 
     private Vector3 HandleNavigation()
     {
-        if (player == null)
+        if (!HasValidTarget())
         {
-            GD.Print("Player is null");
+            ChangeState(EnemyState.Idle);
             return Vector3.Zero;
         }
 
-        Vector3 targetPos = player.GlobalPosition; 
+        Vector3 targetPos = currentTarget.GlobalPosition; 
 
         if (slotManager != null)
         {
@@ -208,9 +212,9 @@ public partial class Enemy : CharacterBody3D
 
     private void HandleRotation(double delta)
     {
-        if (player == null) return;
+        if (!HasValidTarget()) return;
 
-        Vector3 direction = (player.GlobalPosition - GlobalPosition).Normalized();
+        Vector3 direction = (currentTarget.GlobalPosition - GlobalPosition).Normalized();
 
         direction.Y = 0;
 
@@ -224,6 +228,74 @@ public partial class Enemy : CharacterBody3D
             (float)Mathf.LerpAngle(Rotation.Y, Mathf.Atan2(lastDirection.X, lastDirection.Z), (float)(delta * bodyRotationSpeed)),
             Rotation.Z
         );
+    }
+
+    private void UpdateClosestTarget()
+    {
+        var player = GetTree().GetFirstNodeInGroup("Player");
+        var towers = GetTree().GetNodesInGroup("Tower");
+
+        Node3D closest = null;
+        float closestDist = float.MaxValue;
+
+        if (player is PlayerController pc)
+        {
+            if (!pc.healthComponent.isDead)
+            {
+                float dist = GlobalPosition.DistanceSquaredTo(pc.GlobalPosition);
+                if (dist < closestDist)
+                {
+                    closestDist = dist;
+                    closest = pc;
+                }
+            }
+        }
+
+        foreach (Node3D t in towers)
+        {
+            if (t is TowerComponent tower)
+            {
+                if (!tower.isPreview)
+                {
+                    if (tower.healthComponent != null && tower.healthComponent.isDead) continue;
+
+                    float dist = GlobalPosition.DistanceSquaredTo(t.GlobalPosition);
+                    if (dist < closestDist)
+                    {
+                        closestDist = dist;
+                        closest = t;
+                    }
+                }
+            }
+        }
+
+        SetTarget(closest);
+    }
+
+    private void SetTarget(Node3D newTarget)
+    {
+        if (currentTarget == newTarget) return;
+
+        if (slotManager != null)
+        {
+            int currentIndex = slotManager.GetEnemySlotIndex(this);
+            if (currentIndex != -1)
+            {
+                slotManager.ReleaseSlot(currentIndex, this);
+            }
+        }
+
+        currentTarget = newTarget;
+
+        if (HasValidTarget())
+        {
+            GD.Print("Slot Manager Found");
+            slotManager = currentTarget.GetNodeOrNull<EnemySlotManager>("EnemySlotManager");
+        }
+        else
+        {
+            slotManager = null;
+        }
     }
     #endregion
 
@@ -260,12 +332,13 @@ public partial class Enemy : CharacterBody3D
     #region #################################################################### Attack State ###################################################################
     private void HandleAttacking(ref Vector3 currentVelocity, double delta)
     {
+        if (!HasValidTarget()) return;
         currentVelocity.X = 0;
         currentVelocity.Z = 0;
 
         HandleGravity(ref currentVelocity, delta);
 
-        if (!IsPlayerInAttackRange())
+        if (!IsTargetInAttackRange())
         {
             ChangeState(EnemyState.Chasing);
             return;
@@ -287,7 +360,7 @@ public partial class Enemy : CharacterBody3D
             }
             else if (IsRanged)
             {
-                rangedComponent.Fire(player);
+                rangedComponent.Fire(currentTarget);
                 attackTimer = rangedComponent.cooldown;
             }
         }
@@ -306,12 +379,22 @@ public partial class Enemy : CharacterBody3D
         }
     }
 
-    private bool IsPlayerInAttackRange()
+    private bool IsTargetInAttackRange()
     {
-        if (player == null)
+        if (!HasValidTarget())
             return false;
 
-        return player.GlobalPosition.DistanceSquaredTo(GlobalPosition) <= attackRange * attackRange;
+        return currentTarget.GlobalPosition.DistanceSquaredTo(GlobalPosition) <= attackRange * attackRange;
+    }
+
+    private bool HasValidTarget()
+    {
+        if (currentTarget == null || !IsInstanceValid(currentTarget))
+        {
+            currentTarget = null;
+            return false;
+        }
+        return true;
     }
 
     private bool CanPerformAttack()
@@ -325,7 +408,7 @@ public partial class Enemy : CharacterBody3D
         if (attackTimer > 0f)
             return false;
 
-        if (!IsPlayerInAttackRange())
+        if (!IsTargetInAttackRange())
             return false;
 
         if (currentState == EnemyState.Stunned)
