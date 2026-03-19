@@ -4,7 +4,7 @@ using System;
 public partial class EconomyComponent : Node3D
 {
     [Export] float startingGold = 100f;
-    public float currentGold{get; private set;}
+    public float currentGold{get; set;}
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {

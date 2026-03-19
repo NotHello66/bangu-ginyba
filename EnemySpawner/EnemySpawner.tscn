@@ -1,12 +1,6 @@
 [gd_scene format=3 uid="uid://bk2tm65rltpyu"]
 
 [ext_resource type="Script" uid="uid://tsslen3rh4jl" path="res://EnemySpawner/EnemySpawner.cs" id="1_h7arx"]
-[ext_resource type="PackedScene" uid="uid://bdhvjwoymjpqc" path="res://Enemies/ScorpionEnemy.tscn" id="2_p51d4"]
-[ext_resource type="PackedScene" uid="uid://djnt75jjm0h8y" path="res://Enemies/GrasshopperEnemy.tscn" id="3_p51d4"]
-[ext_resource type="PackedScene" uid="uid://dh73kx4dkwyqi" path="res://Enemies/BombardierbeetleEnemy.tscn" id="4_f4bw3"]
 
-[node name="EnemySpawner" type="Node3D" unique_id=1712601701]
+[node name="EnemySpawner" type="Node3D" unique_id=1712601701 groups=["EnemySpawner"]]
 script = ExtResource("1_h7arx")
-scorpionEnemyScene = ExtResource("2_p51d4")
-grasshopperEnemyScene = ExtResource("3_p51d4")
-bombardierbeetleEnemyScene = ExtResource("4_f4bw3")

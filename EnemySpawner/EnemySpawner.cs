@@ -22,6 +22,7 @@ public partial class EnemySpawner : Node3D
     private int enemiesInScene = 0;
     private RandomNumberGenerator rng = new RandomNumberGenerator();
 
+    [Signal] public delegate void WaveFinishedEventHandler();
     public override void _Ready()
     {
         availableScenes = new List<PackedScene>
@@ -91,5 +92,6 @@ public partial class EnemySpawner : Node3D
     private async void OnEnemyRemoved()
     {
         enemiesInScene--;
+        if (enemiesInScene == 0) EmitSignal(SignalName.WaveFinished);
     }
 }

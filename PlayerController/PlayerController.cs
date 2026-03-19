@@ -86,15 +86,19 @@ public partial class PlayerController : CharacterBody3D
 			GodotObject obj = null;
 			if (MouseController.RayCastFromMouse(out hitpos, out obj) == true)
 			{
-				var beamScene = GD.Load<PackedScene>("res://Particles/TestingBeam.tscn");
-				var beamInstance = beamScene.Instantiate();
-				GetTree().CurrentScene.AddChild(beamInstance);
-				if (beamInstance is Node3D beamNode3D)
-				{
-					beamNode3D.GlobalPosition = hitpos;
-					GD.Print("hit");
-					GD.Print($"Beam spawned at: {beamNode3D.GlobalPosition}");
+				//var beamScene = GD.Load<PackedScene>("res://Particles/TestingBeam.tscn");
+				//var beamInstance = beamScene.Instantiate();
+				//GetTree().CurrentScene.AddChild(beamInstance);
+				//if (beamInstance is Node3D beamNode3D)
+				//{
+				//	beamNode3D.GlobalPosition = hitpos;
+				//	GD.Print("hit");
+				//	GD.Print($"Beam spawned at: {beamNode3D.GlobalPosition}");
 
+				//}
+				if(obj is Node node && node.HasMethod("on_clicked"))
+				{
+					node.Call("on_clicked");
 				}
 			}
 		}

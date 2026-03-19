@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://du5pekekmsgyi"
-path="res://.godot/imported/Wall.fbx-2ccab1695aaf9e20cc7677a84f44c6f3.scn"
+uid="uid://b3wrolvn6x50"
+path="res://.godot/imported/banks_temp.glb-28976c1d3b92ecd02a368d4b456857e1.scn"
 
 [deps]
 
-source_file="res://Common Meshes/Wall.fbx"
-dest_files=["res://.godot/imported/Wall.fbx-2ccab1695aaf9e20cc7677a84f44c6f3.scn"]
+source_file="res://Common Meshes/banks_temp.glb"
+dest_files=["res://.godot/imported/banks_temp.glb-28976c1d3b92ecd02a368d4b456857e1.scn"]
 
 [params]
 
@@ -30,7 +30,7 @@ meshes/force_disable_compression=false
 skins/use_named_skins=true
 animation/import=true
 animation/fps=30
-animation/trimming=true
+animation/trimming=false
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
@@ -38,7 +38,5 @@ materials/extract=0
 materials/extract_format=0
 materials/extract_path=""
 _subresources={}
-fbx/importer=0
-fbx/allow_geometry_helper_nodes=false
-fbx/embedded_image_handling=1
-fbx/naming_version=2
+gltf/naming_version=2
+gltf/embedded_image_handling=1

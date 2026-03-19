@@ -1,0 +1,130 @@
+[gd_scene format=3 uid="uid://p5t2hwitkh5n"]
+
+[ext_resource type="PackedScene" uid="uid://b3wrolvn6x50" path="res://Common Meshes/banks_temp.glb" id="1_5pm4w"]
+[ext_resource type="Script" uid="uid://emvup6s6shsp" path="res://Econ/bank.gd" id="1_ilj1t"]
+[ext_resource type="FontFile" uid="uid://bxheo3lrppx2b" path="res://UI/Design/Metamorphous-Regular.ttf" id="3_22cyf"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ilj1t"]
+size = Vector3(8.6414795, 4.5384216, 6.157654)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_22cyf"]
+height = 2.8168945
+radius = 0.28173828
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_53os6"]
+size = Vector3(2.828125, 0.60498047, 6.0720215)
+
+[sub_resource type="Gradient" id="Gradient_53os6"]
+offsets = PackedFloat32Array(0.109375)
+colors = PackedColorArray(0.371875, 0.371875, 0.371875, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_or0ij"]
+gradient = SubResource("Gradient_53os6")
+
+[sub_resource type="Theme" id="Theme_bs3d4"]
+default_font = ExtResource("3_22cyf")
+default_font_size = 12
+
+[node name="Bank" type="StaticBody3D" unique_id=1323981361 groups=["SeeThru"]]
+script = ExtResource("1_ilj1t")
+
+[node name="banks_temp" parent="." unique_id=30425994 groups=["SeeThru"] instance=ExtResource("1_5pm4w")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1367695819]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.65631104, 2.2821941, -0.0018005371)
+shape = SubResource("BoxShape3D_ilj1t")
+
+[node name="CollisionPolygon3D" type="CollisionPolygon3D" parent="." unique_id=2070285168]
+transform = Transform3D(0.010672231, 0.011524897, -0.9998766, -0.67935747, -0.73363924, -0.015707318, -0.7337299, 0.67944115, -4.3705995e-08, 4.369552, 3.9130998, 0)
+depth = 1.355
+polygon = PackedVector2Array(-1.1244826, -1.1909394, -2.138864, 2.6094508, 2.7478576, -1.9157038)
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=972731493]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.6190658, 2.0314224, 2.827529)
+shape = SubResource("CylinderShape3D_22cyf")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="." unique_id=662422195]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.6190658, 2.0314224, 0.9664848)
+shape = SubResource("CylinderShape3D_22cyf")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="." unique_id=1970132341]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.6190658, 2.0314224, -0.92901707)
+shape = SubResource("CylinderShape3D_22cyf")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="." unique_id=1090439211]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.6190658, 2.0314224, -2.8212318)
+shape = SubResource("CylinderShape3D_22cyf")
+
+[node name="CollisionShape3D6" type="CollisionShape3D" parent="." unique_id=915192514]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.3650446, 0.3149414, 0.0345459)
+shape = SubResource("BoxShape3D_53os6")
+
+[node name="CollisionPolygon3D2" type="CollisionPolygon3D" parent="." unique_id=1165810498]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.2742202, 0, 0)
+depth = 6.08
+polygon = PackedVector2Array(2.5225255, -0.01441735, 3.1677997, -0.01441735, 2.5359685, 0.5905272)
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=1025497276]
+visible = false
+
+[node name="TextureRect" type="TextureRect" parent="UI" unique_id=1221820644]
+modulate = Color(1, 1, 1, 0.58431375)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = -160.0
+offset_right = 128.0
+offset_bottom = 160.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = SubResource("GradientTexture1D_or0ij")
+
+[node name="CenterContainer" type="CenterContainer" parent="UI" unique_id=2141966194]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -125.0
+offset_top = -157.0
+offset_right = 127.0
+offset_bottom = 161.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_bs3d4")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/CenterContainer" unique_id=855227049]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="CurrentMoney" type="Label" parent="UI/CenterContainer/VBoxContainer" unique_id=262914363]
+layout_mode = 2
+text = "Current money: 0"
+horizontal_alignment = 1
+
+[node name="NextMoney" type="Label" parent="UI/CenterContainer/VBoxContainer" unique_id=1941718237]
+layout_mode = 2
+text = "Money next turn: 0"
+horizontal_alignment = 1
+
+[node name="Invest" type="Button" parent="UI/CenterContainer/VBoxContainer" unique_id=1295254571]
+layout_mode = 2
+text = "Invest 10g"
+
+[node name="Withdraw" type="Button" parent="UI/CenterContainer/VBoxContainer" unique_id=1444606013]
+layout_mode = 2
+text = "Withdraw 10g"
+
+[node name="Back" type="Button" parent="UI/CenterContainer/VBoxContainer" unique_id=334511276]
+layout_mode = 2
+theme_override_font_sizes/font_size = 9
+text = "Back"
+
+[connection signal="pressed" from="UI/CenterContainer/VBoxContainer/Invest" to="." method="_on_invest_pressed"]
+[connection signal="pressed" from="UI/CenterContainer/VBoxContainer/Withdraw" to="." method="_on_withdraw_pressed"]
+[connection signal="pressed" from="UI/CenterContainer/VBoxContainer/Back" to="." method="_on_back_pressed"]
