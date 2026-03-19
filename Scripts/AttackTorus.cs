@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 public partial class AttackTorus : Attack
 {
@@ -39,10 +38,9 @@ public partial class AttackTorus : Attack
     {
         if (hasDamaged) return;
 
-        if (body.IsInGroup("Player"))
+        if (body.IsInGroup("Player") || body.IsInGroup("Tower"))
         {
-            var hitbox = body.GetNodeOrNull<HitBoxComponent>("HitBoxComponent");
-
+            HitBoxComponent hitbox = body.GetParent()?.GetNodeOrNull<HitBoxComponent>("HitBoxComponent") ?? body.GetNodeOrNull<HitBoxComponent>("HitBoxComponent");
             if (hitbox != null)
             {
                 hitbox.Damage(this);

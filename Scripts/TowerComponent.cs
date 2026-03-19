@@ -1,63 +1,72 @@
 using Godot;
-using System;
 
 public partial class TowerComponent : Node3D
 {
-	[Export] RangedComponent rangedComponent;
-	   
-	[Export] public bool isPreview = false;
+    private RangedComponent rangedComponent;
+    private HitBoxComponent hitBoxComponent;
+    public HealthComponent healthComponent;
 
-	private bool isRanged = false;
-//    private bool isAoe = false;
+    public bool isPreview = false;
+    private bool isRanged = false;
+    // private bool isAoe = false;
 
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
-		if (rangedComponent != null)
-		{
-			isRanged = true;
-		   // if(rangedComponent.isAOE == true) isAoe = true;
-		}
-	}
+    // Called when the node enters the scene tree for the first time.
+    public override void _Ready()
+    {
+        rangedComponent = GetParent().GetNodeOrNull<RangedComponent>("RangedComponent");
+        healthComponent = GetParent().GetNodeOrNull<HealthComponent>("HealthComponent");
+        hitBoxComponent = GetParent().GetNodeOrNull<HitBoxComponent>("HitBoxComponent");
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-		if(isPreview) return; // Checks if the tower is a display tower
-		
-		Enemy enemy = GetClosestEnemy();
-		if(isRanged)
-		{
-			rangedComponent.Fire(enemy);
-		}
-	}
-	public override void _PhysicsProcess(double delta) {}
+        if (rangedComponent != null)
+        {
+            isRanged = true;
+            // if(rangedComponent.isAOE == true) isAoe = true;
+        }
+    }
 
-	private Enemy GetClosestEnemy()
-	{
-		var enemies = GetTree().GetNodesInGroup("Enemy");
+    // Called every frame. 'delta' is the elapsed time since the previous frame.
+    public override void _Process(double delta)
+    {
+        if (isPreview) return; // Checks if the tower is a display tower
+        if (healthComponent.isDead)
+        {
+            GetParent().QueueFree();
+            return;
+        }
+        Enemy enemy = GetClosestEnemy();
+        if (isRanged)
+        {
+            rangedComponent.Fire(enemy);
+        }
+    }
 
-		Enemy closest = null;
-		float closestDistance = float.MaxValue;
+    public override void _PhysicsProcess(double delta)
+    { }
 
-		foreach (Node node in enemies)
-		{
-			if (node is Enemy enemy)
-			{
-				if (!enemy.healthComponent.isDead)
-				{
-					float distance = GlobalPosition.DistanceTo(enemy.GlobalPosition);
+    private Enemy GetClosestEnemy()
+    {
+        var enemies = GetTree().GetNodesInGroup("Enemy");
 
-					if (distance < closestDistance)
-					{
-						closestDistance = distance;
-						closest = enemy;
-					}
+        Enemy closest = null;
+        float closestDistance = float.MaxValue;
 
-				}
-			}
-		}
+        foreach (Node node in enemies)
+        {
+            if (node is Enemy enemy)
+            {
+                if (!enemy.healthComponent.isDead)
+                {
+                    float distance = GlobalPosition.DistanceTo(enemy.GlobalPosition);
 
-		return closest;
-	}
+                    if (distance < closestDistance)
+                    {
+                        closestDistance = distance;
+                        closest = enemy;
+                    }
+                }
+            }
+        }
+
+        return closest;
+    }
 }

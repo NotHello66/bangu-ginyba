@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://c24fyh7td8xde"]
+
+[ext_resource type="Script" uid="uid://cbv1qp3ij15ys" path="res://PlayerController/EnemySlotManager.cs" id="1_85psc"]
+
+[node name="EnemySlotManager" type="Node3D" unique_id=1627641566]
+script = ExtResource("1_85psc")

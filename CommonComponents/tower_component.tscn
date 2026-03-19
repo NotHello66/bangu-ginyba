@@ -2,5 +2,5 @@
 
 [ext_resource type="Script" uid="uid://dgpspki873j2o" path="res://Scripts/TowerComponent.cs" id="1_w0xoo"]
 
-[node name="TowerComponent" type="Node3D" unique_id=2033991700]
+[node name="TowerComponent" type="Node3D" unique_id=2033991700 groups=["Tower"]]
 script = ExtResource("1_w0xoo")
