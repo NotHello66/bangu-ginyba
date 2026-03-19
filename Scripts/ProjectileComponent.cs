@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 public partial class ProjectileComponent : Attack
 {
@@ -57,8 +56,7 @@ public partial class ProjectileComponent : Attack
         if (body == owner)
             return;
 
-        HitBoxComponent hitbox = body.GetNodeOrNull<HitBoxComponent>("HitBoxComponent");
-
+        HitBoxComponent hitbox = body.GetParent()?.GetNodeOrNull<HitBoxComponent>("HitBoxComponent") ?? body.GetNodeOrNull<HitBoxComponent>("HitBoxComponent");
         if (hitbox != null)
         {
             hitbox.Damage(this);

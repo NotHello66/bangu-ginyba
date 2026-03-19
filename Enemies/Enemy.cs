@@ -1,15 +1,16 @@
 using Godot;
-using System;
 
 public partial class Enemy : CharacterBody3D
 {
     [ExportGroup("Stats")]
     [Export] private float speed = 5f;
+
     [Export] private float knockBackResist = 10f;
     private int enemyLevel;
 
     [ExportGroup("Position & Rotation")]
-    [Export] float bodyRotationSpeed = 5f;
+    [Export] private float bodyRotationSpeed = 5f;
+
     [Export] private float WobbleAmplitude = 3.0f;
     [Export] private float WobbleFrequency = 4.0f;
     private float randomPhaseOffset;
@@ -17,6 +18,7 @@ public partial class Enemy : CharacterBody3D
 
     [ExportGroup("Combat framework")]
     [Export] private double stunTimer = 2;
+
     [Export] private float attackRange = 2f;
     [Export] private float stopChaseDistance = 1.8f;
     [Export] private float jumpForce = 5f;
@@ -31,18 +33,22 @@ public partial class Enemy : CharacterBody3D
 
     // Child Nodes
     public HealthComponent healthComponent;
+
     private NavigationAgent3D navigationAgent3D;
     private MeleeComponent meleeComponent;
     private RangedComponent rangedComponent;
 
     // Target System
     private Node3D currentTarget;
+    private float currentTargetRadius = 0f;
+
     private double targetSearchTimer = 0;
-    private const double TargetSearchInterval = 0.5; 
+    private const double TargetSearchInterval = 0.5;
     private EnemySlotManager slotManager;
 
     [ExportGroup("Rewards")]
-    [Export] float GoldReward = 5f;
+    [Export] private float GoldReward = 5f;
+
     [Signal]
     public delegate void EnemyKilledEventHandler(float goldReward);
 
@@ -52,7 +58,7 @@ public partial class Enemy : CharacterBody3D
         GD.Print($"++++++++++++++++++++++++++++++++++++++ Enemy Stats ++++++++++++++++++++++++++++++++++++++");
         GD.Print($"                                Level: {enemyLevel} ");
     }
-    
+
     private void ChangeState(EnemyState newState)
     {
         currentState = newState;
@@ -71,7 +77,8 @@ public partial class Enemy : CharacterBody3D
         randomPhaseOffset = (float)GD.RandRange(0.0, Mathf.Pi * 2);
     }
 
-    public override void _Process(double delta){}
+    public override void _Process(double delta)
+    { }
 
     public override void _PhysicsProcess(double delta)
     {
@@ -136,13 +143,17 @@ public partial class Enemy : CharacterBody3D
     }
 
     #region #################################################################### Chase State ####################################################################
+
     private void HandleChasing(ref Vector3 currentVelocity, double delta)
     {
         if (!HasValidTarget()) return;
         float distance = currentTarget.GlobalPosition.DistanceSquaredTo(GlobalPosition);
 
-        float attackRangeSq = attackRange * attackRange;
-        float stopChaseSq = stopChaseDistance * stopChaseDistance;
+        float effectiveAttackRange = attackRange + currentTargetRadius;
+        float effectiveStopChase = stopChaseDistance + currentTargetRadius;
+
+        float attackRangeSq = effectiveAttackRange * effectiveAttackRange;
+        float stopChaseSq = effectiveStopChase * effectiveStopChase;
 
         if (distance <= attackRangeSq)
         {
@@ -179,7 +190,7 @@ public partial class Enemy : CharacterBody3D
             return Vector3.Zero;
         }
 
-        Vector3 targetPos = currentTarget.GlobalPosition; 
+        Vector3 targetPos = currentTarget.GlobalPosition;
 
         if (slotManager != null)
         {
@@ -253,18 +264,17 @@ public partial class Enemy : CharacterBody3D
 
         foreach (Node3D t in towers)
         {
-            if (t is TowerComponent tower)
-            {
-                if (!tower.isPreview)
-                {
-                    if (tower.healthComponent != null && tower.healthComponent.isDead) continue;
+            TowerComponent towerComp = t.GetNodeOrNull<TowerComponent>("TowerComponent");
 
-                    float dist = GlobalPosition.DistanceSquaredTo(t.GlobalPosition);
-                    if (dist < closestDist)
-                    {
-                        closestDist = dist;
-                        closest = t;
-                    }
+            if (towerComp != null && !towerComp.isPreview)
+            {
+                if (towerComp.healthComponent != null && towerComp.healthComponent.isDead) continue;
+
+                float dist = GlobalPosition.DistanceSquaredTo(t.GlobalPosition);
+                if (dist < closestDist)
+                {
+                    closestDist = dist;
+                    closest = t;
                 }
             }
         }
@@ -286,20 +296,34 @@ public partial class Enemy : CharacterBody3D
         }
 
         currentTarget = newTarget;
+        currentTargetRadius = 0f;
 
         if (HasValidTarget())
         {
-            GD.Print("Slot Manager Found");
-            slotManager = currentTarget.GetNodeOrNull<EnemySlotManager>("EnemySlotManager");
+            if (currentTarget.IsInGroup("Tower"))
+            {
+                CollisionShape3D colShape = currentTarget.GetNodeOrNull<CollisionShape3D>("Area3D/CollisionShape3D");
+                if (colShape != null && colShape.Shape != null)
+                {
+                    // Extract radius based on shape type
+                    if (colShape.Shape is SphereShape3D sphere) currentTargetRadius = sphere.Radius;
+                    else if (colShape.Shape is CylinderShape3D cylinder) currentTargetRadius = cylinder.Radius;
+                    else if (colShape.Shape is BoxShape3D box) currentTargetRadius = Mathf.Max(box.Size.X, box.Size.Z) / 2f;
+                }
+            }
+
+            slotManager = currentTarget.GetNodeOrNull<EnemySlotManager>("EnemySlotManager") ?? currentTarget.GetNodeOrNull<EnemySlotManager>("TowerComponent/EnemySlotManager");
         }
         else
         {
             slotManager = null;
         }
     }
-    #endregion
+
+    #endregion #################################################################### Chase State ####################################################################
 
     #region #################################################################### Dead State ####################################################################
+
     private void HandleDead(ref Vector3 currentVelocity, double delta)
     {
         // Drop Some Loot
@@ -327,9 +351,11 @@ public partial class Enemy : CharacterBody3D
             QueueFree();
         }
     }
-    #endregion
+
+    #endregion #################################################################### Dead State ####################################################################
 
     #region #################################################################### Attack State ###################################################################
+
     private void HandleAttacking(ref Vector3 currentVelocity, double delta)
     {
         if (!HasValidTarget()) return;
@@ -381,10 +407,10 @@ public partial class Enemy : CharacterBody3D
 
     private bool IsTargetInAttackRange()
     {
-        if (!HasValidTarget())
-            return false;
+        if (!HasValidTarget()) return false;
 
-        return currentTarget.GlobalPosition.DistanceSquaredTo(GlobalPosition) <= attackRange * attackRange;
+        float effectiveAttackRange = attackRange + currentTargetRadius;
+        return currentTarget.GlobalPosition.DistanceSquaredTo(GlobalPosition) <= effectiveAttackRange * effectiveAttackRange;
     }
 
     private bool HasValidTarget()
@@ -419,7 +445,8 @@ public partial class Enemy : CharacterBody3D
 
         return true;
     }
-    #endregion
+
+    #endregion #################################################################### Attack State ###################################################################
 
     private void HandleGravity(ref Vector3 velocity, double delta)
     {

@@ -1,14 +1,13 @@
 using Godot;
-using System;
 
 public partial class MeleeComponent : Node3D
 {
-    [Export] PackedScene attackScene;
+    [Export] private PackedScene attackScene;
     [Export] private float damage = 10f;
     [Export] private float knockbackForce = 5f;
     [Export] public float cooldown = 1.5f;
 
-    float timer;
+    private float timer;
 
     public override void _Ready()
     {
@@ -46,7 +45,7 @@ public partial class MeleeComponent : Node3D
 
         attackNode.GlobalPosition = this.GlobalPosition;
         attackNode.GlobalRotation = this.GlobalRotation;
-            
+
         attackNode.Initialize(new Attack(damage, knockbackForce, GlobalPosition));
     }
 }

@@ -1,72 +1,72 @@
 using Godot;
-using System;
 
 public partial class TowerComponent : Node3D
 {
-	private RangedComponent rangedComponent;
-	private HitBoxComponent hitBoxComponent;
+    private RangedComponent rangedComponent;
+    private HitBoxComponent hitBoxComponent;
     public HealthComponent healthComponent;
 
-    [Export] public bool isPreview = false;
+    public bool isPreview = false;
+    private bool isRanged = false;
+    // private bool isAoe = false;
 
-	private bool isRanged = false;
-	// private bool isAoe = false;
+    // Called when the node enters the scene tree for the first time.
+    public override void _Ready()
+    {
+        rangedComponent = GetParent().GetNodeOrNull<RangedComponent>("RangedComponent");
+        healthComponent = GetParent().GetNodeOrNull<HealthComponent>("HealthComponent");
+        hitBoxComponent = GetParent().GetNodeOrNull<HitBoxComponent>("HitBoxComponent");
 
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
-        rangedComponent = GetNodeOrNull<RangedComponent>("RangedComponent");
-		if (rangedComponent == null)
-			GD.PrintErr("Ranged Coponent == null");
-
-        healthComponent = GetNodeOrNull<HealthComponent>("HealthComponent");
-		hitBoxComponent = GetNodeOrNull<HitBoxComponent>("HitBoxComponent");
-        
-		if (rangedComponent != null)
-		{
-			isRanged = true;
-		   // if(rangedComponent.isAOE == true) isAoe = true;
-		}
+        if (rangedComponent != null)
+        {
+            isRanged = true;
+            // if(rangedComponent.isAOE == true) isAoe = true;
+        }
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(double delta)
-	{
-		if(isPreview) return; // Checks if the tower is a display tower
-		
-		Enemy enemy = GetClosestEnemy();
-		if(isRanged)
-		{
-			rangedComponent.Fire(enemy);
-		}
-	}
-	public override void _PhysicsProcess(double delta) {}
+    {
+        if (isPreview) return; // Checks if the tower is a display tower
+        if (healthComponent.isDead)
+        {
+            GetParent().QueueFree();
+            return;
+        }
+        Enemy enemy = GetClosestEnemy();
+        if (isRanged)
+        {
+            rangedComponent.Fire(enemy);
+        }
+    }
 
-	private Enemy GetClosestEnemy()
-	{
-		var enemies = GetTree().GetNodesInGroup("Enemy");
+    public override void _PhysicsProcess(double delta)
+    { }
 
-		Enemy closest = null;
-		float closestDistance = float.MaxValue;
+    private Enemy GetClosestEnemy()
+    {
+        var enemies = GetTree().GetNodesInGroup("Enemy");
 
-		foreach (Node node in enemies)
-		{
-			if (node is Enemy enemy)
-			{
-				if (!enemy.healthComponent.isDead)
-				{
-					float distance = GlobalPosition.DistanceTo(enemy.GlobalPosition);
+        Enemy closest = null;
+        float closestDistance = float.MaxValue;
 
-					if (distance < closestDistance)
-					{
-						closestDistance = distance;
-						closest = enemy;
-					}
+        foreach (Node node in enemies)
+        {
+            if (node is Enemy enemy)
+            {
+                if (!enemy.healthComponent.isDead)
+                {
+                    float distance = GlobalPosition.DistanceTo(enemy.GlobalPosition);
 
-				}
-			}
-		}
+                    if (distance < closestDistance)
+                    {
+                        closestDistance = distance;
+                        closest = enemy;
+                    }
+                }
+            }
+        }
 
-		return closest;
-	}
+        return closest;
+    }
 }
