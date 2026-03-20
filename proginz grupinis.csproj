@@ -1,11 +1,18 @@
-<Project Sdk="Godot.NET.Sdk/4.6.1">
+﻿<Project Sdk="Godot.NET.Sdk/4.6.1">
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'android' ">net9.0</TargetFramework>
     <EnableDynamicLoading>true</EnableDynamicLoading>
     <RootNamespace>proginzgrupinis</RootNamespace>
+	<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="CommonComponents\" />
+    <PackageReference Include="2dog" Version="0.1.16-pre" />
+	<PackageReference Include="MSTest.TestAdapter" Version="3.0.2" />
+	<PackageReference Include="MSTest.TestFramework" Version="3.0.2" />
+	<PackageReference Include="xunit" Version="2.9.3" />
+	<Compile Remove="$(APPDATA)\..\..\bangu-ginyba\.godot\mono\temp\obj\**\*.cs" />
+    <Compile Remove="C:\bangu-ginyba\.godot\mono\temp\**\*.cs" />
   </ItemGroup>
 </Project>

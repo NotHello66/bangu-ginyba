@@ -1,97 +1,66 @@
 using Godot;
-using System;
 
-public partial class ProjectileComponent : Node3D
+public partial class ProjectileComponent : Attack
 {
-	Node3D target;
-	float speed;
-	Attack attack;
-	bool isAoe;
-	float aoeRadius;
-	float turnspeed = 5f;
+    private Node3D target;
+    private float speed;
+    private bool isAoe;
+    private float aoeRadius;
+    private float turnspeed;
 
-	public void Initialize(Node3D target, float speed, Attack attack, bool isAoe, float AoeRadius = 0f)
-	{
-		this.target = target;
-		this.speed = speed;
-		this.attack = attack;
-		this.isAoe = isAoe;
-		this.aoeRadius = AoeRadius;
+    private Area3D area;
+    private Node3D owner;
 
-	}
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
+    public void Initialize(Node3D target, Node3D owner, float speed, Attack data, bool isAoe, float aoeRadius, float turnSpeed)
+    {
+        base.Initialize(data);
 
-	}
+        this.target = target;
+        this.owner = owner;
+        this.speed = speed;
+        this.isAoe = isAoe;
+        this.aoeRadius = aoeRadius;
+        this.turnspeed = turnSpeed;
+    }
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
-	public override void _PhysicsProcess(double delta)
-	{
-		if(target == null || !IsInstanceValid(target))
-		{
-			QueueFree();
-		}
-		Vector3 toTarget;
-		try
-		{
-			toTarget = (target.GlobalPosition - GlobalPosition).Normalized();
-		}
-		catch (ObjectDisposedException)
-		{
-			QueueFree();
-			return;
-		}
+    public override void _Ready()
+    {
+        area = GetNode<Area3D>("Area3D");
+        area.BodyEntered += OnBodyEntered;
+        area.Monitoring = true;
+    }
 
-		// Smooth rotation
-		Quaternion currentRotation = GlobalTransform.Basis.GetRotationQuaternion();
-		Quaternion targetRotation = Basis.LookingAt(toTarget, Vector3.Up).GetRotationQuaternion();
-		Quaternion newRotation = currentRotation.Slerp(targetRotation, turnspeed * (float)delta);
+    public override void _PhysicsProcess(double delta)
+    {
+        if (target == null || !IsInstanceValid(target))
+        {
+            QueueFree();
+            return;
+        }
 
-		// Update GlobalTransform with new rotation, keep current position
-		GlobalTransform = new Transform3D(new Basis(newRotation), GlobalPosition);
+        Vector3 direction = (target.GlobalPosition - GlobalPosition).Normalized();
 
-		// Move forward along local -Z in world space
-		Vector3 forward = -GlobalTransform.Basis.Z;
-		GlobalPosition += forward * speed * (float)delta;
+        Quaternion currentRotation = GlobalTransform.Basis.GetRotationQuaternion();
+        Quaternion targetRotation = Basis.LookingAt(direction, Vector3.Up).GetRotationQuaternion();
 
+        Quaternion newRotation = currentRotation.Slerp(targetRotation, turnspeed * (float)delta);
 
-		if (GlobalPosition.DistanceTo(target.GlobalPosition) < 1f)
-		{
-			if (isAoe)
-			{
-				foreach (Node enemyNode in GetTree().GetNodesInGroup("Enemy"))
-				{
-					if (enemyNode is Node3D enemy)
-					{
-						if (enemy.GlobalPosition.DistanceTo(GlobalPosition) <= aoeRadius)
-						{
-							HitBoxComponent hitbox = enemy.GetNodeOrNull<HitBoxComponent>("HitBoxComponent");
-							if (hitbox != null)
-							{
-								hitbox.Damage(attack);
-								QueueFree();
-							}
-						}
-					}
-				}
-			}
-			else
-			{
-				if (GlobalPosition.DistanceTo(target.GlobalPosition) < 1f)
-				{
-					HitBoxComponent hitbox = target.GetNodeOrNull<HitBoxComponent>("HitBoxComponent");
-					if (hitbox != null)
-					{
-						hitbox.Damage(attack);
-						QueueFree();
-					}
-				}
-			}
-		}
-		
-	}
+        GlobalTransform = new Transform3D(new Basis(newRotation), GlobalPosition);
+
+        Vector3 forward = -GlobalTransform.Basis.Z;
+        GlobalPosition += forward * speed * (float)delta;
+    }
+
+    private void OnBodyEntered(Node body)
+    {
+        if (body == owner)
+            return;
+
+        HitBoxComponent hitbox = body.GetParent()?.GetNodeOrNull<HitBoxComponent>("HitBoxComponent") ?? body.GetNodeOrNull<HitBoxComponent>("HitBoxComponent");
+        if (hitbox != null)
+        {
+            hitbox.Damage(this);
+            QueueFree();
+        }
+    }
 }

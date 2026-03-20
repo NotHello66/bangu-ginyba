@@ -12,13 +12,17 @@ public partial class PlayerController : CharacterBody3D
 	float theta = new float();
 	private Vector3 lastDirection = Vector3.Zero;
 	private PlayerControllerMouse MouseController;
-
+	public HealthComponent healthComponent;
+	private HitBoxComponent hitBoxComponent;
+	private Node body;
 	public override void _Ready()
 	{
-		Node3D body = GetNode<Node3D>("%Meshes");
-		MouseController = GetNode<PlayerControllerMouse>("PlayerControllerMouse");
-		
+		body = GetNodeOrNull<Node3D>("%Meshes");
+		MouseController = GetNodeOrNull<PlayerControllerMouse>("PlayerControllerMouse");
+		healthComponent = GetNodeOrNull<HealthComponent>("HealthComponent");
+		hitBoxComponent = GetNodeOrNull<HitBoxComponent>("HitBoxComponent");
 	}
+
 	public override void _Process(double delta)
 	{
 		//if (Input.IsActionJustPressed("debug_dealDamageToTest"))
@@ -86,15 +90,19 @@ public partial class PlayerController : CharacterBody3D
 			GodotObject obj = null;
 			if (MouseController.RayCastFromMouse(out hitpos, out obj) == true)
 			{
-				var beamScene = GD.Load<PackedScene>("res://Particles/TestingBeam.tscn");
-				var beamInstance = beamScene.Instantiate();
-				GetTree().CurrentScene.AddChild(beamInstance);
-				if (beamInstance is Node3D beamNode3D)
-				{
-					beamNode3D.GlobalPosition = hitpos;
-					GD.Print("hit");
-					GD.Print($"Beam spawned at: {beamNode3D.GlobalPosition}");
+				//var beamScene = GD.Load<PackedScene>("res://Particles/TestingBeam.tscn");
+				//var beamInstance = beamScene.Instantiate();
+				//GetTree().CurrentScene.AddChild(beamInstance);
+				//if (beamInstance is Node3D beamNode3D)
+				//{
+				//	beamNode3D.GlobalPosition = hitpos;
+				//	GD.Print("hit");
+				//	GD.Print($"Beam spawned at: {beamNode3D.GlobalPosition}");
 
+				//}
+				if(obj is Node node && node.HasMethod("on_clicked"))
+				{
+					node.Call("on_clicked");
 				}
 			}
 		}
@@ -102,31 +110,37 @@ public partial class PlayerController : CharacterBody3D
 		{
 			Attack attack = new Attack(10f, 1f, GlobalPosition);
 			RangedComponent rc = GetNode<RangedComponent>("RangedComponent");
-			TestingEnemy enemy = GetClosestEnemy();
+			Enemy enemy = GetClosestEnemy();
 			rc.Fire(enemy);
 		}
 	}
-	private TestingEnemy GetClosestEnemy()
+
+	private Enemy GetClosestEnemy()
 	{
 		var enemies = GetTree().GetNodesInGroup("Enemy");
 
-		TestingEnemy closest = null;
+		Enemy closest = null;
 		float closestDistance = float.MaxValue;
 
 		foreach (Node node in enemies)
 		{
-			if (node is TestingEnemy enemy)
+			if (node is Enemy enemy)
 			{
-				float distance = GlobalPosition.DistanceTo(enemy.GlobalPosition);
-
-				if (distance < closestDistance)
+				if (!enemy.healthComponent.isDead)
 				{
-					closestDistance = distance;
-					closest = enemy;
+					float distance = GlobalPosition.DistanceTo(enemy.GlobalPosition);
+
+					if (distance < closestDistance)
+					{
+						closestDistance = distance;
+						closest = enemy;
+					}
 				}
 			}
 		}
+
 		if (closest == null) GD.Print("no enemies");
+		
 		return closest;
 	}
 }

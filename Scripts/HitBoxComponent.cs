@@ -1,18 +1,23 @@
 using Godot;
-using System;
 
 public partial class HitBoxComponent : Node3D
 {
-	[Export] HealthComponent healthComponent;
-	CharacterBody3D parent;
+	private HealthComponent healthComponent;
+	private Node3D parent;
+
 	public override void _Ready()
 	{
-		parent = GetParent() as CharacterBody3D;
+		parent = GetParent<Node3D>();
+		healthComponent = GetParent().GetNode<HealthComponent>("HealthComponent");
 	}
+
 	public void Damage(Attack attack)
 	{
 		healthComponent.Damage(attack);
-		Vector3 direction = (GlobalPosition - attack.attackOrigin).Normalized();
-		parent.Velocity += direction * attack.knockbackForce;
+		if (parent is CharacterBody3D characterBody)
+		{
+			Vector3 direction = (GlobalPosition - attack.AttackOrigin).Normalized();
+			characterBody.Velocity += direction * attack.Knockback;
+		}
 	}
 }

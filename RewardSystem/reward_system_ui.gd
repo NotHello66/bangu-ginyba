@@ -23,8 +23,8 @@ const WIN_POSITION = 24
 const STRIP_COUNT = 36
 
 var manager: GamblingManager
+signal gold_changed(newGold: float)
 var is_spinning: bool = false
-
 func _ready() -> void:
 	manager = GamblingManager.new()
 	add_child(manager)
@@ -241,5 +241,6 @@ func _on_pull_button_pressed() -> void:
 	var item = manager.pull_item(investment)
 	if item.is_empty():
 		return
+	emit_signal("gold_changed", investment)
 	update_ui()
 	start_spin(item)

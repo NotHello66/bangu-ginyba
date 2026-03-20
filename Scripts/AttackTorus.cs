@@ -1,22 +1,19 @@
 using Godot;
-using System;
 
-public partial class AttackTorus : Node3D
+public partial class AttackTorus : Attack
 {
     [Export] private float growSpeed = 2f;
     [Export] private float spinSpeed = 5f;
     [Export] private float lifetime = 1.2f;
 
     private float timer = 0f;
-
-    private Attack attack;
     private bool hasDamaged = false;
 
     private Area3D area;
 
-    public void Initialize(Attack attack)
+    public override void Initialize(Attack data)
     {
-        this.attack = attack;
+        base.Initialize(data);
     }
 
     public override void _Ready()
@@ -29,13 +26,9 @@ public partial class AttackTorus : Node3D
 
     public override void _Process(double delta)
     {
-        // Grow
         Scale += Vector3.One * growSpeed * (float)delta;
-
-        // Spin
         RotateY(spinSpeed * (float)delta);
 
-        // Lifetime countdown
         timer += (float)delta;
         if (timer >= lifetime)
             QueueFree();
@@ -43,16 +36,14 @@ public partial class AttackTorus : Node3D
 
     private void OnBodyEntered(Node body)
     {
-        if (hasDamaged)
-            return;
+        if (hasDamaged) return;
 
-        if (body.IsInGroup("Player"))
+        if (body.IsInGroup("Player") || body.IsInGroup("Tower"))
         {
-            HitBoxComponent hitbox = body.GetNodeOrNull<HitBoxComponent>("HitBoxComponent");
-
+            HitBoxComponent hitbox = body.GetParent()?.GetNodeOrNull<HitBoxComponent>("HitBoxComponent") ?? body.GetNodeOrNull<HitBoxComponent>("HitBoxComponent");
             if (hitbox != null)
             {
-                hitbox.Damage(attack);
+                hitbox.Damage(this);
                 hasDamaged = true;
             }
         }

@@ -1,8 +1,6 @@
 [gd_scene format=3 uid="uid://bk2tm65rltpyu"]
 
 [ext_resource type="Script" uid="uid://tsslen3rh4jl" path="res://EnemySpawner/EnemySpawner.cs" id="1_h7arx"]
-[ext_resource type="PackedScene" uid="uid://bdhvjwoymjpqc" path="res://Enemies/TestingEnemy.tscn" id="2_p51d4"]
 
-[node name="EnemySpawner" type="Node3D" unique_id=1712601701 groups=["Enemy"]]
+[node name="EnemySpawner" type="Node3D" unique_id=1712601701 groups=["EnemySpawner"]]
 script = ExtResource("1_h7arx")
-enemyScene = ExtResource("2_p51d4")

@@ -3,13 +3,19 @@
 [ext_resource type="PackedScene" uid="uid://cjhwvn2bxs5i" path="res://PlayerController/PlayerController.tscn" id="1_8uh7m"]
 [ext_resource type="Texture2D" uid="uid://6r00oi4kcwpv" path="res://Textures/SL-072622-51930-14.jpg" id="1_37kl0"]
 [ext_resource type="Script" uid="uid://mc4w82onwil4" path="res://Scripts/tower_manager.gd" id="1_ykrsh"]
-[ext_resource type="PackedScene" uid="uid://cn8sntu4guw1i" path="res://Common meshes/tower.tscn" id="3_ppyta"]
+[ext_resource type="PackedScene" uid="uid://rgb0jq431ckp" path="res://Common Meshes/Wall.tscn" id="3_5tkv4"]
+[ext_resource type="PackedScene" uid="uid://cn8sntu4guw1i" path="res://Common Meshes/tower.tscn" id="3_ppyta"]
 [ext_resource type="PackedScene" uid="uid://bk2tm65rltpyu" path="res://EnemySpawner/EnemySpawner.tscn" id="4_ppyta"]
 [ext_resource type="PackedScene" uid="uid://dtwg1ifxprse1" path="res://UI/PauseMenu/paused_menu.tscn" id="6_g14j6"]
+[ext_resource type="PackedScene" uid="uid://p5t2hwitkh5n" path="res://Econ/Bank.tscn" id="6_mhym6"]
+[ext_resource type="PackedScene" uid="uid://brnpevcbx63ri" path="res://CommonComponents/BoundingBoxComponent.tscn" id="7_0m0f1"]
 [ext_resource type="PackedScene" uid="uid://b1dwbiegtujwp" path="res://UI/Design/fade.tscn" id="7_vbegm"]
+[ext_resource type="PackedScene" uid="uid://bdhvjwoymjpqc" path="res://Enemies/ScorpionEnemy.tscn" id="8_45l4g"]
 [ext_resource type="Texture2D" uid="uid://ddpfuc2dtne5n" path="res://UI/Design/palletee.png" id="8_ehkex"]
+[ext_resource type="PackedScene" uid="uid://djnt75jjm0h8y" path="res://Enemies/GrasshopperEnemy.tscn" id="9_4uo0j"]
 [ext_resource type="Script" uid="uid://cy6kjm537b1ja" path="res://reward_button.gd" id="9_77dp3"]
 [ext_resource type="FontFile" uid="uid://bxheo3lrppx2b" path="res://UI/Design/Metamorphous-Regular.ttf" id="9_xersf"]
+[ext_resource type="PackedScene" uid="uid://dh73kx4dkwyqi" path="res://Enemies/BombardierbeetleEnemy.tscn" id="10_vxl6d"]
 [ext_resource type="PackedScene" uid="uid://boe1vnxfmybh4" path="res://RewardSystem/rewardSystemUI.tscn" id="11_5tkv4"]
 [ext_resource type="PackedScene" uid="uid://dxq2mkw7qqwy0" path="res://UI/HUD/hud.tscn" id="12_5tkv4"]
 
@@ -23,8 +29,8 @@ background_mode = 2
 sky = SubResource("Sky_6uqi0")
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_6uqi0"]
-vertices = PackedVector3Array(-8.625425, 0.48345885, 14.378532, -10.625425, 0.48345885, 14.628532, -10.625425, 0.48345885, 17.128532, 8.874575, 0.48345885, 17.128532, -8.625425, 0.48345885, 10.628532, 8.874575, 0.48345885, -20.871468, -16.625425, 0.48345885, -20.871468, -16.625425, 0.48345885, 10.128532, -12.375425, 0.48345885, 10.378532, -12.875425, 0.48345885, 14.378532, -16.625425, 0.48345885, 17.128532, -12.875425, 0.48345885, 10.628532, -11.875425, 6.483459, 11.378532, -11.875425, 6.483459, 13.628532, -9.625425, 6.483459, 13.628532, -9.625425, 6.483459, 11.378532, -11.625425, 0.48345885, 11.628532, -11.625425, 0.48345885, 13.378532, -9.875425, 0.48345885, 13.378532, -9.875425, 0.48345885, 11.628532)
-polygons = [PackedInt32Array(1, 0, 2), PackedInt32Array(2, 0, 3), PackedInt32Array(3, 4, 5), PackedInt32Array(5, 4, 6), PackedInt32Array(3, 0, 4), PackedInt32Array(8, 7, 6), PackedInt32Array(4, 8, 6), PackedInt32Array(1, 2, 9), PackedInt32Array(9, 2, 10), PackedInt32Array(7, 8, 11), PackedInt32Array(11, 9, 7), PackedInt32Array(7, 9, 10), PackedInt32Array(15, 14, 12), PackedInt32Array(12, 14, 13), PackedInt32Array(19, 18, 16), PackedInt32Array(16, 18, 17)]
+vertices = PackedVector3Array(-16.625425, 0.48345885, -20.871468, -16.625425, 0.48345885, 23.628532, 26.874575, 0.48345885, 23.628532, 26.874575, 0.48345885, -20.871468)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8uh7m"]
 albedo_texture = ExtResource("1_37kl0")
@@ -46,6 +52,7 @@ region_rect = Rect2(318, 159, 263, 46)
 [node name="TowerManager" type="Node3D" parent="." unique_id=1953009979 node_paths=PackedStringArray("navigation_region_3D")]
 script = ExtResource("1_ykrsh")
 tower_scene = ExtResource("3_ppyta")
+wall = ExtResource("3_5tkv4")
 canPlaceTower = true
 navigation_region_3D = NodePath("../NavigationRegion3D")
 
@@ -64,19 +71,22 @@ environment = SubResource("Environment_ppyta")
 navigation_mesh = SubResource("NavigationMesh_6uqi0")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="NavigationRegion3D" unique_id=1144928780 groups=["Ground"]]
-transform = Transform3D(26.60132, 0, 0, 0, 0.13341707, 0, 0, 0, 39.054703, -3.8247647, 0.05016738, -1.8441162)
+transform = Transform3D(26.60132, 0, 0, 0, 0.13341707, 0, 0, 0, 39.054703, 5.105122, 0.05016738, 1.4167988)
 use_collision = true
+size = Vector3(1.6713867, 1, 1.1669922)
 material = SubResource("StandardMaterial3D_8uh7m")
 
-[node name="Tower" parent="NavigationRegion3D" unique_id=1361753452 instance=ExtResource("3_ppyta")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.718266, 0, 12.438829)
-
-[node name="RangedComponent" parent="NavigationRegion3D/Tower" index="1" unique_id=707547592]
-isAOE = true
-AoeRadius = 3.0
+[node name="Bank" parent="NavigationRegion3D" unique_id=1323981361 instance=ExtResource("6_mhym6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.840256, 0, 0)
 
 [node name="EnemySpawner" parent="." unique_id=1712601701 instance=ExtResource("4_ppyta")]
-maxEnemies = 5
+scorpionEnemyScene = ExtResource("8_45l4g")
+grasshopperEnemyScene = ExtResource("9_4uo0j")
+bombardierbeetleEnemyScene = ExtResource("10_vxl6d")
+
+[node name="BoundingBoxComponent" parent="." unique_id=1878699487 node_paths=PackedStringArray("player") instance=ExtResource("7_0m0f1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.725789, 3.0738106, 0)
+player = NodePath("../Player")
 
 [node name="pause" type="CanvasLayer" parent="." unique_id=59243751]
 
@@ -132,4 +142,4 @@ anchor_bottom = 0.5
 
 [connection signal="pressed" from="rewardButton" to="rewardButton" method="_on_pressed"]
 
-[editable path="NavigationRegion3D/Tower"]
+[editable path="Player"]
