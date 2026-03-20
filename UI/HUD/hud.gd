@@ -4,6 +4,8 @@ extends CanvasLayer
 @onready var health_label: Label = $healthControl/healthLabel
 @onready var gold_label: Label = $goldControl/goldLabel
 @onready var damage_label: Label = $damageControl/damageLabel
+@onready var wave_label: Label = $waveControl/bg/waveLabel
+@onready var enemies_label: Label = $enemiesControl/bg/enemiesLabel
 
 const BAR_MAX_WIDTH = 130.0
 var health_component: Node
@@ -30,3 +32,9 @@ func update_gold(amount: int) -> void:
 
 func update_damage(amount: int) -> void:
 	damage_label.text = "%d DMG" % amount
+
+func update_wave(wave: int) -> void:
+	wave_label.text = str(wave) + " Wawe"
+
+func update_enemies(remaining: int) -> void:
+	enemies_label.text = "%d enemies left" % remaining

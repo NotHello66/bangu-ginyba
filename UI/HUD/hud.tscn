@@ -146,3 +146,78 @@ offset_top = 16.0
 offset_right = 77.0
 offset_bottom = 39.0
 theme_override_fonts/font = ExtResource("6_h1lrf")
+
+[node name="waveControl" type="Control" parent="." unique_id=1202974739]
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -72.5
+offset_right = 72.5
+offset_bottom = 40.0
+grow_horizontal = 2
+
+[node name="bg" type="TextureRect" parent="waveControl" unique_id=155093856]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 125.0
+offset_bottom = 44.0
+grow_horizontal = 2
+texture = ExtResource("2_s83ig")
+expand_mode = 1
+
+[node name="waveLabel" type="Label" parent="waveControl/bg" unique_id=877260725]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("6_h1lrf")
+theme_override_font_sizes/font_size = 14
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="enemiesControl" type="Control" parent="." unique_id=673209383]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 380.0
+offset_right = -607.0
+offset_bottom = -601.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="bg" type="TextureRect" parent="enemiesControl" unique_id=374121144]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -2.5
+offset_top = 12.0
+offset_right = 114.0
+offset_bottom = 44.0
+grow_horizontal = 2
+texture = ExtResource("2_s83ig")
+expand_mode = 1
+
+[node name="enemiesLabel" type="Label" parent="enemiesControl/bg" unique_id=203612473]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_top = 1.0
+offset_right = -1.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("6_h1lrf")
+theme_override_font_sizes/font_size = 14
+horizontal_alignment = 1
+vertical_alignment = 1

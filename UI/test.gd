@@ -1,16 +1,22 @@
 extends Node3D
 @onready var game_over: CanvasLayer = $GameOver
 @onready var enemy_spawner: Node3D = $EnemySpawner
+@onready var hud: CanvasLayer = $HUD
 
 func _ready() -> void:
 	enemy_spawner.connect("WaveFinished", _on_wave_finished)
-	
+	enemy_spawner.connect("EnemyCountChanged", _on_enemy_count_changed)
+	enemy_spawner.connect("WaveStarted", _on_wave_started)
 	var health_component = get_tree().root.get_node_or_null("Node3D/Player/HealthComponent")
 	if health_component:
 		health_component.connect("PlayerDied", _on_player_died)
 
+func _on_wave_started(wave: int, total: int) -> void:
+	Global.current_wave = wave
+	hud.update_wave(wave)
+	hud.update_enemies(total)
+
 func _on_wave_finished() -> void:
-	Global.current_wave += 1
 	print("Wave %d finished!" % Global.current_wave)
 	# automatically
 	# $reward/rewardSystemUI.visible = true
@@ -19,3 +25,6 @@ func _on_wave_finished() -> void:
 func _on_player_died() -> void:
 	var wave = enemy_spawner.get("waveLevel")
 	game_over.show_game_over(wave)
+
+func _on_enemy_count_changed(remaining: int) -> void:
+	hud.update_enemies(remaining)

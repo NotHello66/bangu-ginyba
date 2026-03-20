@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public partial class EnemySpawner : Node3D
 {
+	[Signal] public delegate void EnemyCountChangedEventHandler(int remaining);
+	[Signal] public delegate void WaveStartedEventHandler(int wave, int totalEnemies);
 	[ExportGroup("Enemey Scenes")]
 	[Export] private PackedScene scorpionEnemyScene;
 	[Export] private PackedScene grasshopperEnemyScene;
@@ -46,7 +48,7 @@ public partial class EnemySpawner : Node3D
 			GD.Print($"Wave Level: {waveLevel} | Enemy Pool: [{poolNames}]");
 
 			enemiesToSpawn = 0;
-
+			EmitSignal(SignalName.WaveStarted, waveLevel, 0);
 			SpawnEnemyWave();
 		}
 	}
@@ -85,13 +87,15 @@ public partial class EnemySpawner : Node3D
 		enemiesToSpawn++;
 		enemyLevel++;
 		enemiesInScene++;
-
+		EmitSignal(SignalName.EnemyCountChanged, enemiesInScene);
 		enemy.TreeExited += OnEnemyRemoved;
 	}
 
-	private async void OnEnemyRemoved()
+	private void OnEnemyRemoved()
 	{
 		enemiesInScene--;
-		if (enemiesInScene == 0) EmitSignal(SignalName.WaveFinished);
+		EmitSignal(SignalName.EnemyCountChanged, enemiesInScene);
+		if (enemiesInScene == 0)
+			EmitSignal(SignalName.WaveFinished);
 	}
 }
