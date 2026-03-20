@@ -123,6 +123,7 @@ theme_override_font_sizes/font_size = 18
 text = "Invest:"
 
 [node name="investSlider" type="HSlider" parent="Panel/investmentContainer" unique_id=34683881]
+process_mode = 3
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -151,7 +152,25 @@ theme_override_fonts/font = ExtResource("2_3xhr2")
 theme_override_font_sizes/font_size = 13
 text = "Current Boost:"
 
+[node name="spinContainer" type="Panel" parent="Panel" unique_id=244480439]
+clip_contents = true
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 0
+offset_left = 54.4375
+offset_top = 299.375
+offset_right = 254.4375
+offset_bottom = 365.375
+
+[node name="itemStrip" type="HBoxContainer" parent="Panel/spinContainer" unique_id=1601204968]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [node name="pullButton" type="Button" parent="Panel" unique_id=1870120672]
+process_mode = 3
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -199,10 +218,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -203.0
-offset_top = -162.375
-offset_right = 203.0
-offset_bottom = -18.375
+offset_left = -100.0
+offset_top = -163.375
+offset_right = 100.0
+offset_bottom = -63.375
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_ovsqs")
@@ -213,8 +232,9 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -20.0
+offset_top = 10.0
 offset_right = 20.0
-offset_bottom = 23.0
+offset_bottom = 33.0
 grow_horizontal = 2
 theme_override_fonts/font = ExtResource("2_3xhr2")
 
@@ -226,13 +246,15 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -36.5
-offset_top = -109.0
+offset_top = -66.0
 offset_right = 36.5
-offset_bottom = -81.5
+offset_bottom = -38.5
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("2_3xhr2")
 theme_override_font_sizes/font_size = 18
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="resultBuffLabel" type="Label" parent="Panel/resultPanel" unique_id=842515488]
 layout_mode = 1
@@ -242,15 +264,16 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -48.0
-offset_top = -3.0
+offset_top = 13.0
 offset_right = 49.0
-offset_bottom = 23.0
+offset_bottom = 39.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("2_3xhr2")
 theme_override_font_sizes/font_size = 16
 
 [node name="CloseButton" type="Button" parent="Panel" unique_id=1394513476]
+process_mode = 3
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
