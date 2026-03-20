@@ -2,6 +2,7 @@ extends Node
 
 var using_wasd: bool = true
 var pause_reasons: Array = []
+var current_wave: int = 0
 
 signal gold_changed(amount: int)  # add this line
 
