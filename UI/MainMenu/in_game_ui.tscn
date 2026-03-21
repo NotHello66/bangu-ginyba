@@ -757,7 +757,6 @@ theme_override_font_sizes/font_size = 110
 text = "BANGŲ GYNYBA"
 
 [node name="fade" parent="." unique_id=101411894 instance=ExtResource("9_umsjv")]
-visible = false
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1904075432]
 layout_mode = 1

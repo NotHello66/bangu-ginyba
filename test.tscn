@@ -18,6 +18,9 @@
 [ext_resource type="PackedScene" uid="uid://boe1vnxfmybh4" path="res://RewardSystem/rewardSystemUI.tscn" id="11_5tkv4"]
 [ext_resource type="PackedScene" uid="uid://dxq2mkw7qqwy0" path="res://UI/HUD/hud.tscn" id="12_5tkv4"]
 [ext_resource type="PackedScene" uid="uid://cvtowhvb5mytc" path="res://UI/GameOver/game_over.tscn" id="17_45l4g"]
+[ext_resource type="Texture2D" uid="uid://otlmibsqgi6m" path="res://UI/Design/iconers.png" id="19_4uo0j"]
+[ext_resource type="Script" uid="uid://ckwgf1gtnx0gq" path="res://tower_button.gd" id="20_eski5"]
+[ext_resource type="PackedScene" uid="uid://dch01jygumy14" path="res://UI/TowerMenu/tower_menu.tscn" id="21_pdf00"]
 
 [sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_8uh7m"]
 
@@ -46,6 +49,18 @@ region_rect = Rect2(318, 159, 263, 46)
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_77dp3"]
 texture = ExtResource("8_ehkex")
 region_rect = Rect2(318, 159, 263, 46)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vxl6d"]
+texture = ExtResource("19_4uo0j")
+region_rect = Rect2(314, 30, 74, 77)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_eski5"]
+texture = ExtResource("19_4uo0j")
+region_rect = Rect2(312, 227, 76, 80)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pdf00"]
+texture = ExtResource("19_4uo0j")
+region_rect = Rect2(312, 230, 78, 77)
 
 [node name="Node3D" type="Node3D" unique_id=2069746429]
 script = ExtResource("1_uty7l")
@@ -143,7 +158,25 @@ anchor_bottom = 0.5
 [node name="HUD" parent="." unique_id=1459602689 instance=ExtResource("12_5tkv4")]
 
 [node name="GameOver" parent="." unique_id=671522007 instance=ExtResource("17_45l4g")]
+visible = false
+
+[node name="towerButton" type="Button" parent="." unique_id=1612700767]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 22.0
+offset_top = -62.0
+offset_right = 79.0
+offset_bottom = -12.0
+grow_vertical = 0
+theme_override_styles/normal = SubResource("StyleBoxTexture_vxl6d")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_eski5")
+theme_override_styles/hover = SubResource("StyleBoxTexture_pdf00")
+script = ExtResource("20_eski5")
+
+[node name="towerMenu" parent="." unique_id=521131223 instance=ExtResource("21_pdf00")]
 
 [connection signal="pressed" from="rewardButton" to="rewardButton" method="_on_pressed"]
+[connection signal="pressed" from="towerButton" to="towerButton" method="_on_pressed"]
 
 [editable path="Player"]

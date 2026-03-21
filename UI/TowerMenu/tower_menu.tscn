@@ -1,0 +1,278 @@
+[gd_scene format=3 uid="uid://dch01jygumy14"]
+
+[ext_resource type="Script" uid="uid://57dw74xbaj08" path="res://UI/TowerMenu/tower_menu.gd" id="1_hckdi"]
+[ext_resource type="FontFile" uid="uid://bxheo3lrppx2b" path="res://UI/Design/Metamorphous-Regular.ttf" id="1_hw2d7"]
+[ext_resource type="Texture2D" uid="uid://ddpfuc2dtne5n" path="res://UI/Design/palletee.png" id="2_latee"]
+[ext_resource type="Texture2D" uid="uid://rsp5c57eqtfa" path="res://RewardSystem/panel_bg_v4.png" id="3_ud3hb"]
+[ext_resource type="Texture2D" uid="uid://yjdg0iuxwkb7" path="res://UI/Design/planker.png" id="4_hckdi"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ud3hb"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hckdi"]
+texture = ExtResource("2_latee")
+texture_margin_left = 75.0
+region_rect = Rect2(30, 160, 266, 47)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tjlhk"]
+texture = ExtResource("2_latee")
+region_rect = Rect2(318, 161, 261, 45)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6tx12"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6tx12"]
+texture = ExtResource("4_hckdi")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8prnv"]
+texture = ExtResource("2_latee")
+region_rect = Rect2(319, 159, 258, 48)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wyyay"]
+texture = ExtResource("4_hckdi")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tnpyc"]
+texture = ExtResource("4_hckdi")
+
+[node name="towerMenu" type="CanvasLayer" unique_id=521131223]
+script = ExtResource("1_hckdi")
+
+[node name="bg" type="ColorRect" parent="." unique_id=1803446653]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.2509804, 0.2509804, 0.2509804, 0.7058824)
+
+[node name="Panel" type="Panel" parent="." unique_id=936876080]
+custom_minimum_size = Vector2(700, 450)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_ud3hb")
+
+[node name="titleLabel" type="Label" parent="Panel" unique_id=38472346]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -215.25
+offset_top = -218.0
+offset_right = 215.25
+offset_bottom = -157.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_hw2d7")
+theme_override_font_sizes/font_size = 50
+text = "Tower Selection"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="closeButton" type="Button" parent="Panel" unique_id=1046694487]
+process_mode = 3
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -87.6875
+offset_top = -42.0
+offset_right = 87.6875
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxTexture_hckdi")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_tjlhk")
+theme_override_styles/hover = SubResource("StyleBoxTexture_tjlhk")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_6tx12")
+
+[node name="closeLabel" type="Label" parent="Panel/closeButton" unique_id=280064033]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -34.0
+offset_top = -9.5
+offset_right = 35.0
+offset_bottom = 13.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_hw2d7")
+theme_override_font_sizes/font_size = 14
+text = "Close"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="towerGrid" type="HBoxContainer" parent="Panel" unique_id=1813328914]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -296.5
+offset_top = -124.0
+offset_right = 296.5
+offset_bottom = 141.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 44
+alignment = 1
+
+[node name="archerCard" type="PanelContainer" parent="Panel/towerGrid" unique_id=1431970373]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Panel/towerGrid/archerCard" unique_id=931364308]
+layout_mode = 2
+texture = ExtResource("3_ud3hb")
+expand_mode = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/towerGrid/archerCard" unique_id=372391940]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Panel/towerGrid/archerCard/VBoxContainer" unique_id=1573710880]
+custom_minimum_size = Vector2(50, 150)
+layout_mode = 2
+
+[node name="nameLabel" type="Label" parent="Panel/towerGrid/archerCard/VBoxContainer" unique_id=1001357470]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_hw2d7")
+text = "Archer Tower"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="statsLabel" type="Label" parent="Panel/towerGrid/archerCard/VBoxContainer" unique_id=1932930334]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_hw2d7")
+text = "Damage"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="costLabel" type="Label" parent="Panel/towerGrid/archerCard/VBoxContainer" unique_id=1310192233]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_hw2d7")
+text = "Gold"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="selectButton" type="Button" parent="Panel/towerGrid/archerCard/VBoxContainer" unique_id=577771820]
+custom_minimum_size = Vector2(100, 25)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_fonts/font = ExtResource("1_hw2d7")
+theme_override_styles/normal = SubResource("StyleBoxTexture_6tx12")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8prnv")
+theme_override_styles/hover = SubResource("StyleBoxTexture_8prnv")
+text = "Select"
+
+[node name="wallCard" type="PanelContainer" parent="Panel/towerGrid" unique_id=867228313]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Panel/towerGrid/wallCard" unique_id=985066146]
+layout_mode = 2
+texture = ExtResource("3_ud3hb")
+expand_mode = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/towerGrid/wallCard" unique_id=1083484423]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Panel/towerGrid/wallCard/VBoxContainer" unique_id=45920629]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+
+[node name="nameLabel" type="Label" parent="Panel/towerGrid/wallCard/VBoxContainer" unique_id=1709246919]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_hw2d7")
+text = "Wall"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="statsLabel" type="Label" parent="Panel/towerGrid/wallCard/VBoxContainer" unique_id=610027096]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_hw2d7")
+text = "Damage"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="costLabel" type="Label" parent="Panel/towerGrid/wallCard/VBoxContainer" unique_id=1519304676]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_hw2d7")
+text = "Gold"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="selectButton" type="Button" parent="Panel/towerGrid/wallCard/VBoxContainer" unique_id=327945758]
+custom_minimum_size = Vector2(100, 25)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("1_hw2d7")
+theme_override_styles/normal = SubResource("StyleBoxTexture_wyyay")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8prnv")
+theme_override_styles/hover = SubResource("StyleBoxTexture_8prnv")
+text = "Select"
+
+[node name="bombCard" type="PanelContainer" parent="Panel/towerGrid" unique_id=1870266251]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Panel/towerGrid/bombCard" unique_id=1471141882]
+layout_mode = 2
+texture = ExtResource("3_ud3hb")
+expand_mode = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/towerGrid/bombCard" unique_id=1581673849]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Panel/towerGrid/bombCard/VBoxContainer" unique_id=613137003]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+
+[node name="nameLabel" type="Label" parent="Panel/towerGrid/bombCard/VBoxContainer" unique_id=1625019733]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_hw2d7")
+text = "Bomb Tower"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="statsLabel" type="Label" parent="Panel/towerGrid/bombCard/VBoxContainer" unique_id=53746184]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_hw2d7")
+text = "Damage"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="costLabel" type="Label" parent="Panel/towerGrid/bombCard/VBoxContainer" unique_id=106379568]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_hw2d7")
+text = "Gold"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="selectButton" type="Button" parent="Panel/towerGrid/bombCard/VBoxContainer" unique_id=1630039399]
+custom_minimum_size = Vector2(100, 25)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("1_hw2d7")
+theme_override_styles/normal = SubResource("StyleBoxTexture_tnpyc")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8prnv")
+theme_override_styles/hover = SubResource("StyleBoxTexture_8prnv")
+text = "Select"
+
+[connection signal="pressed" from="Panel/closeButton" to="." method="_on_close_button_pressed"]
