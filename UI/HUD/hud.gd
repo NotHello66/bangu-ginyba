@@ -16,15 +16,16 @@ func _ready() -> void:
 	if health_component:
 		health_component.connect("HealthChanged", _on_health_changed)
 	Global.gold_changed.connect(_on_gold_changed)
+	Global.stats_changed.connect(_on_stats_changed)
 	update_gold(Global.gold)
-	update_damage(10)
+	_on_stats_changed()
 
 func _on_health_changed(current: float, maximum: float) -> void:
 	var ratio = current / maximum
 	bar_fill.size.x = BAR_MAX_WIDTH * ratio
 	health_label.text = "%d / %d" % [int(current), int(maximum)]
 
-func _on_gold_changed(amount: int) -> void:  # this was missing
+func _on_gold_changed(amount: int) -> void:
 	update_gold(amount)
 
 func update_gold(amount: int) -> void:
@@ -38,3 +39,16 @@ func update_wave(wave: int) -> void:
 
 func update_enemies(remaining: int) -> void:
 	enemies_label.text = "%d enemies left" % remaining
+
+func _on_stats_changed() -> void:
+	print("HUD: stats_changed received")
+	var ranged = get_tree().root.get_node_or_null("Node3D/Player/RangedComponent")
+	var melee = get_tree().root.get_node_or_null("Node3D/Player/MeleeComponent")
+	var dmg = 0.0
+	if ranged:
+		dmg = ranged.get("damage")
+		print("HUD: ranged damage = ", dmg)
+	elif melee:
+		dmg = melee.get("damage")
+		print("HUD: melee damage = ", dmg)
+	update_damage(int(dmg))

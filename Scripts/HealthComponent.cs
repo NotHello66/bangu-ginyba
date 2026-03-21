@@ -4,7 +4,7 @@ public partial class HealthComponent : Node3D
 {
 	[Signal] public delegate void HealthChangedEventHandler(float current, float max);
 	[Signal] public delegate void PlayerDiedEventHandler();
-	[Export] private float MaxHP;
+	[Export] public float MaxHP;
 	public float HP;
 	public bool isDead = false;
 	public double deathDespawnTimer = 2;
@@ -25,5 +25,12 @@ public partial class HealthComponent : Node3D
 		}
 		EmitSignal(SignalName.HealthChanged, HP, MaxHP);
 		GD.Print($"| {GetParent().Name} | HP: {HP} | isDead: {isDead} |");
-		}
+	}
+
+	public void IncreaseMaxHP(float amount)
+	{
+		MaxHP += amount;
+		HP += amount;
+		EmitSignal(SignalName.HealthChanged, HP, MaxHP);
+	}
 }

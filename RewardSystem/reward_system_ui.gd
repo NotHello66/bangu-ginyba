@@ -194,6 +194,7 @@ func flash_winner(item: Dictionary) -> void:
 	update_ui()
 
 func show_result(item: Dictionary) -> void:
+	Global.apply_buff(item.buff, item.value)
 	border_overlay.visible = false
 	var color = DB.RARITY_COLORS[item.rarity]
 	result_panel.visible = true
@@ -235,12 +236,15 @@ func _on_close_button_pressed() -> void:
 func _on_pull_button_pressed() -> void:
 	if is_spinning:
 		return
+	if not Global.can_pull:
+		return
 	var investment = int(invest_slider.value)
 	if !manager.can_afford(investment):
 		return
 	var item = manager.pull_item(investment)
 	if item.is_empty():
 		return
+	Global.can_pull = false
 	emit_signal("gold_changed", investment)
 	update_ui()
 	start_spin(item)
