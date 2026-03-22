@@ -30,17 +30,17 @@ public partial class CameraObstructionFade : Node3D
             if (result.Count == 0) break;
 
             var collider = result["collider"].As<GodotObject>();
-            GD.Print("Collider: " + collider.GetType());
+            //GD.Print("Collider: " + collider.GetType());
             if (collider is CollisionObject3D collision)
             {
-                GD.Print("Hit: " + collision.Name);
+                //GD.Print("Hit: " + collision.Name);
                 if (collision == null) break;
                 if (collision.IsInGroup("SeeThru"))
                 {
                     var meshes = FindAllMeshes(collision);
                     foreach (var mesh in meshes)
                     {
-                        GD.Print("Mesh: " + mesh.Name);
+                        //GD.Print("Mesh: " + mesh.Name);
                         FadeObject(mesh);
                     }
 

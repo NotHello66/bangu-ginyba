@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://cdni7i3slbtdd"]
+
+[ext_resource type="Script" uid="uid://dk4mssw78t2m6" path="res://Scripts/FriendlyUnit.cs" id="1_5rg7c"]
+[ext_resource type="PackedScene" uid="uid://chu8vv10twj0q" path="res://CommonComponents/hit_box_component.tscn" id="1_6qca3"]
+[ext_resource type="PackedScene" uid="uid://f1qjftfkuhr" path="res://CommonComponents/health_component.tscn" id="2_5rg7c"]
+[ext_resource type="PackedScene" uid="uid://cc2glgwhr8yu1" path="res://CommonComponents/melee_component.tscn" id="3_v5nof"]
+[ext_resource type="PackedScene" uid="uid://bisshrab8be2c" path="res://Common Meshes/AttackClaw.tscn" id="4_bhxam"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0wvk0"]
+albedo_color = Color(2.117753e-06, 0.91408694, 0.93451196, 1)
+roughness = 0.18
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_0smgt"]
+material = SubResource("StandardMaterial3D_0wvk0")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_uvkw1"]
+size = Vector3(1, 0.866272, 0.92626953)
+
+[node name="MeleeSoldier" type="CharacterBody3D" unique_id=1127849953]
+script = ExtResource("1_5rg7c")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=757041097]
+transform = Transform3D(1, 0, 0, 0, 0.42995054, 0, 0, 0, 1, 0, 0.44503146, 0)
+mesh = SubResource("CapsuleMesh_0smgt")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=34227010]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4642012, -0.0041503906)
+shape = SubResource("BoxShape3D_uvkw1")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1727268252]
+avoidance_enabled = true
+debug_enabled = true
+debug_use_custom = true
+debug_path_custom_color = Color(0.3367978, 0.44143066, 0.8074358, 1)
+
+[node name="HitBoxComponent" parent="." unique_id=1495271838 instance=ExtResource("1_6qca3")]
+
+[node name="HealthComponent" parent="." unique_id=581968543 instance=ExtResource("2_5rg7c")]
+
+[node name="MeleeComponent" parent="." unique_id=121852746 groups=["Ally"] instance=ExtResource("3_v5nof")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.7624475, 0)
+attackScene = ExtResource("4_bhxam")
+damage = 10.0
+knockbackForce = 3.0
+cooldown = 2.0

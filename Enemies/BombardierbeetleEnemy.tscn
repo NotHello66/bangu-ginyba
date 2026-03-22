@@ -12,7 +12,7 @@ albedo_color = Color(1, 0, 0, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_pjgsm"]
 
-[node name="BombardierbeetleEnemy" type="CharacterBody3D" unique_id=1589266389]
+[node name="BombardierbeetleEnemy" type="CharacterBody3D" unique_id=1589266389 groups=["Enemy"]]
 script = ExtResource("1_uasft")
 attackRange = 10.0
 
@@ -22,7 +22,7 @@ attackRange = 10.0
 
 [node name="RangedComponent" parent="." unique_id=707547592 instance=ExtResource("4_8ix8s")]
 
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=2054314887 groups=["Enemy"]]
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=2054314887]
 avoidance_enabled = true
 debug_enabled = true
 debug_use_custom = true

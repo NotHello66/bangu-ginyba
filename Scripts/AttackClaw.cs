@@ -56,7 +56,7 @@ public partial class AttackClaw : Attack
     {
         if (hasDamaged) return;
 
-        if (body.IsInGroup("Player") || body.IsInGroup("Tower"))
+        if (body.IsInGroup("Player") || body.IsInGroup("Tower") || body.IsInGroup("Enemy"))
         {
             HitBoxComponent hitbox = body.GetParent()?.GetNodeOrNull<HitBoxComponent>("HitBoxComponent") ?? body.GetNodeOrNull<HitBoxComponent>("HitBoxComponent");
             if (hitbox != null)

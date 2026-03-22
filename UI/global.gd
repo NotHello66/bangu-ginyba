@@ -6,12 +6,33 @@ var current_wave: int = 0
 var can_pull: bool = false
 signal stats_changed
 
+enum FriendlyState{
+	Idle = 0,
+	Chasing = 1,
+	Following = 2,
+	Stationed = 3,
+	Attacking = 4,
+	Stunned = 5,
+	Dead = 6
+}
+signal friendlyStateChanged(newState: int)
+var currentState:int = FriendlyState.Following:
+	set(value):
+		currentState = value
+		friendlyStateChanged.emit(currentState)
+
 signal gold_changed(amount: int)
 
 var gold: int = 100:
 	set(value):
 		gold = value
 		gold_changed.emit(gold)
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("unitsFollow"):
+		currentState = FriendlyState.Following
+	if event.is_action_pressed("unitsStationed"):
+		currentState = FriendlyState.Stationed
 
 func add_pause(reason: String) -> void:
 	if reason not in pause_reasons:

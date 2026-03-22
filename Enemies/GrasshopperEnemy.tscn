@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://f1qjftfkuhr" path="res://CommonComponents/health_component.tscn" id="2_pjgsm"]
 [ext_resource type="PackedScene" uid="uid://chu8vv10twj0q" path="res://CommonComponents/hit_box_component.tscn" id="3_gvh86"]
 [ext_resource type="PackedScene" uid="uid://cc2glgwhr8yu1" path="res://CommonComponents/melee_component.tscn" id="4_cnywy"]
-[ext_resource type="PackedScene" uid="uid://ciirnwesrt0as" path="res://Common meshes/AttackTorus.tscn" id="5_3hc31"]
+[ext_resource type="PackedScene" uid="uid://ciirnwesrt0as" path="res://Common Meshes/AttackTorus.tscn" id="5_3hc31"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_pkft5"]
 
@@ -13,14 +13,13 @@
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3hc31"]
 albedo_color = Color(0, 1, 0, 1)
 
-[node name="GrasshopperEnemy" type="CharacterBody3D" unique_id=1589266389]
+[node name="GrasshopperEnemy" type="CharacterBody3D" unique_id=1589266389 groups=["Enemy"]]
 script = ExtResource("1_pkft5")
 isJumpingType = true
 
 [node name="HealthComponent" parent="." unique_id=581968543 instance=ExtResource("2_pjgsm")]
 
-[node name="HitBoxComponent" parent="." unique_id=1495271838 node_paths=PackedStringArray("healthComponent") instance=ExtResource("3_gvh86")]
-healthComponent = NodePath("../HealthComponent")
+[node name="HitBoxComponent" parent="." unique_id=1495271838 instance=ExtResource("3_gvh86")]
 
 [node name="MeleeComponent" parent="." unique_id=121852746 instance=ExtResource("4_cnywy")]
 attackScene = ExtResource("5_3hc31")
@@ -28,7 +27,7 @@ damage = 10.0
 knockbackForce = 5.0
 cooldown = 1.5
 
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=2054314887 groups=["Enemy"]]
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=2054314887]
 avoidance_enabled = true
 debug_enabled = true
 debug_use_custom = true

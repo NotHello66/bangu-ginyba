@@ -14,22 +14,16 @@ public partial class BoundingBoxComponent : Node3D
     }
     private void OnNodeAdded(Node node)
     {
-        if (node.IsInGroup("Enemy") && node is NavigationAgent3D agent)
+        if ((node.IsInGroup("Ally") || node.IsInGroup("Enemy")) && node is CharacterBody3D agent)
         {
-            if (agent.GetParent() is CharacterBody3D body)
-            {
-                enemies.Add(body);
-            }
+                enemies.Add(agent);
         }
     }
     private void OnNodeRemoved(Node node)
 	{
-        if (node.IsInGroup("Enemy") && node is NavigationAgent3D agent)
+        if ((node.IsInGroup("Ally") || node.IsInGroup("Enemy")) && node is CharacterBody3D agent)
         {
-            if (agent.GetParent() is CharacterBody3D body)
-            {
-                enemies.Remove(body);
-            }
+            enemies.Remove(agent);
         }
     }
 

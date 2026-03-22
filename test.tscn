@@ -2,8 +2,9 @@
 
 [ext_resource type="PackedScene" uid="uid://cjhwvn2bxs5i" path="res://PlayerController/PlayerController.tscn" id="1_8uh7m"]
 [ext_resource type="Texture2D" uid="uid://6r00oi4kcwpv" path="res://Textures/SL-072622-51930-14.jpg" id="1_37kl0"]
-[ext_resource type="Script" path="res://UI/test.gd" id="1_uty7l"]
+[ext_resource type="Script" uid="uid://c08x64fmrmm8g" path="res://UI/test.gd" id="1_uty7l"]
 [ext_resource type="Script" uid="uid://mc4w82onwil4" path="res://Scripts/tower_manager.gd" id="1_ykrsh"]
+[ext_resource type="PackedScene" uid="uid://chmw0r30op1h1" path="res://Common Meshes/Towers/castle.tscn" id="2_a6gra"]
 [ext_resource type="PackedScene" uid="uid://rgb0jq431ckp" path="res://Common Meshes/Towers/Wall.tscn" id="3_5tkv4"]
 [ext_resource type="PackedScene" uid="uid://cn8sntu4guw1i" path="res://Common Meshes/Towers/tower.tscn" id="3_ppyta"]
 [ext_resource type="PackedScene" uid="uid://bk2tm65rltpyu" path="res://EnemySpawner/EnemySpawner.tscn" id="4_ppyta"]
@@ -20,7 +21,7 @@
 [ext_resource type="PackedScene" uid="uid://dxq2mkw7qqwy0" path="res://UI/HUD/hud.tscn" id="12_5tkv4"]
 [ext_resource type="PackedScene" uid="uid://cvtowhvb5mytc" path="res://UI/GameOver/game_over.tscn" id="17_45l4g"]
 [ext_resource type="Texture2D" uid="uid://otlmibsqgi6m" path="res://UI/Design/iconers.png" id="19_4uo0j"]
-[ext_resource type="Script" path="res://tower_button.gd" id="20_eski5"]
+[ext_resource type="Script" uid="uid://ckwgf1gtnx0gq" path="res://tower_button.gd" id="20_eski5"]
 [ext_resource type="PackedScene" uid="uid://dch01jygumy14" path="res://UI/TowerMenu/tower_menu.tscn" id="21_pdf00"]
 
 [sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_8uh7m"]
@@ -66,6 +67,9 @@ region_rect = Rect2(312, 230, 78, 77)
 [node name="Node3D" type="Node3D" unique_id=2069746429]
 script = ExtResource("1_uty7l")
 
+[node name="Castle" parent="." unique_id=521743089 instance=ExtResource("2_a6gra")]
+transform = Transform3D(-1.7484555e-07, 0, 4, 0, 4, 0, -4, 0, -1.7484555e-07, -10.702402, 0, -12.019423)
+
 [node name="TowerManager" type="Node3D" parent="." unique_id=1953009979 node_paths=PackedStringArray("navigation_region_3D")]
 script = ExtResource("1_ykrsh")
 tower_scene = ExtResource("3_ppyta")
@@ -101,6 +105,7 @@ material = SubResource("StandardMaterial3D_8uh7m")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.840256, 0, 0)
 
 [node name="EnemySpawner" parent="." unique_id=1712601701 instance=ExtResource("4_ppyta")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.605855, 0)
 scorpionEnemyScene = ExtResource("8_45l4g")
 
 [node name="BoundingBoxComponent" parent="." unique_id=1878699487 node_paths=PackedStringArray("player") instance=ExtResource("7_0m0f1")]
