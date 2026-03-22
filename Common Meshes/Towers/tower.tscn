@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cn8sntu4guw1i"]
 
-[ext_resource type="PackedScene" uid="uid://cht2qqn18iwgx" path="res://Common meshes/tower_mk1.glb" id="1_ri4t3"]
+[ext_resource type="PackedScene" uid="uid://cartidrjmub5e" path="res://Common Meshes/Towers/ArcherTower.fbx" id="1_htn2i"]
+[ext_resource type="PackedScene" uid="uid://cht2qqn18iwgx" path="res://Common Meshes/Towers/tower_mk1.glb" id="1_ri4t3"]
 [ext_resource type="PackedScene" uid="uid://m465nhr8gnac" path="res://CommonComponents/ranged_component.tscn" id="2_euquj"]
 [ext_resource type="PackedScene" uid="uid://88xe1nk2jm3e" path="res://CommonComponents/tower_component.tscn" id="3_pibj7"]
 [ext_resource type="PackedScene" uid="uid://f1qjftfkuhr" path="res://CommonComponents/health_component.tscn" id="4_a16bc"]
@@ -8,19 +9,23 @@
 [ext_resource type="PackedScene" uid="uid://c24fyh7td8xde" path="res://CommonComponents/enemy_slot_manager.tscn" id="6_6qkdr"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ri4t3"]
-size = Vector3(3, 5.98645, 3)
+size = Vector3(2.5597687, 5.1362686, 2.2971191)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_euquj"]
-size = Vector3(3.0830078, 6.076294, 3.0272217)
+size = Vector3(2.5135498, 5.087044, 2.4060383)
 
 [node name="Tower" type="StaticBody3D" unique_id=267637000 groups=["Tower"]]
 transform = Transform3D(0.9999413, 0.010838282, 0, -0.010838282, 0.9999413, 0, 0, 0, 1, 0, 0, 0)
 
+[node name="ArcherTower_model" parent="." unique_id=645371158 instance=ExtResource("1_htn2i")]
+transform = Transform3D(4.9997063, -0.04335313, 0, 0.05419141, 3.9997652, 0, 0, 0, 5, 0, 0.017, 0)
+
 [node name="tower_mk1" parent="." unique_id=843279452 instance=ExtResource("1_ri4t3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.017, 0)
+visible = false
 
 [node name="RangedComponent" parent="." unique_id=707547592 instance=ExtResource("2_euquj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.591713, 0)
+transform = Transform3D(0.9999461, 0.009096158, -0.0050339745, -0.009120198, 0.9999472, -0.0047731893, 0.004990275, 0.0048188576, 0.9999759, -0.008613907, 6.386435, 0)
 damage = 2.0
 knockbackForce = 1.0
 cooldown = 0.5
@@ -28,7 +33,7 @@ cooldown = 0.5
 [node name="TowerComponent" parent="." unique_id=2033991700 instance=ExtResource("3_pibj7")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2140655768]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.0064087, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.055477455, 2.5814302, 0.016731262)
 shape = SubResource("BoxShape3D_ri4t3")
 
 [node name="HealthComponent" parent="." unique_id=581968543 instance=ExtResource("4_a16bc")]
@@ -40,5 +45,5 @@ shape = SubResource("BoxShape3D_ri4t3")
 [node name="Area3D" type="Area3D" parent="." unique_id=1932112]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=562308237]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.009277344, 3.0050845, -6.1035156e-05)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.053039566, 2.5690846, 0.023711205)
 shape = SubResource("BoxShape3D_euquj")

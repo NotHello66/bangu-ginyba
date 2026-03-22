@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://b3wrolvn6x50"
-path="res://.godot/imported/banks_temp.glb-28976c1d3b92ecd02a368d4b456857e1.scn"
+uid="uid://cht2qqn18iwgx"
+path="res://.godot/imported/tower_mk1.glb-0804c6d97665c46bd1532dcda3ae6491.scn"
 
 [deps]
 
-source_file="res://Common Meshes/banks_temp.glb"
-dest_files=["res://.godot/imported/banks_temp.glb-28976c1d3b92ecd02a368d4b456857e1.scn"]
+source_file="res://Common Meshes/Towers/tower_mk1.glb"
+dest_files=["res://.godot/imported/tower_mk1.glb-0804c6d97665c46bd1532dcda3ae6491.scn"]
 
 [params]
 

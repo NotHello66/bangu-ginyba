@@ -3,6 +3,7 @@ extends Node3D
 # Different towers
 @export var tower_scene: PackedScene
 @export var wall: PackedScene
+@export var bomb_tower: PackedScene
 
 @export var canPlaceTower: bool = false
 @export var navigation_region_3D: NavigationRegion3D
@@ -14,8 +15,8 @@ var preview_material: StandardMaterial3D = null
 var can_place_here: bool = true
 
 # Cycle logic
-enum BuildingType { TOWER, WALL, NONE }
-var current_building: BuildingType = BuildingType.TOWER
+enum BuildingType { TOWER, WALL, BOMB_TOWER, NONE }
+var current_building: BuildingType = BuildingType.NONE
 
 func _process(delta):
 	if canPlaceTower and current_building != BuildingType.NONE:
@@ -23,15 +24,9 @@ func _process(delta):
 	else:
 		remove_preview()
 
-func _input(event):
-	# Cycle through: TOWER -> WALL -> NONE -> TOWER
-	if event.is_action_pressed("toggle_placement"):
-		current_building = (current_building + 1) % 3 as BuildingType
-		remove_preview() # Force fresh preview for new type
-		match current_building:
-			BuildingType.TOWER: print("Selected: Tower")
-			BuildingType.WALL:  print("Selected: Wall")
-			BuildingType.NONE:  print("Selected: None (disabled)")
+func select_building(type: BuildingType):
+	current_building = type
+	remove_preview() # Clear old preview so the new one spawns fresh
 
 func _unhandled_input(event):
 	if event is InputEventMouseButton:
@@ -45,6 +40,7 @@ func get_current_scene() -> PackedScene:
 	match current_building:
 		BuildingType.TOWER: return tower_scene
 		BuildingType.WALL:  return wall
+		BuildingType.BOMB_TOWER:  return bomb_tower
 	return null
 
 func create_preview():

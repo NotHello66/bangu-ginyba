@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://du5pekekmsgyi"
-path="res://.godot/imported/Wall.fbx-1b4a099174b7b6e48cf296063f1d84b1.scn"
+uid="uid://bxn60mmq2m8ai"
+path="res://.godot/imported/BombTower.fbx-2accdb5e2470d2e60b184db197bf6286.scn"
 
 [deps]
 
-source_file="res://Common meshes/Wall.fbx"
-dest_files=["res://.godot/imported/Wall.fbx-1b4a099174b7b6e48cf296063f1d84b1.scn"]
+source_file="res://Common Meshes/Towers/BombTower.fbx"
+dest_files=["res://.godot/imported/BombTower.fbx-2accdb5e2470d2e60b184db197bf6286.scn"]
 
 [params]
 

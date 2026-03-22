@@ -5,6 +5,9 @@
 [ext_resource type="Texture2D" uid="uid://ddpfuc2dtne5n" path="res://UI/Design/palletee.png" id="2_latee"]
 [ext_resource type="Texture2D" uid="uid://rsp5c57eqtfa" path="res://RewardSystem/panel_bg_v4.png" id="3_ud3hb"]
 [ext_resource type="Texture2D" uid="uid://yjdg0iuxwkb7" path="res://UI/Design/planker.png" id="4_hckdi"]
+[ext_resource type="Texture2D" uid="uid://ccj80i31dbrp5" path="res://UI/TowerMenu/ArcherTowerIcon.png" id="5_6tx12"]
+[ext_resource type="Texture2D" uid="uid://d0l8dlag8rugl" path="res://UI/TowerMenu/WallIcon.png" id="7_8prnv"]
+[ext_resource type="Texture2D" uid="uid://6uhbw2k7ujmc" path="res://UI/TowerMenu/BombTowerIcon.png" id="8_8prnv"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ud3hb"]
 
@@ -32,8 +35,12 @@ texture = ExtResource("4_hckdi")
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tnpyc"]
 texture = ExtResource("4_hckdi")
 
-[node name="towerMenu" type="CanvasLayer" unique_id=521131223]
+[node name="towerMenu" type="CanvasLayer" unique_id=521131223 node_paths=PackedStringArray("archer_towerselect_button", "wall_towerselect_button", "close_button", "bomb_towerselect_button")]
 script = ExtResource("1_hckdi")
+archer_towerselect_button = NodePath("Panel/towerGrid/archerCard/VBoxContainer/archerTowerselectButton")
+wall_towerselect_button = NodePath("Panel/towerGrid/wallCard/VBoxContainer/wallTowerselectButton")
+close_button = NodePath("Panel/closeButton")
+bomb_towerselect_button = NodePath("Panel/towerGrid/bombCard/VBoxContainer/bombTowerselectButton")
 
 [node name="bg" type="ColorRect" parent="." unique_id=1803446653]
 anchors_preset = 15
@@ -148,6 +155,8 @@ layout_mode = 2
 [node name="TextureRect" type="TextureRect" parent="Panel/towerGrid/archerCard/VBoxContainer" unique_id=1573710880]
 custom_minimum_size = Vector2(50, 150)
 layout_mode = 2
+texture = ExtResource("5_6tx12")
+expand_mode = 1
 
 [node name="nameLabel" type="Label" parent="Panel/towerGrid/archerCard/VBoxContainer" unique_id=1001357470]
 layout_mode = 2
@@ -159,18 +168,18 @@ vertical_alignment = 1
 [node name="statsLabel" type="Label" parent="Panel/towerGrid/archerCard/VBoxContainer" unique_id=1932930334]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_hw2d7")
-text = "Damage"
+text = "Damage: 2"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="costLabel" type="Label" parent="Panel/towerGrid/archerCard/VBoxContainer" unique_id=1310192233]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_hw2d7")
-text = "Gold"
+text = "Price: 0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="selectButton" type="Button" parent="Panel/towerGrid/archerCard/VBoxContainer" unique_id=577771820]
+[node name="archerTowerselectButton" type="Button" parent="Panel/towerGrid/archerCard/VBoxContainer" unique_id=577771820]
 custom_minimum_size = Vector2(100, 25)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -196,6 +205,8 @@ layout_mode = 2
 [node name="TextureRect" type="TextureRect" parent="Panel/towerGrid/wallCard/VBoxContainer" unique_id=45920629]
 custom_minimum_size = Vector2(0, 150)
 layout_mode = 2
+texture = ExtResource("7_8prnv")
+expand_mode = 1
 
 [node name="nameLabel" type="Label" parent="Panel/towerGrid/wallCard/VBoxContainer" unique_id=1709246919]
 layout_mode = 2
@@ -207,18 +218,18 @@ vertical_alignment = 1
 [node name="statsLabel" type="Label" parent="Panel/towerGrid/wallCard/VBoxContainer" unique_id=610027096]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_hw2d7")
-text = "Damage"
+text = "Damage: 0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="costLabel" type="Label" parent="Panel/towerGrid/wallCard/VBoxContainer" unique_id=1519304676]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_hw2d7")
-text = "Gold"
+text = "Price: 0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="selectButton" type="Button" parent="Panel/towerGrid/wallCard/VBoxContainer" unique_id=327945758]
+[node name="wallTowerselectButton" type="Button" parent="Panel/towerGrid/wallCard/VBoxContainer" unique_id=327945758]
 custom_minimum_size = Vector2(100, 25)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -243,6 +254,8 @@ layout_mode = 2
 [node name="TextureRect" type="TextureRect" parent="Panel/towerGrid/bombCard/VBoxContainer" unique_id=613137003]
 custom_minimum_size = Vector2(0, 150)
 layout_mode = 2
+texture = ExtResource("8_8prnv")
+expand_mode = 1
 
 [node name="nameLabel" type="Label" parent="Panel/towerGrid/bombCard/VBoxContainer" unique_id=1625019733]
 layout_mode = 2
@@ -254,18 +267,18 @@ vertical_alignment = 1
 [node name="statsLabel" type="Label" parent="Panel/towerGrid/bombCard/VBoxContainer" unique_id=53746184]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_hw2d7")
-text = "Damage"
+text = "Damage: 5"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="costLabel" type="Label" parent="Panel/towerGrid/bombCard/VBoxContainer" unique_id=106379568]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_hw2d7")
-text = "Gold"
+text = "Price: 0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="selectButton" type="Button" parent="Panel/towerGrid/bombCard/VBoxContainer" unique_id=1630039399]
+[node name="bombTowerselectButton" type="Button" parent="Panel/towerGrid/bombCard/VBoxContainer" unique_id=1630039399]
 custom_minimum_size = Vector2(100, 25)
 layout_mode = 2
 size_flags_horizontal = 4
