@@ -5,6 +5,9 @@ func before_each():
 	# Instantiate a fresh Global node for each test
 	Global = preload("res://UI/global.gd").new()
 	add_child_autofree(Global)
+#unpauses the tree after each test in case it is left paused
+func after_each():
+	get_tree().paused = false
 func test_gold_default_value():
 	assert_eq(Global.gold, 100, "Gold should start at 100")
  #////////////////gold tests///////////////////////////
