@@ -32,6 +32,10 @@ window/stretch/mode="canvas_items"
 
 project/assembly_name="proginz grupinis"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/gut/plugin.cfg")
+
 [global_group]
 
 Player="Player Group"
