@@ -13,8 +13,13 @@ const INVESTMENT_TIERS = [
 
 var player_gold
 func _ready() -> void:
-	PlayerEcon = get_tree().get_first_node_in_group("Player").get_node("EconomyComponent")
-	player_gold = PlayerEcon.currentGold
+	var player = get_tree().get_first_node_in_group("Player")
+	if player:
+		PlayerEcon = player.get_node_or_null("EconomyComponent")
+		if PlayerEcon:
+			player_gold = PlayerEcon.currentGold
+	if player_gold == null:
+		player_gold = Global.gold
 func _process(delta: float) -> void:
 	player_gold = PlayerEcon.currentGold
 	#print("PlayerGold %d" % player_gold)
@@ -61,8 +66,7 @@ func roll_rarity(investment: int) -> DB.Rarity:
 	return DB.Rarity.GREY
 
 func pull_item(investment: int) -> Dictionary:
-	player_gold -= investment
-	Global.gold = Global.gold - investment
+	Global.gold -= investment
 	var rarity = roll_rarity(investment)
 	
 	var pool = DB.new().get_items_by_rarity(rarity)
@@ -73,4 +77,4 @@ func pull_item(investment: int) -> Dictionary:
 	return item
 
 func can_afford(investment: int) -> bool:
-	return player_gold >= investment
+	return Global.gold >= investment

@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://cht2qqn18iwgx"
-path="res://.godot/imported/tower_mk1.glb-0804c6d97665c46bd1532dcda3ae6491.scn"
+path="res://.godot/imported/tower_mk1.glb-9004221cd304862c75e83948df48765d.scn"
 
 [deps]
 
-source_file="res://Common Meshes/Towers/tower_mk1.glb"
-dest_files=["res://.godot/imported/tower_mk1.glb-0804c6d97665c46bd1532dcda3ae6491.scn"]
+source_file="res://Common meshes/Towers/tower_mk1.glb"
+dest_files=["res://.godot/imported/tower_mk1.glb-9004221cd304862c75e83948df48765d.scn"]
 
 [params]
 

@@ -1,12 +1,14 @@
 extends GutTest
 var Global = null
 var TowerManager = null
+var reward_manager = null
  
 func before_each():
 	# Instantiate a fresh Global node for each test
 	Global = preload("res://UI/global.gd").new()
 	add_child_autofree(Global)
-
+	reward_manager = preload("res://RewardSystem/reward_system_manager.gd").new()
+	add_child_autofree(reward_manager)
 	TowerManager = preload("res://Scripts/tower_manager.gd").new()
 	add_child_autofree(TowerManager)
 #unpauses the tree after each test in case it is left paused
@@ -88,6 +90,35 @@ func test_apply_buff_unknown_buff_still_emits_stats_changed():
 	watch_signals(Global)
 	Global.apply_buff("unknown_buff", 99)
 	assert_signal_emitted(Global, "stats_changed")
+
+#/////////////////////gambling investment tests////////////////////////////////
+func test_investment_tier_no_boost_at_zero():
+	var tier = reward_manager.get_investment_tier(0)
+	assert_eq(tier.label, "No Boost")
+
+func test_investment_tier_small_boost_at_100():
+	var tier = reward_manager.get_investment_tier(100)
+	assert_eq(tier.label, "Small Boost")
+
+func test_investment_tier_max_boost_at_500():
+	var tier = reward_manager.get_investment_tier(500)
+	assert_eq(tier.label, "MAX Boost")
+
+func test_investment_tier_picks_highest_affordable():
+	var tier = reward_manager.get_investment_tier(250)
+	assert_eq(tier.label, "Medium Boost")
+
+#/////////////////////pull item tests////////////////////////////////
+func test_pull_item_deducts_gold():
+	var autoload_global = get_tree().root.get_node("Global")
+	autoload_global.gold = 500
+	reward_manager.pull_item(100)
+	assert_eq(autoload_global.gold, 400)
+
+func test_pull_item_returns_non_empty_dict():
+	Global.gold = 500
+	var item = reward_manager.pull_item(0)
+	assert_false(item.is_empty(), "False")
  
 # ─── TOWER PLACEMENT: DEFAULTS ────────────────────────────────────────────────
 
