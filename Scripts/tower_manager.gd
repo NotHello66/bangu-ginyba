@@ -14,9 +14,18 @@ var preview_tower: Node3D = null
 var preview_material: StandardMaterial3D = null
 var can_place_here: bool = true
 
+# Navigation Baking State
+var is_navmesh_baking: bool = false
+var bake_queued: bool = false
+
 # Cycle logic
 enum BuildingType { TOWER, WALL, BOMB_TOWER, NONE }
 var current_building: BuildingType = BuildingType.NONE
+
+func _ready():
+	# Connect to the bake_finished signal to know when the thread is done
+	if navigation_region_3D:
+		navigation_region_3D.bake_finished.connect(_on_navigation_bake_finished)
 
 func _process(delta):
 	if canPlaceTower and current_building != BuildingType.NONE:
@@ -34,7 +43,7 @@ func _unhandled_input(event):
 			if preview_tower and preview_tower.visible and can_place_here:
 				spawn_tower(preview_tower.global_position)
 				remove_preview()
-				navigation_region_3D.bake_navigation_mesh(true)
+				request_navmesh_bake()
 
 func get_current_scene() -> PackedScene:
 	match current_building:
@@ -151,3 +160,22 @@ func spawn_tower(position: Vector3):
 	navigation_region_3D.add_child(tower)
 	tower.global_position = position
 	tower.add_to_group("SeeThru")
+
+# --- NavMesh Baking Logic ---
+
+func request_navmesh_bake():
+	if is_navmesh_baking:
+		# If a bake is already happening, queue another one for when it finishes.
+		bake_queued = true
+	else:
+		# Otherwise, start baking on a background thread.
+		is_navmesh_baking = true
+		navigation_region_3D.bake_navigation_mesh(true)
+
+func _on_navigation_bake_finished():
+	is_navmesh_baking = false
+	
+	# If a tower was placed while the previous bake was running, bake again now.
+	if bake_queued:
+		bake_queued = false
+		request_navmesh_bake()

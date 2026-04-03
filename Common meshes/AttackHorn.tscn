@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://dfhlv4x4w7bym"]
+
+[ext_resource type="Script" uid="uid://cglecybujw4fi" path="res://Scripts/AttackHorn.cs" id="1_l0i2d"]
+[ext_resource type="PackedScene" uid="uid://dpy6dgc78uw8b" path="res://Common meshes/claw.fbx" id="2_erk2n"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_r2ybq"]
+
+[node name="AttackHorn" type="Node3D" unique_id=1140893006]
+script = ExtResource("1_l0i2d")
+
+[node name="Horn" parent="." unique_id=1863251245 instance=ExtResource("2_erk2n")]
+transform = Transform3D(1, 2.0453044e-08, 5.619428e-08, 5.619428e-08, -0.64278764, -0.76604444, 2.0453044e-08, 0.76604444, -0.64278764, 0, 0, -0.534)
+
+[node name="Area3D" type="Area3D" parent="." unique_id=1795631475]
+transform = Transform3D(-1, -8.742278e-08, 0, 4.3711385e-08, -0.49999997, 0.86602545, -7.5710346e-08, 0.86602545, 0.49999997, 0, 0, -0.3253188)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=2046129410]
+transform = Transform3D(-0.49, -4.1279193e-08, -1.1447732e-08, 0, 0.1309468, -0.47217894, 4.283716e-08, -0.47217894, -0.1309468, 0, 1.6021041, 0.8071356)
+shape = SubResource("CapsuleShape3D_r2ybq")

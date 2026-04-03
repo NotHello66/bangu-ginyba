@@ -4,11 +4,11 @@
 [ext_resource type="Texture2D" uid="uid://6r00oi4kcwpv" path="res://Textures/SL-072622-51930-14.jpg" id="1_37kl0"]
 [ext_resource type="Script" uid="uid://c08x64fmrmm8g" path="res://UI/test.gd" id="1_uty7l"]
 [ext_resource type="Script" uid="uid://mc4w82onwil4" path="res://Scripts/tower_manager.gd" id="1_ykrsh"]
-[ext_resource type="PackedScene" uid="uid://chmw0r30op1h1" path="res://Common Meshes/Towers/castle.tscn" id="2_a6gra"]
-[ext_resource type="PackedScene" uid="uid://rgb0jq431ckp" path="res://Common Meshes/Towers/Wall.tscn" id="3_5tkv4"]
-[ext_resource type="PackedScene" uid="uid://cn8sntu4guw1i" path="res://Common Meshes/Towers/tower.tscn" id="3_ppyta"]
+[ext_resource type="PackedScene" uid="uid://chmw0r30op1h1" path="res://Common meshes/Towers/castle.tscn" id="2_a6gra"]
+[ext_resource type="PackedScene" uid="uid://rgb0jq431ckp" path="res://Common meshes/Towers/Wall.tscn" id="3_5tkv4"]
+[ext_resource type="PackedScene" uid="uid://cn8sntu4guw1i" path="res://Common meshes/Towers/tower.tscn" id="3_ppyta"]
 [ext_resource type="PackedScene" uid="uid://bk2tm65rltpyu" path="res://EnemySpawner/EnemySpawner.tscn" id="4_ppyta"]
-[ext_resource type="PackedScene" uid="uid://bkplvo6qm75dr" path="res://Common Meshes/Towers/BombTower.tscn" id="5_pdf00"]
+[ext_resource type="PackedScene" uid="uid://bkplvo6qm75dr" path="res://Common meshes/Towers/BombTower.tscn" id="5_pdf00"]
 [ext_resource type="PackedScene" uid="uid://dtwg1ifxprse1" path="res://UI/PauseMenu/paused_menu.tscn" id="6_g14j6"]
 [ext_resource type="PackedScene" uid="uid://p5t2hwitkh5n" path="res://Econ/Bank.tscn" id="6_mhym6"]
 [ext_resource type="PackedScene" uid="uid://brnpevcbx63ri" path="res://CommonComponents/BoundingBoxComponent.tscn" id="7_0m0f1"]
@@ -19,6 +19,10 @@
 [ext_resource type="FontFile" uid="uid://bxheo3lrppx2b" path="res://UI/Design/Metamorphous-Regular.ttf" id="9_xersf"]
 [ext_resource type="PackedScene" uid="uid://boe1vnxfmybh4" path="res://RewardSystem/rewardSystemUI.tscn" id="11_5tkv4"]
 [ext_resource type="PackedScene" uid="uid://dxq2mkw7qqwy0" path="res://UI/HUD/hud.tscn" id="12_5tkv4"]
+[ext_resource type="PackedScene" uid="uid://djnt75jjm0h8y" path="res://Enemies/GrasshopperEnemy.tscn" id="12_15c7i"]
+[ext_resource type="PackedScene" uid="uid://dh73kx4dkwyqi" path="res://Enemies/BombardierbeetleEnemy.tscn" id="13_xpeyw"]
+[ext_resource type="PackedScene" uid="uid://bgdr8lj327xa2" path="res://Enemies/BeetleEnemy.tscn" id="14_xpeyw"]
+[ext_resource type="PackedScene" uid="uid://vdwvd5m167xn" path="res://Enemies/MusquitoEnemy.tscn" id="15_dpmuy"]
 [ext_resource type="PackedScene" uid="uid://cvtowhvb5mytc" path="res://UI/GameOver/game_over.tscn" id="17_45l4g"]
 [ext_resource type="Texture2D" uid="uid://otlmibsqgi6m" path="res://UI/Design/iconers.png" id="19_4uo0j"]
 [ext_resource type="Script" uid="uid://ckwgf1gtnx0gq" path="res://tower_button.gd" id="20_eski5"]
@@ -36,6 +40,7 @@ sky = SubResource("Sky_6uqi0")
 [sub_resource type="NavigationMesh" id="NavigationMesh_6uqi0"]
 vertices = PackedVector3Array(-16.625425, 0.48345885, -20.871468, -16.625425, 0.48345885, 23.628532, 26.874575, 0.48345885, 23.628532, 26.874575, 0.48345885, -20.871468)
 polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+geometry_parsed_geometry_type = 1
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8uh7m"]
 albedo_texture = ExtResource("1_37kl0")
@@ -81,9 +86,6 @@ navigation_region_3D = NodePath("../NavigationRegion3D")
 [node name="Player" parent="." unique_id=1143986027 instance=ExtResource("1_8uh7m")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15720415, 3.044023)
 
-[node name="HealthComponent" parent="Player" index="6" unique_id=581968543]
-MaxHP = 100.0
-
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=748383864]
 transform = Transform3D(0.90659547, -0.42200133, 0, -0.09707414, -0.20854668, 0.9731831, -0.41068438, -0.8822829, -0.23003279, 0, 12.917353, 0)
 light_energy = 1.634
@@ -107,6 +109,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.840256, 0, 0)
 [node name="EnemySpawner" parent="." unique_id=1712601701 instance=ExtResource("4_ppyta")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.605855, 0)
 scorpionEnemyScene = ExtResource("8_45l4g")
+grasshopperEnemyScene = ExtResource("12_15c7i")
+bombardierbeetleEnemyScene = ExtResource("13_xpeyw")
+beetleEnemyScene = ExtResource("14_xpeyw")
+musquitoEnemyScene = ExtResource("15_dpmuy")
+waveLevelToSpawnGrassHopperEnemy = 1
+waveLevelToSpawnBombardierEnemy = 1
+waveLevelToSpawnBeetleEnemy = 1
+waveLevelToSpawnMusquitoEnemy = 1
 
 [node name="BoundingBoxComponent" parent="." unique_id=1878699487 node_paths=PackedStringArray("player") instance=ExtResource("7_0m0f1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.725789, 3.0738106, 0)

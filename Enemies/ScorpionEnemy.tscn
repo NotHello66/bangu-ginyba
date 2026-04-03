@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://f1qjftfkuhr" path="res://CommonComponents/health_component.tscn" id="2_groy8"]
 [ext_resource type="PackedScene" uid="uid://chu8vv10twj0q" path="res://CommonComponents/hit_box_component.tscn" id="3_qfmm8"]
 [ext_resource type="PackedScene" uid="uid://cc2glgwhr8yu1" path="res://CommonComponents/melee_component.tscn" id="4_76jsa"]
-[ext_resource type="PackedScene" uid="uid://bisshrab8be2c" path="res://Common Meshes/AttackClaw.tscn" id="5_t12y3"]
+[ext_resource type="PackedScene" uid="uid://bisshrab8be2c" path="res://Common meshes/AttackClaw.tscn" id="5_t12y3"]
 [ext_resource type="PackedScene" uid="uid://bntpfouhik3y4" path="res://Models/scorpo mk1.glb" id="6_o7rvi"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ie44c"]
