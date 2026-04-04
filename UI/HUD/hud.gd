@@ -7,6 +7,9 @@ extends CanvasLayer
 @onready var wave_label: Label = $waveControl/bg/waveLabel
 @onready var enemies_label: Label = $enemiesControl/bg/enemiesLabel
 @onready var announcement_label: Label = $announcementLabel
+@onready var low_health_overlay: ColorRect = $lowHealthOverlay
+
+var is_low_health: bool = false
 
 const BAR_MAX_WIDTH = 130.0
 var health_component: Node
@@ -20,11 +23,20 @@ func _ready() -> void:
 	Global.stats_changed.connect(_on_stats_changed)
 	update_gold(Global.gold)
 	_on_stats_changed()
+	low_health_overlay.modulate.a = 0.0
+	low_health_overlay.visible = true
 
 func _on_health_changed(current: float, maximum: float) -> void:
 	var ratio = current / maximum
 	bar_fill.size.x = BAR_MAX_WIDTH * ratio
 	health_label.text = "%d / %d" % [int(current), int(maximum)]
+	
+	if ratio <= 0.2 and not is_low_health:
+		is_low_health = true
+		start_low_health_warning()
+	elif ratio > 0.2 and is_low_health:
+		is_low_health = false
+		stop_low_health_warning()
 
 func _on_gold_changed(amount: int) -> void:
 	update_gold(amount)
@@ -66,3 +78,16 @@ func show_announcement(text: String) -> void:
 	tween.tween_property(announcement_label, "modulate:a", 0.0, 0.6)
 	await tween.finished
 	announcement_label.visible = false
+
+func start_low_health_warning() -> void:
+	var tween = create_tween()
+	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+	tween.set_loops()
+	tween.tween_property(low_health_overlay, "modulate:a", 0.4, 0.5)
+	tween.tween_property(low_health_overlay, "modulate:a", 0.0, 0.5)
+
+func stop_low_health_warning() -> void:
+	low_health_overlay.modulate.a = 0.0
+	for t in get_tree().get_processed_tweens():
+		if t.is_valid():
+			t.kill()
