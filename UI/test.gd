@@ -22,12 +22,14 @@ func _on_wave_started(wave: int, total: int) -> void:
 	Global.can_pull = false
 	reward_button.visible = false
 	wave_button.visible = false
+	hud.show_announcement(" Wave %d" % wave)
 
 func _on_wave_finished() -> void:
 	Global.can_pull = true
 	print("Wave %d finished!" % Global.current_wave)
 	reward_button.visible = true
 	wave_button.visible = true
+	hud.show_announcement(" Wave Cleared! ")
 
 func _on_player_died() -> void:
 	var wave = enemy_spawner.get("waveLevel")

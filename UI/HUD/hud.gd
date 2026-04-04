@@ -6,6 +6,7 @@ extends CanvasLayer
 @onready var damage_label: Label = $damageControl/damageLabel
 @onready var wave_label: Label = $waveControl/bg/waveLabel
 @onready var enemies_label: Label = $enemiesControl/bg/enemiesLabel
+@onready var announcement_label: Label = $announcementLabel
 
 const BAR_MAX_WIDTH = 130.0
 var health_component: Node
@@ -52,3 +53,16 @@ func _on_stats_changed() -> void:
 		dmg = melee.get("damage")
 		print("HUD: melee damage = ", dmg)
 	update_damage(int(dmg))
+
+func show_announcement(text: String) -> void:
+	announcement_label.text = text
+	announcement_label.modulate.a = 0.0
+	announcement_label.visible = true
+
+	var tween = create_tween()
+	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+	tween.tween_property(announcement_label, "modulate:a", 1.0, 0.4)
+	tween.tween_interval(1.5)
+	tween.tween_property(announcement_label, "modulate:a", 0.0, 0.6)
+	await tween.finished
+	announcement_label.visible = false
