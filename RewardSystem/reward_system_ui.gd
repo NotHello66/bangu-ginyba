@@ -234,6 +234,9 @@ func _on_close_button_pressed() -> void:
 
 
 func _on_pull_button_pressed() -> void:
+	print("can_pull: ", Global.can_pull)
+	print("is_spinning: ", is_spinning)
+	print("gold: ", Global.gold)
 	if is_spinning:
 		return
 	if not Global.can_pull:

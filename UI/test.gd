@@ -3,6 +3,7 @@ extends Node3D
 @onready var enemy_spawner: Node3D = $EnemySpawner
 @onready var hud: CanvasLayer = $HUD
 @onready var reward_button: Button = $rewardButton
+@onready var wave_button: Button = $waveButton
 
 func _ready() -> void:
 	enemy_spawner.connect("WaveFinished", _on_wave_finished)
@@ -12,6 +13,7 @@ func _ready() -> void:
 	if health_component:
 		health_component.connect("PlayerDied", _on_player_died)
 	reward_button.visible = false
+	wave_button.visible = true
 
 func _on_wave_started(wave: int, total: int) -> void:
 	Global.current_wave = wave
@@ -19,11 +21,13 @@ func _on_wave_started(wave: int, total: int) -> void:
 	hud.update_enemies(total)
 	Global.can_pull = false
 	reward_button.visible = false
+	wave_button.visible = false
 
 func _on_wave_finished() -> void:
-	print("Wave %d finished!" % Global.current_wave)
 	Global.can_pull = true
+	print("Wave %d finished!" % Global.current_wave)
 	reward_button.visible = true
+	wave_button.visible = true
 
 func _on_player_died() -> void:
 	var wave = enemy_spawner.get("waveLevel")
@@ -31,3 +35,8 @@ func _on_player_died() -> void:
 
 func _on_enemy_count_changed(remaining: int) -> void:
 	hud.update_enemies(remaining)
+
+
+func _on_wave_button_pressed() -> void:
+	wave_button.visible = false
+	enemy_spawner.call("StartWave")

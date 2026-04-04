@@ -4,11 +4,11 @@
 [ext_resource type="Texture2D" uid="uid://6r00oi4kcwpv" path="res://Textures/SL-072622-51930-14.jpg" id="1_37kl0"]
 [ext_resource type="Script" uid="uid://c08x64fmrmm8g" path="res://UI/test.gd" id="1_uty7l"]
 [ext_resource type="Script" uid="uid://mc4w82onwil4" path="res://Scripts/tower_manager.gd" id="1_ykrsh"]
-[ext_resource type="PackedScene" uid="uid://chmw0r30op1h1" path="res://Common Meshes/Towers/castle.tscn" id="2_a6gra"]
-[ext_resource type="PackedScene" uid="uid://rgb0jq431ckp" path="res://Common Meshes/Towers/Wall.tscn" id="3_5tkv4"]
-[ext_resource type="PackedScene" uid="uid://cn8sntu4guw1i" path="res://Common Meshes/Towers/tower.tscn" id="3_ppyta"]
+[ext_resource type="PackedScene" uid="uid://chmw0r30op1h1" path="res://Common meshes/Towers/castle.tscn" id="2_a6gra"]
+[ext_resource type="PackedScene" uid="uid://rgb0jq431ckp" path="res://Common meshes/Towers/Wall.tscn" id="3_5tkv4"]
+[ext_resource type="PackedScene" uid="uid://cn8sntu4guw1i" path="res://Common meshes/Towers/tower.tscn" id="3_ppyta"]
 [ext_resource type="PackedScene" uid="uid://bk2tm65rltpyu" path="res://EnemySpawner/EnemySpawner.tscn" id="4_ppyta"]
-[ext_resource type="PackedScene" uid="uid://bkplvo6qm75dr" path="res://Common Meshes/Towers/BombTower.tscn" id="5_pdf00"]
+[ext_resource type="PackedScene" uid="uid://bkplvo6qm75dr" path="res://Common meshes/Towers/BombTower.tscn" id="5_pdf00"]
 [ext_resource type="PackedScene" uid="uid://dtwg1ifxprse1" path="res://UI/PauseMenu/paused_menu.tscn" id="6_g14j6"]
 [ext_resource type="PackedScene" uid="uid://p5t2hwitkh5n" path="res://Econ/Bank.tscn" id="6_mhym6"]
 [ext_resource type="PackedScene" uid="uid://brnpevcbx63ri" path="res://CommonComponents/BoundingBoxComponent.tscn" id="7_0m0f1"]
@@ -63,6 +63,18 @@ region_rect = Rect2(312, 227, 76, 80)
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pdf00"]
 texture = ExtResource("19_4uo0j")
 region_rect = Rect2(312, 230, 78, 77)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_a6gra"]
+texture = ExtResource("19_4uo0j")
+region_rect = Rect2(52, 34, 65, 76)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dwqlq"]
+texture = ExtResource("19_4uo0j")
+region_rect = Rect2(52, 234, 65, 75)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_15c7i"]
+texture = ExtResource("19_4uo0j")
+region_rect = Rect2(52, 234, 64, 77)
 
 [node name="Node3D" type="Node3D" unique_id=2069746429]
 script = ExtResource("1_uty7l")
@@ -171,10 +183,10 @@ visible = false
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 22.0
-offset_top = -62.0
-offset_right = 79.0
-offset_bottom = -12.0
+offset_left = 17.0
+offset_top = -64.0
+offset_right = 74.0
+offset_bottom = -14.0
 grow_vertical = 0
 theme_override_styles/normal = SubResource("StyleBoxTexture_vxl6d")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_eski5")
@@ -184,7 +196,21 @@ script = ExtResource("20_eski5")
 [node name="towerMenu" parent="." unique_id=521131223 node_paths=PackedStringArray("tower_manager") instance=ExtResource("21_pdf00")]
 tower_manager = NodePath("../TowerManager")
 
+[node name="waveButton" type="Button" parent="." unique_id=1249825041]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 90.0
+offset_top = -64.0
+offset_right = 139.0
+offset_bottom = -11.0
+grow_vertical = 0
+theme_override_styles/normal = SubResource("StyleBoxTexture_a6gra")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_dwqlq")
+theme_override_styles/hover = SubResource("StyleBoxTexture_15c7i")
+
 [connection signal="pressed" from="rewardButton" to="rewardButton" method="_on_pressed"]
 [connection signal="pressed" from="towerButton" to="towerButton" method="_on_pressed"]
+[connection signal="pressed" from="waveButton" to="." method="_on_wave_button_pressed"]
 
 [editable path="Player"]
