@@ -18,6 +18,7 @@ size = Vector3(1, 0.866272, 0.92626953)
 
 [node name="MeleeSoldier" type="CharacterBody3D" unique_id=1127849953]
 script = ExtResource("1_5rg7c")
+speed = 8.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=757041097]
 transform = Transform3D(1, 0, 0, 0, 0.42995054, 0, 0, 0, 1, 0, 0.44503146, 0)
@@ -39,7 +40,7 @@ debug_path_custom_color = Color(0.3367978, 0.44143066, 0.8074358, 1)
 
 [node name="MeleeComponent" parent="." unique_id=121852746 groups=["Ally"] instance=ExtResource("3_v5nof")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.7624475, 0)
-attackScene = ExtResource("4_bhxam")
-damage = 10.0
-knockbackForce = 3.0
-cooldown = 2.0
+attackScenes = Array[PackedScene]([ExtResource("4_bhxam")])
+damages = PackedFloat32Array(10)
+knockbackForces = PackedFloat32Array(4)
+cooldowns = PackedFloat32Array(1)

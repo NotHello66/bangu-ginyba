@@ -14,6 +14,7 @@ public partial class PlayerController : CharacterBody3D
 	private PlayerControllerMouse MouseController;
 	public HealthComponent healthComponent;
 	private HitBoxComponent hitBoxComponent;
+	private MeleeComponent meleeComponent;
 	private Node body;
 	public override void _Ready()
 	{
@@ -21,6 +22,7 @@ public partial class PlayerController : CharacterBody3D
 		MouseController = GetNodeOrNull<PlayerControllerMouse>("PlayerControllerMouse");
 		healthComponent = GetNodeOrNull<HealthComponent>("HealthComponent");
 		hitBoxComponent = GetNodeOrNull<HitBoxComponent>("HitBoxComponent");
+		meleeComponent = GetNodeOrNull<MeleeComponent>("MeleeComponent");
 	}
 
 	public override void _Process(double delta)
@@ -112,6 +114,10 @@ public partial class PlayerController : CharacterBody3D
 			RangedComponent rc = GetNode<RangedComponent>("RangedComponent");
 			Enemy enemy = GetClosestEnemy();
 			rc.Fire(enemy);
+		}
+		if (Input.IsActionJustPressed("debug_allPlayerMelees") && meleeComponent != null)
+		{
+			meleeComponent.PerformAttack();
 		}
 	}
 

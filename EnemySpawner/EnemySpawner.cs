@@ -111,4 +111,20 @@ public partial class EnemySpawner : Node3D
         if (enemiesInScene == 0)
             EmitSignal(SignalName.WaveFinished);
     }
+    public void StartWave()
+    {
+        if (enemiesInScene != 0) return;
+        waveLevel++;
+        if (waveLevel >= waveLevelToSpawnGrassHopperEnemy && !availableScenes.Contains(grasshopperEnemyScene))
+            availableScenes.Add(grasshopperEnemyScene);
+        if (waveLevel >= waveLevelToSpawnBombardierEnemy && !availableScenes.Contains(bombardierbeetleEnemyScene))
+            availableScenes.Add(bombardierbeetleEnemyScene);
+        string poolNames = string.Join(", ", availableScenes
+            .FindAll(s => s != null)
+            .ConvertAll(s => s.ResourcePath.GetFile()));
+        GD.Print($"Wave Level: {waveLevel} | Enemy Pool: [{poolNames}]");
+        enemiesToSpawn = 0;
+        EmitSignal(SignalName.WaveStarted, waveLevel, 0);
+        SpawnEnemyWave();
+    }
 }

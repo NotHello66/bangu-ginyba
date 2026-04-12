@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://du5pekekmsgyi"
-path="res://.godot/imported/Wall.fbx-fc189af2d2fd21b9190f7f4591c26ec0.scn"
+path="res://.godot/imported/Wall.fbx-932acfac6fb6dedb9ce5b99239bc958e.scn"
 
 [deps]
 
-source_file="res://Common meshes/Towers/Wall.fbx"
-dest_files=["res://.godot/imported/Wall.fbx-fc189af2d2fd21b9190f7f4591c26ec0.scn"]
+source_file="res://Common Meshes/Towers/Wall.fbx"
+dest_files=["res://.godot/imported/Wall.fbx-932acfac6fb6dedb9ce5b99239bc958e.scn"]
 
 [params]
 

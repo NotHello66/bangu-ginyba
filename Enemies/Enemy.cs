@@ -380,9 +380,9 @@ public partial class Enemy : CharacterBody3D
 				}
 				else
 				{
-					meleeComponent.PerformAttack();
-					attackTimer = meleeComponent.cooldown;
-				}
+                    meleeComponent.PerformAttack(0);
+                    attackTimer = meleeComponent.GetCooldown(0);
+                }
 			}
 			else if (IsRanged)
 			{
@@ -398,9 +398,9 @@ public partial class Enemy : CharacterBody3D
 				isJumping = false;
 				if (IsMelee)
 				{
-					meleeComponent.PerformAttack();
-					attackTimer = meleeComponent.cooldown;
-				}
+                    meleeComponent.PerformAttack(0);
+                    attackTimer = meleeComponent.GetCooldown(0);
+                }
 			}
 		}
 	}

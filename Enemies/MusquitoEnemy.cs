@@ -23,8 +23,8 @@ public partial class MusquitoEnemy : Enemy
 			{
 				isDashing = false;
 				ChangeState(EnemyState.Idle);
-				attackTimer = meleeComponent.cooldown;
-			}
+                attackTimer = meleeComponent.GetCooldown(0);
+            }
 			return;
 		}
 

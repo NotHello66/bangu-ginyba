@@ -472,7 +472,7 @@ public partial class FriendlyUnit : CharacterBody3D
                 else
                 {
                     meleeComponent.PerformAttack();
-                    attackTimer = meleeComponent.cooldown;
+                    attackTimer = meleeComponent.GetCooldown(0);
                 }
             }
             else if (IsRanged)
@@ -490,7 +490,7 @@ public partial class FriendlyUnit : CharacterBody3D
                 if (IsMelee)
                 {
                     meleeComponent.PerformAttack();
-                    attackTimer = meleeComponent.cooldown;
+                    attackTimer = meleeComponent.GetCooldown(0);
                 }
             }
         }

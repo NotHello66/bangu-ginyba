@@ -22,10 +22,10 @@ isJumpingType = true
 [node name="HitBoxComponent" parent="." unique_id=1495271838 instance=ExtResource("3_gvh86")]
 
 [node name="MeleeComponent" parent="." unique_id=121852746 instance=ExtResource("4_cnywy")]
-attackScene = ExtResource("5_3hc31")
-damage = 10.0
-knockbackForce = 5.0
-cooldown = 1.5
+attackScenes = Array[PackedScene]([ExtResource("5_3hc31")])
+damages = PackedFloat32Array(15)
+knockbackForces = PackedFloat32Array(5)
+cooldowns = PackedFloat32Array(1.5)
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=2054314887]
 avoidance_enabled = true

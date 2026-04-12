@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://f1qjftfkuhr" path="res://CommonComponents/health_component.tscn" id="2_o56rc"]
 [ext_resource type="PackedScene" uid="uid://chu8vv10twj0q" path="res://CommonComponents/hit_box_component.tscn" id="3_1ewfa"]
 [ext_resource type="PackedScene" uid="uid://cc2glgwhr8yu1" path="res://CommonComponents/melee_component.tscn" id="4_meaas"]
-[ext_resource type="PackedScene" uid="uid://dfhlv4x4w7bym" path="res://Common meshes/AttackHorn.tscn" id="5_f23ud"]
+[ext_resource type="PackedScene" uid="uid://dfhlv4x4w7bym" path="res://Common Meshes/AttackHorn.tscn" id="5_f23ud"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_pkft5"]
 height = 1.0
@@ -26,10 +26,10 @@ isFlyingType = true
 [node name="HitBoxComponent" parent="." unique_id=1495271838 instance=ExtResource("3_1ewfa")]
 
 [node name="MeleeComponent" parent="." unique_id=121852746 instance=ExtResource("4_meaas")]
-attackScene = ExtResource("5_f23ud")
-damage = 10.0
-knockbackForce = 5.0
-cooldown = 1.5
+attackScenes = Array[PackedScene]([ExtResource("5_f23ud")])
+damages = PackedFloat32Array(20)
+knockbackForces = PackedFloat32Array(2)
+cooldowns = PackedFloat32Array(2)
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=2054314887]
 avoidance_enabled = true

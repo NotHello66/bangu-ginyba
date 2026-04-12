@@ -10,6 +10,9 @@
 [ext_resource type="PackedScene" uid="uid://f1qjftfkuhr" path="res://CommonComponents/health_component.tscn" id="7_3o4bl"]
 [ext_resource type="Script" uid="uid://cbv1qp3ij15ys" path="res://PlayerController/EnemySlotManager.cs" id="9_s3jlx"]
 [ext_resource type="PackedScene" uid="uid://rtoq6dwjnfjw" path="res://RewardSystem/EconomyComponent.tscn" id="10_m11co"]
+[ext_resource type="PackedScene" uid="uid://cc2glgwhr8yu1" path="res://CommonComponents/melee_component.tscn" id="11_q15r7"]
+[ext_resource type="PackedScene" uid="uid://bisshrab8be2c" path="res://Common Meshes/AttackClaw.tscn" id="12_q15r7"]
+[ext_resource type="PackedScene" uid="uid://ciirnwesrt0as" path="res://Common Meshes/AttackTorus.tscn" id="13_tj7lp"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_71ti0"]
 radius = 0.5180664
@@ -34,7 +37,6 @@ unique_name_in_owner = true
 transform = Transform3D(0.9573127, -0.19888328, 0.20975684, 0.006369446, 0.7400035, 0.6725729, -0.28898427, -0.64252657, 0.70968145, 3.027, 11.015719, 10.702759)
 script = ExtResource("2_ps8a3")
 Target = NodePath("..")
-MinDistance = 2.0
 
 [node name="CameraObstructionFade" type="Node3D" parent="Camera3D" unique_id=707555746 node_paths=PackedStringArray("player")]
 script = ExtResource("3_3o4bl")
@@ -45,12 +47,9 @@ script = ExtResource("4_ps8a3")
 camera = NodePath("../Camera3D")
 
 [node name="RangedComponent" parent="." unique_id=707547592 instance=ExtResource("5_t3w4r")]
-damage = 10.0
 knockbackForce = 1.0
-projectileSpeed = 10.0
 
-[node name="HitBoxComponent" parent="." unique_id=1495271838 node_paths=PackedStringArray("healthComponent") instance=ExtResource("6_7oo2a")]
-healthComponent = NodePath("../HealthComponent")
+[node name="HitBoxComponent" parent="." unique_id=1495271838 instance=ExtResource("6_7oo2a")]
 
 [node name="HealthComponent" parent="." unique_id=581968543 instance=ExtResource("7_3o4bl")]
 MaxHP = 10000.0
@@ -59,3 +58,10 @@ MaxHP = 10000.0
 script = ExtResource("9_s3jlx")
 
 [node name="EconomyComponent" parent="." unique_id=111476471 instance=ExtResource("10_m11co")]
+
+[node name="MeleeComponent" parent="." unique_id=121852746 node_paths=PackedStringArray("rotationSource") instance=ExtResource("11_q15r7")]
+attackScenes = Array[PackedScene]([ExtResource("12_q15r7"), ExtResource("13_tj7lp")])
+damages = PackedFloat32Array(10, 25)
+knockbackForces = PackedFloat32Array(3, 5)
+cooldowns = PackedFloat32Array(1, 2)
+rotationSource = NodePath("../Meshes")

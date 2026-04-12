@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://f1qjftfkuhr" path="res://CommonComponents/health_component.tscn" id="2_groy8"]
 [ext_resource type="PackedScene" uid="uid://chu8vv10twj0q" path="res://CommonComponents/hit_box_component.tscn" id="3_qfmm8"]
 [ext_resource type="PackedScene" uid="uid://cc2glgwhr8yu1" path="res://CommonComponents/melee_component.tscn" id="4_76jsa"]
-[ext_resource type="PackedScene" uid="uid://bisshrab8be2c" path="res://Common meshes/AttackClaw.tscn" id="5_t12y3"]
+[ext_resource type="PackedScene" uid="uid://bisshrab8be2c" path="res://Common Meshes/AttackClaw.tscn" id="5_t12y3"]
 [ext_resource type="PackedScene" uid="uid://bntpfouhik3y4" path="res://Models/scorpo mk1.glb" id="6_o7rvi"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ie44c"]
@@ -18,10 +18,10 @@ script = ExtResource("1_li317")
 [node name="HitBoxComponent" parent="." unique_id=1495271838 instance=ExtResource("3_qfmm8")]
 
 [node name="MeleeComponent" parent="." unique_id=121852746 instance=ExtResource("4_76jsa")]
-attackScene = ExtResource("5_t12y3")
-damage = 10.0
-knockbackForce = 5.0
-cooldown = 1.5
+attackScenes = Array[PackedScene]([ExtResource("5_t12y3")])
+damages = PackedFloat32Array(7.5)
+knockbackForces = PackedFloat32Array(1)
+cooldowns = PackedFloat32Array(1.5)
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=2054314887]
 avoidance_enabled = true
