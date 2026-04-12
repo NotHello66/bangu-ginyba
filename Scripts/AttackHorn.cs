@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class AttackClaw : Attack
+public partial class AttackHorn : Attack
 {
 	[Export] private float swingAngleDegrees = 60f;
 	[Export] private float windupTime = 0.2f;
@@ -25,8 +25,8 @@ public partial class AttackClaw : Attack
 
 		initialRotationX = Rotation.X;
 
-		float startAngle = initialRotationX - Mathf.DegToRad(swingAngleDegrees / 2);
-		Rotation = new Vector3(startAngle, Rotation.Y, Rotation.Z);
+		float dipAngle = initialRotationX + Mathf.DegToRad(swingAngleDegrees / 2);
+		Rotation = new Vector3(dipAngle, Rotation.Y, Rotation.Z);
 	}
 
 	public override void _Process(double delta)
@@ -58,7 +58,9 @@ public partial class AttackClaw : Attack
 
 		if (body.IsInGroup("Player") || body.IsInGroup("Tower") || body.IsInGroup("Enemy"))
 		{
-			HitBoxComponent hitbox = body.GetParent()?.GetNodeOrNull<HitBoxComponent>("HitBoxComponent") ?? body.GetNodeOrNull<HitBoxComponent>("HitBoxComponent");
+			HitBoxComponent hitbox = body.GetParent()?.GetNodeOrNull<HitBoxComponent>("HitBoxComponent")
+									 ?? body.GetNodeOrNull<HitBoxComponent>("HitBoxComponent");
+
 			if (hitbox != null)
 			{
 				hitbox.Damage(this);

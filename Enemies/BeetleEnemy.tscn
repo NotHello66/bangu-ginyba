@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://bgdr8lj327xa2"]
+
+[ext_resource type="Script" uid="uid://bqfi3l68wjp8p" path="res://Enemies/Enemy.cs" id="1_0p62d"]
+[ext_resource type="PackedScene" uid="uid://f1qjftfkuhr" path="res://CommonComponents/health_component.tscn" id="2_2ji8o"]
+[ext_resource type="PackedScene" uid="uid://chu8vv10twj0q" path="res://CommonComponents/hit_box_component.tscn" id="3_qte0a"]
+[ext_resource type="PackedScene" uid="uid://cc2glgwhr8yu1" path="res://CommonComponents/melee_component.tscn" id="4_2ji8o"]
+[ext_resource type="PackedScene" uid="uid://dfhlv4x4w7bym" path="res://Common meshes/AttackHorn.tscn" id="5_2ji8o"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_pkft5"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uasft"]
+albedo_color = Color(0.38039216, 0.38039216, 0.38039216, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_pjgsm"]
+
+[node name="BeetleEnemy" type="CharacterBody3D" unique_id=1589266389 groups=["Enemy"]]
+script = ExtResource("1_0p62d")
+
+[node name="HealthComponent" parent="." unique_id=581968543 instance=ExtResource("2_2ji8o")]
+
+[node name="HitBoxComponent" parent="." unique_id=1495271838 instance=ExtResource("3_qte0a")]
+
+[node name="MeleeComponent" parent="." unique_id=121852746 instance=ExtResource("4_2ji8o")]
+attackScene = ExtResource("5_2ji8o")
+damage = 10.0
+knockbackForce = 5.0
+cooldown = 1.5
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=2054314887]
+avoidance_enabled = true
+debug_enabled = true
+debug_use_custom = true
+debug_path_custom_color = Color(0, 1, 0, 1)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=774993414]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+shape = SubResource("CapsuleShape3D_pkft5")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1344693956]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+material_override = SubResource("StandardMaterial3D_uasft")
+mesh = SubResource("CapsuleMesh_pjgsm")
