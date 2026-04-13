@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://djbjd8npsl3tm"]
+
+[ext_resource type="Script" uid="uid://dk4mssw78t2m6" path="res://Scripts/FriendlyUnit.cs" id="1_bha8i"]
+[ext_resource type="PackedScene" uid="uid://chu8vv10twj0q" path="res://CommonComponents/hit_box_component.tscn" id="2_oq024"]
+[ext_resource type="PackedScene" uid="uid://f1qjftfkuhr" path="res://CommonComponents/health_component.tscn" id="3_etiui"]
+[ext_resource type="PackedScene" uid="uid://m465nhr8gnac" path="res://CommonComponents/ranged_component.tscn" id="6_fq3aj"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_itpqn"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tvb0a"]
+albedo_color = Color(0.38639188, 0.62552595, 0.6660145, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_uvkw1"]
+size = Vector3(0.8532715, 0.7618561, 0.795166)
+
+[node name="ArcherSoldier" type="CharacterBody3D" unique_id=1127849953]
+script = ExtResource("1_bha8i")
+speed = 8.0
+rangedKitingDistance = 15.0
+rangedAttackRange = 20.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=757041097]
+transform = Transform3D(0.858451, 0, 0, 0, 0.75986737, 0, 0, 0, 0.7945272, 0, 0.40112448, 0)
+mesh = SubResource("PrismMesh_itpqn")
+surface_material_override/0 = SubResource("StandardMaterial3D_tvb0a")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=34227010]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0030517578, 0.4012816, 0.00036621094)
+shape = SubResource("BoxShape3D_uvkw1")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1727268252]
+avoidance_enabled = true
+debug_enabled = true
+debug_use_custom = true
+debug_path_custom_color = Color(0.3367978, 0.44143066, 0.8074358, 1)
+
+[node name="HitBoxComponent" parent="." unique_id=1495271838 instance=ExtResource("2_oq024")]
+
+[node name="HealthComponent" parent="." unique_id=581968543 instance=ExtResource("3_etiui")]
+
+[node name="RangedComponent" parent="." unique_id=707547592 instance=ExtResource("6_fq3aj")]
+cooldown = 1.0

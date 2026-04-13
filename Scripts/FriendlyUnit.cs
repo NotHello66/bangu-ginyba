@@ -21,6 +21,8 @@ public partial class FriendlyUnit : CharacterBody3D
     [ExportGroup("Combat framework")]
     [Export] private double stunTimer = 2;
 
+    [Export] private float rangedKitingDistance = 5f;
+    [Export] private float rangedAttackRange = 10f;
     [Export] private float attackRange = 2f;
     [Export] private float stopChaseDistance = 1.8f;
     [Export] private float jumpForce = 5f;
@@ -61,7 +63,10 @@ public partial class FriendlyUnit : CharacterBody3D
     private Node _globalData;
     private Node3D player;
 
-    
+    private bool hasAttackOrder = false;
+    private enum ActiveWeapon { Melee, Ranged }
+    private ActiveWeapon activeWeapon = ActiveWeapon.Melee;
+
     public void SetFriendlyLevel(int level)
     {
         this.friendlyLevel = level;
@@ -79,13 +84,14 @@ public partial class FriendlyUnit : CharacterBody3D
         _globalData = GetNode("/root/Global");
         _globalData.Connect("friendlyStateChanged", new Callable(this, nameof(OnGlobalStateChanged)));
         player = GetTree().GetFirstNodeInGroup("Player") as Node3D;
-        
+        _globalData.Connect("attackOrderIssue", new Callable(this, nameof(OnAttackOrderIssue)));
+
         healthComponent = GetNodeOrNull<HealthComponent>("HealthComponent");
         navigationAgent3D = GetNodeOrNull<NavigationAgent3D>("NavigationAgent3D");
 
         meleeComponent = GetNodeOrNull<MeleeComponent>("MeleeComponent");
         rangedComponent = GetNodeOrNull<RangedComponent>("RangedComponent");
-
+        activeWeapon = IsRanged ? ActiveWeapon.Ranged : ActiveWeapon.Melee;
         UpdateClosestTarget();
 
         randomPhaseOffset = (float)GD.RandRange(0.0, Mathf.Pi * 2);
@@ -156,6 +162,16 @@ public partial class FriendlyUnit : CharacterBody3D
         MoveAndSlide();
         //GD.Print("Current state: " + currentState);
     }
+    private void OnAttackOrderIssue()
+    {
+        if (healthComponent.isDead) return;
+        UpdateClosestTarget();
+        if (HasValidTarget())
+        {
+            hasAttackOrder = true;
+            ChangeState(FriendlyState.Chasing);
+        }
+    }
     private void OnGlobalStateChanged(long newState)
     {
         globalState = (FriendlyState)newState;
@@ -178,17 +194,29 @@ public partial class FriendlyUnit : CharacterBody3D
     {
         if (!HasValidTarget())
         {
+            if (hasAttackOrder)
+            {
+                UpdateClosestTarget();
+                if (!HasValidTarget())
+                {
+                    hasAttackOrder = false;
+                    ChangeState(globalState);
+                }
+            }
+            else
+            {
+                ChangeState(globalState);
+            }
             navigationAgent3D.TargetPosition = GlobalPosition;
             currentVelocity.X = 0;
             currentVelocity.Z = 0;
-            ChangeState(globalState);
             return;
         }
         float distance = currentTarget.GlobalPosition.DistanceSquaredTo(GlobalPosition);
 
         float maxChaseSq = (globalState == FriendlyState.Following ? chaseWhenFollowingRange : chaseWhenStationedRange);
         maxChaseSq *= maxChaseSq * 2.25f;
-        if (distance > maxChaseSq)
+        if (!hasAttackOrder && distance > maxChaseSq)
         {
             navigationAgent3D.TargetPosition = GlobalPosition;
             currentVelocity.X = 0;
@@ -199,7 +227,11 @@ public partial class FriendlyUnit : CharacterBody3D
         float effectiveAttackRange = attackRange + currentTargetRadius;
         float effectiveStopChase = stopChaseDistance + currentTargetRadius;
 
-        float attackRangeSq = effectiveAttackRange * effectiveAttackRange;
+        float effectiveEngageRange = (IsRanged && activeWeapon == ActiveWeapon.Ranged)
+            ? rangedAttackRange + currentTargetRadius
+            : effectiveAttackRange;
+
+        float attackRangeSq = effectiveEngageRange * effectiveEngageRange;
         float stopChaseSq = effectiveStopChase * effectiveStopChase;
 
         if (distance <= attackRangeSq)
@@ -449,21 +481,64 @@ public partial class FriendlyUnit : CharacterBody3D
 
     private void HandleAttacking(ref Vector3 currentVelocity, double delta)
     {
-        if (!HasValidTarget()) return;
-        currentVelocity.X = 0;
-        currentVelocity.Z = 0;
+        if (!HasValidTarget())
+        {
+            hasAttackOrder = false;
+            ChangeState(globalState);
+            return;
+        }
 
         HandleGravity(ref currentVelocity, delta);
 
-        if (!IsTargetInAttackRange())
+        float distSq = currentTarget.GlobalPosition.DistanceSquaredTo(GlobalPosition);
+        float meleRangeSq = (attackRange + currentTargetRadius) * (attackRange + currentTargetRadius);
+        float rangedRangeSq = (rangedAttackRange + currentTargetRadius) * (rangedAttackRange + currentTargetRadius);
+        float kiteDistSq = rangedKitingDistance * rangedKitingDistance;
+
+        if (IsRanged && IsMelee)
+        {
+            if (distSq <= meleRangeSq)
+                activeWeapon = ActiveWeapon.Melee;
+            else
+                activeWeapon = ActiveWeapon.Ranged;
+        }
+        else if (IsRanged)
+        {
+            activeWeapon = ActiveWeapon.Ranged;
+        }
+        else
+        {
+            activeWeapon = ActiveWeapon.Melee;
+        }
+
+        // jei ne in-range, chasinam vel
+        bool inRange = activeWeapon == ActiveWeapon.Ranged
+            ? distSq <= rangedRangeSq
+            : distSq <= meleRangeSq;
+
+        if (!inRange)
         {
             ChangeState(FriendlyState.Chasing);
             return;
         }
 
+        // ranged kitingas
+        if (IsRanged && !IsMelee && distSq < kiteDistSq)
+        {
+            Vector3 awayDir = (GlobalPosition - currentTarget.GlobalPosition).Normalized();
+            awayDir.Y = 0;
+            Vector3 kiteVelocity = awayDir * speed;
+            HandleMovement(ref currentVelocity, kiteVelocity, delta);
+        }
+        else
+        {
+            currentVelocity.X = 0;
+            currentVelocity.Z = 0;
+        }
+
         if (CanPerformAttack())
         {
-            if (IsMelee)
+            if (activeWeapon == ActiveWeapon.Melee && IsMelee)
             {
                 if (isJumpingType)
                 {
@@ -475,7 +550,7 @@ public partial class FriendlyUnit : CharacterBody3D
                     attackTimer = meleeComponent.GetCooldown(0);
                 }
             }
-            else if (IsRanged)
+            else if (activeWeapon == ActiveWeapon.Ranged && IsRanged)
             {
                 rangedComponent.Fire(currentTarget);
                 attackTimer = rangedComponent.cooldown;
@@ -500,8 +575,11 @@ public partial class FriendlyUnit : CharacterBody3D
     {
         if (!HasValidTarget()) return false;
 
-        float effectiveAttackRange = attackRange + currentTargetRadius;
-        return currentTarget.GlobalPosition.DistanceSquaredTo(GlobalPosition) <= effectiveAttackRange * effectiveAttackRange;
+        float range = (IsRanged && activeWeapon == ActiveWeapon.Ranged)
+            ? rangedAttackRange + currentTargetRadius
+            : attackRange + currentTargetRadius;
+
+        return currentTarget.GlobalPosition.DistanceSquaredTo(GlobalPosition) <= range * range;
     }
 
     private bool HasValidTarget()

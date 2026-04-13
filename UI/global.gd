@@ -16,10 +16,12 @@ enum FriendlyState{
 	Dead = 6
 }
 signal friendlyStateChanged(newState: int)
+signal attackOrderIssue
 var currentState:int = FriendlyState.Following:
 	set(value):
 		currentState = value
 		friendlyStateChanged.emit(currentState)
+		print("Friendly state changed: %d" % currentState)
 
 signal gold_changed(amount: int)
 
@@ -33,7 +35,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		currentState = FriendlyState.Following
 	if event.is_action_pressed("unitsStationed"):
 		currentState = FriendlyState.Stationed
-
+	if event.is_action_pressed("unitsAttack"):
+		attackOrderIssue.emit()
 func add_pause(reason: String) -> void:
 	if reason not in pause_reasons:
 		pause_reasons.append(reason)

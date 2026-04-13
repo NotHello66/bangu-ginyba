@@ -1,6 +1,8 @@
 extends StaticBody3D
 
 @export var meleeSoldierScene : PackedScene;
+@export var rangerScene : PackedScene;
+@export var archerScene : PackedScene;
 var Econ : Node
 var isUIOpen:bool = false
 
@@ -32,3 +34,19 @@ func _on_recruit_soldier_pressed() -> void:
 
 func _on_back_button_pressed() -> void:
 	$UI.visible =false;
+
+
+func _on_recruit_ranger_pressed() -> void:
+	if Econ.currentGold >= 50:
+		var newSoldier :CharacterBody3D = rangerScene.instantiate()
+		get_tree().root.add_child(newSoldier)
+		newSoldier.global_position = $Marker3D.global_position
+		Econ.currentGold -= 50
+
+
+func _on_recruit_archer_pressed() -> void:
+	if Econ.currentGold >= 25:
+		var newSoldier :CharacterBody3D = archerScene.instantiate()
+		get_tree().root.add_child(newSoldier)
+		newSoldier.global_position = $Marker3D.global_position
+		Econ.currentGold -= 25
