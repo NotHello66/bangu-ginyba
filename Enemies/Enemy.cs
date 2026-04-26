@@ -218,10 +218,18 @@ public partial class Enemy : CharacterBody3D
 	}
 
 	private void HandleMovement(ref Vector3 velocity, Vector3 targetVelocity, double delta)
+{
+	velocity.X = Mathf.MoveToward(velocity.X, targetVelocity.X, (float)delta * knockBackResist);
+	velocity.Z = Mathf.MoveToward(velocity.Z, targetVelocity.Z, (float)delta * knockBackResist);
+
+	Vector2 horizontal = new Vector2(velocity.X, velocity.Z);
+	if (horizontal.Length() > 15f)
 	{
-		velocity.X = Mathf.MoveToward(velocity.X, targetVelocity.X, (float)delta * knockBackResist);
-		velocity.Z = Mathf.MoveToward(velocity.Z, targetVelocity.Z, (float)delta * knockBackResist);
+		horizontal = horizontal.Normalized() * 15f;
+		velocity.X = horizontal.X;
+		velocity.Z = horizontal.Y;
 	}
+}
 
 	private void HandleRotation(double delta)
 	{
@@ -380,9 +388,9 @@ public partial class Enemy : CharacterBody3D
 				}
 				else
 				{
-                    meleeComponent.PerformAttack(0);
-                    attackTimer = meleeComponent.GetCooldown(0);
-                }
+					meleeComponent.PerformAttack(0);
+					attackTimer = meleeComponent.GetCooldown(0);
+				}
 			}
 			else if (IsRanged)
 			{
@@ -398,9 +406,9 @@ public partial class Enemy : CharacterBody3D
 				isJumping = false;
 				if (IsMelee)
 				{
-                    meleeComponent.PerformAttack(0);
-                    attackTimer = meleeComponent.GetCooldown(0);
-                }
+					meleeComponent.PerformAttack(0);
+					attackTimer = meleeComponent.GetCooldown(0);
+				}
 			}
 		}
 	}

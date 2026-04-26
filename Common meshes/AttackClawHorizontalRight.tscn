@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://ckll5eni51kp1"]
+
+[ext_resource type="Script" uid="uid://dnijgifyoacn6" path="res://Scripts/AttackClawHorizontal.cs" id="1_kvhsj"]
+[ext_resource type="PackedScene" uid="uid://dpy6dgc78uw8b" path="res://Common meshes/claw.fbx" id="2_ubte4"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_r2ybq"]
+
+[node name="AttackClaw" type="Node3D" unique_id=1140893006]
+script = ExtResource("1_kvhsj")
+swingAngleDegrees = 120.0
+
+[node name="claw" parent="." unique_id=1863251245 instance=ExtResource("2_ubte4")]
+transform = Transform3D(4.371139e-08, -1, 8.742278e-08, -1, -4.371139e-08, 0, 3.821371e-15, -8.742278e-08, -1, 0, 0, -0.534)
+
+[node name="Area3D" type="Area3D" parent="." unique_id=1795631475]
+transform = Transform3D(4.371138e-08, -1, -8.742278e-08, 1, 4.371139e-08, -8.742278e-08, 8.7422784e-08, -8.742277e-08, 1, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=2046129410]
+transform = Transform3D(-0.49, -7.129703e-08, -1.9772424e-08, 0, 0.13094684, -0.47217894, 7.398795e-08, -0.47217894, -0.13094684, 0, 1.6021041, 0.8071356)
+shape = SubResource("CapsuleShape3D_r2ybq")

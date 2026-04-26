@@ -4,127 +4,185 @@ using System.Collections.Generic;
 
 public partial class EnemySpawner : Node3D
 {
-    [Signal] public delegate void EnemyCountChangedEventHandler(int remaining);
+	[Signal] public delegate void EnemyCountChangedEventHandler(int remaining);
 
-    [Signal] public delegate void WaveStartedEventHandler(int wave, int totalEnemies);
+	[Signal] public delegate void WaveStartedEventHandler(int wave, int totalEnemies);
 
-    [ExportGroup("Enemey Scenes")]
-    [Export] private PackedScene scorpionEnemyScene;
+	[Signal] public delegate void WaveFinishedEventHandler();
 
-    [Export] private PackedScene grasshopperEnemyScene;
-    [Export] private PackedScene bombardierbeetleEnemyScene;
-    [Export] private PackedScene beetleEnemyScene;
-    [Export] private PackedScene musquitoEnemyScene;
-    private List<PackedScene> availableScenes;
+	[ExportGroup("Enemy Scenes")]
+	[Export] private PackedScene[] enemyScenes;
 
-    [ExportGroup("Stats")]
-    [Export] private float spawnDelay = 0.5f;
+	[Export] private int[] enemyUnlockLevels;
 
-    [Export] private int waveLevelToSpawnGrassHopperEnemy = 5;
-    [Export] private int waveLevelToSpawnBombardierEnemy = 10;
-    [Export] private int waveLevelToSpawnBeetleEnemy = 11;
-    [Export] private int waveLevelToSpawnMusquitoEnemy = 12;
-    private float spawnTimer = 0f;
-    private int maxEnemies = 5;
-    private int enemyLevel = 0;
-    private int waveLevel = 0;
-    private int enemiesToSpawn = 0;
-    private int enemiesInScene = 0;
-    private RandomNumberGenerator rng = new RandomNumberGenerator();
+	[ExportGroup("Stats")]
+	[Export] private float spawnDelay = 0.5f;
 
-    [Signal] public delegate void WaveFinishedEventHandler();
+	[Export] private int maxEnemies = 5;
 
-    public override void _Ready()
-    {
-        availableScenes = new List<PackedScene>
-        {
-            scorpionEnemyScene
-        };
-    }
+	[ExportGroup("Enemy Spawning Placement")]
+	[Export] private float minSpawnSpacing = 1.5f;
 
-    public override void _PhysicsProcess(double delta)
-    {
-        if (Input.IsActionJustPressed("debug_StartNewWave") && enemiesInScene == 0)
-        {
-            waveLevel++;
+	[Export] private float enemyRadius = 0.5f;
+	[Export] private int maxPlacementAttempts = 30;
 
-            if (waveLevel >= waveLevelToSpawnGrassHopperEnemy && !availableScenes.Contains(grasshopperEnemyScene))
-                availableScenes.Add(grasshopperEnemyScene);
-            if (waveLevel >= waveLevelToSpawnBombardierEnemy && !availableScenes.Contains(bombardierbeetleEnemyScene))
-                availableScenes.Add(bombardierbeetleEnemyScene);
-            if (waveLevel >= waveLevelToSpawnBeetleEnemy && !availableScenes.Contains(beetleEnemyScene))
-                availableScenes.Add(beetleEnemyScene);
-            if (waveLevel >= waveLevelToSpawnMusquitoEnemy && !availableScenes.Contains(musquitoEnemyScene))
-                availableScenes.Add(musquitoEnemyScene);
+	private List<PackedScene> availableScenes = new List<PackedScene>();
+	private List<Vector3> reservedSpawnPositions = new List<Vector3>();
+	private RandomNumberGenerator rng = new RandomNumberGenerator();
 
-            string poolNames = string.Join(", ", availableScenes.ConvertAll(scene => scene.ResourcePath.GetFile()));
-            GD.Print($"Wave Level: {waveLevel} | Enemy Pool: [{poolNames}]");
+	private int enemyLevel = 0;
+	private int waveLevel = 0;
+	private int enemiesToSpawn = 0;
+	private int enemiesInScene = 0;
 
-            enemiesToSpawn = 0;
-            EmitSignal(SignalName.WaveStarted, waveLevel, 0);
-            SpawnEnemyWave();
-        }
-    }
+	public override void _Ready()
+	{
+		if (enemyScenes == null || enemyScenes.Length == 0)
+		{
+			GD.PrintErr("EnemySpawner: No enemy scenes assigned in the inspector!");
+			return;
+		}
 
-    private async void SpawnEnemyWave()
-    {
-        while (enemiesToSpawn < maxEnemies)
-        {
-            SpawnEnemy();
-            await ToSignal(GetTree().CreateTimer(spawnDelay), SceneTreeTimer.SignalName.Timeout);
-        }
-    }
+		if (enemyUnlockLevels == null || enemyUnlockLevels.Length != enemyScenes.Length)
+		{
+			GD.PrintErr("EnemySpawner: enemyUnlockLevels length doesn't match enemyScenes. Defaulting all to unlock at wave 0.");
+			enemyUnlockLevels = new int[enemyScenes.Length];
+			Array.Fill(enemyUnlockLevels, 0);
+		}
 
-    private void SpawnEnemy()
-    {
-        int randomIndex = rng.RandiRange(0, availableScenes.Count - 1);
-        PackedScene chosenScene = availableScenes[randomIndex];
+		RefreshAvailableScenes();
+	}
 
-        if (chosenScene == null)
-        {
-            GD.PrintErr("EnemySpawner: A chosen enemy scene is not assigned in the inspector!");
-            return;
-        }
+	public override void _PhysicsProcess(double delta)
+	{
+		if (Input.IsActionJustPressed("debug_StartNewWave") && enemiesInScene == 0)
+			StartWave();
+	}
 
-        var enemy = chosenScene.Instantiate<Enemy>();
+	private void RefreshAvailableScenes()
+	{
+		availableScenes.Clear();
+		for (int i = 0; i < enemyScenes.Length; i++)
+		{
+			if (enemyScenes[i] == null)
+			{
+				GD.PrintErr($"EnemySpawner: enemyScenes[{i}] is null, skipping.");
+				continue;
+			}
+			if (waveLevel >= enemyUnlockLevels[i])
+				availableScenes.Add(enemyScenes[i]);
+		}
 
-        GetTree().CurrentScene.AddChild(enemy);
+		if (availableScenes.Count == 0)
+			GD.PrintErr($"EnemySpawner: No enemies available at wave {waveLevel}. Check unlock levels.");
+		else
+		{
+			string poolNames = string.Join(", ", availableScenes.ConvertAll(s => s.ResourcePath.GetFile()));
+			GD.Print($"Wave {waveLevel} | Enemy Pool: [{poolNames}]");
+		}
+	}
 
-        Vector3 randomOffset = new Vector3(rng.RandfRange(-1f, 1f), 0f, rng.RandfRange(-1f, 1f));
-        enemy.GlobalPosition = GlobalPosition + randomOffset;
+	public void StartWave()
+	{
+		if (enemiesInScene != 0) return;
 
-        enemy.AddToGroup("Enemy");
-        enemy.SetName("Testing Enemy nr:" + enemyLevel);
-        enemy.SetEnemyLevel(enemyLevel);
+		waveLevel++;
+		RefreshAvailableScenes();
 
-        enemiesToSpawn++;
-        enemyLevel++;
-        enemiesInScene++;
-        EmitSignal(SignalName.EnemyCountChanged, enemiesInScene);
-        enemy.TreeExited += OnEnemyRemoved;
-    }
+		enemiesToSpawn = 0;
+		EmitSignal(SignalName.WaveStarted, waveLevel, maxEnemies);
+		SpawnEnemyWave();
+	}
 
-    private void OnEnemyRemoved()
-    {
-        enemiesInScene--;
-        EmitSignal(SignalName.EnemyCountChanged, enemiesInScene);
-        if (enemiesInScene == 0)
-            EmitSignal(SignalName.WaveFinished);
-    }
-    public void StartWave()
-    {
-        if (enemiesInScene != 0) return;
-        waveLevel++;
-        if (waveLevel >= waveLevelToSpawnGrassHopperEnemy && !availableScenes.Contains(grasshopperEnemyScene))
-            availableScenes.Add(grasshopperEnemyScene);
-        if (waveLevel >= waveLevelToSpawnBombardierEnemy && !availableScenes.Contains(bombardierbeetleEnemyScene))
-            availableScenes.Add(bombardierbeetleEnemyScene);
-        string poolNames = string.Join(", ", availableScenes
-            .FindAll(s => s != null)
-            .ConvertAll(s => s.ResourcePath.GetFile()));
-        GD.Print($"Wave Level: {waveLevel} | Enemy Pool: [{poolNames}]");
-        enemiesToSpawn = 0;
-        EmitSignal(SignalName.WaveStarted, waveLevel, 0);
-        SpawnEnemyWave();
-    }
+	private async void SpawnEnemyWave()
+	{
+		reservedSpawnPositions.Clear();
+		while (enemiesToSpawn < maxEnemies)
+		{
+			SpawnEnemy();
+			await ToSignal(GetTree().CreateTimer(spawnDelay), SceneTreeTimer.SignalName.Timeout);
+		}
+	}
+
+	private void SpawnEnemy()
+	{
+		if (availableScenes.Count == 0)
+		{
+			GD.PrintErr("EnemySpawner: availableScenes is empty, cannot spawn.");
+			enemiesToSpawn++;
+			return;
+		}
+
+		int randomIndex = rng.RandiRange(0, availableScenes.Count - 1);
+		PackedScene chosenScene = availableScenes[randomIndex];
+
+		var enemy = chosenScene.Instantiate<Enemy>();
+		GetTree().CurrentScene.AddChild(enemy);
+
+		enemy.GlobalPosition = GetSafeSpawnPosition();
+		enemy.AddToGroup("Enemy");
+		enemy.SetName($"Enemy_W{waveLevel}_#{enemyLevel}");
+		enemy.SetEnemyLevel(enemyLevel);
+
+		enemiesToSpawn++;
+		enemyLevel++;
+		enemiesInScene++;
+		EmitSignal(SignalName.EnemyCountChanged, enemiesInScene);
+		enemy.TreeExited += OnEnemyRemoved;
+	}
+
+	private void OnEnemyRemoved()
+	{
+		enemiesInScene--;
+		EmitSignal(SignalName.EnemyCountChanged, enemiesInScene);
+		if (enemiesInScene == 0)
+			EmitSignal(SignalName.WaveFinished);
+	}
+
+	private Vector3 GetSafeSpawnPosition()
+	{
+		float spawnRadius = Mathf.Sqrt(maxEnemies) * minSpawnSpacing * 0.75f;
+		var spaceState = GetWorld3D().DirectSpaceState;
+
+		for (int attempt = 0; attempt < maxPlacementAttempts; attempt++)
+		{
+			Vector3 candidate = GlobalPosition + new Vector3(
+				rng.RandfRange(-spawnRadius, spawnRadius),
+				0f,
+				rng.RandfRange(-spawnRadius, spawnRadius)
+			);
+
+			bool tooCloseToEnemy = false;
+			foreach (Vector3 reserved in reservedSpawnPositions)
+			{
+				if (candidate.DistanceTo(reserved) < minSpawnSpacing)
+				{
+					tooCloseToEnemy = true;
+					break;
+				}
+			}
+			if (tooCloseToEnemy) continue;
+
+			var query = new PhysicsShapeQueryParameters3D();
+			query.Shape = new SphereShape3D { Radius = enemyRadius };
+			query.Transform = new Transform3D(Basis.Identity, candidate);
+			query.CollisionMask = 1;
+
+			if (spaceState.IntersectShape(query).Count == 0)
+			{
+				reservedSpawnPositions.Add(candidate);
+				return candidate;
+			}
+		}
+
+		GD.PrintErr("EnemySpawner: Could not find a clear spawn position, using grid fallback.");
+		int index = reservedSpawnPositions.Count;
+		int cols = Mathf.CeilToInt(Mathf.Sqrt(maxEnemies));
+		Vector3 gridPos = GlobalPosition + new Vector3(
+			(index % cols) * minSpawnSpacing, 0f,
+			(index / cols) * minSpawnSpacing
+		);
+		reservedSpawnPositions.Add(gridPos);
+		return gridPos;
+	}
 }

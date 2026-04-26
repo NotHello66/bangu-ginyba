@@ -62,7 +62,7 @@ func apply_buff(buff: String, value: int) -> void:
 				health_comp.call("IncreaseMaxHP", float(value))
 		"damage":
 			if melee_comp:
-				melee_comp.set("damage", melee_comp.get("damage") + value)
+				melee_comp.set("BonusDamage", melee_comp.get("BonusDamage") + value)
 				print("melee damage now: ", melee_comp.get("damage"))
 			if ranged_comp:
 				ranged_comp.set("damage", ranged_comp.get("damage") + value)

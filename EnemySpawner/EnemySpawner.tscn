@@ -1,6 +1,14 @@
 [gd_scene format=3 uid="uid://bk2tm65rltpyu"]
 
 [ext_resource type="Script" uid="uid://tsslen3rh4jl" path="res://EnemySpawner/EnemySpawner.cs" id="1_h7arx"]
+[ext_resource type="PackedScene" uid="uid://bdhvjwoymjpqc" path="res://Enemies/ScorpionEnemy.tscn" id="2_fsrxi"]
+[ext_resource type="PackedScene" uid="uid://bgdr8lj327xa2" path="res://Enemies/BeetleEnemy.tscn" id="3_753aq"]
+[ext_resource type="PackedScene" uid="uid://djnt75jjm0h8y" path="res://Enemies/GrasshopperEnemy.tscn" id="4_67p5o"]
+[ext_resource type="PackedScene" uid="uid://vdwvd5m167xn" path="res://Enemies/MusquitoEnemy.tscn" id="5_3m6oh"]
+[ext_resource type="PackedScene" uid="uid://dh73kx4dkwyqi" path="res://Enemies/BombardierbeetleEnemy.tscn" id="6_8bfp8"]
+[ext_resource type="PackedScene" uid="uid://d0atjaqjo4rix" path="res://Enemies/MantisBossEnemy.tscn" id="7_753aq"]
 
 [node name="EnemySpawner" type="Node3D" unique_id=1712601701 groups=["EnemySpawner"]]
 script = ExtResource("1_h7arx")
+enemyScenes = Array[PackedScene]([ExtResource("2_fsrxi"), ExtResource("3_753aq"), ExtResource("4_67p5o"), ExtResource("5_3m6oh"), ExtResource("6_8bfp8"), ExtResource("7_753aq")])
+enemyUnlockLevels = PackedInt32Array(1, 1, 1, 1, 1, 1)

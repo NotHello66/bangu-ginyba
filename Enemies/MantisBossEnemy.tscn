@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://d0atjaqjo4rix"]
+
+[ext_resource type="Script" uid="uid://hb7ugsciqs2f" path="res://Enemies/MantisBossEnemy.cs" id="1_anmc1"]
+[ext_resource type="PackedScene" uid="uid://f1qjftfkuhr" path="res://CommonComponents/health_component.tscn" id="2_anmc1"]
+[ext_resource type="PackedScene" uid="uid://chu8vv10twj0q" path="res://CommonComponents/hit_box_component.tscn" id="3_owxtr"]
+[ext_resource type="PackedScene" uid="uid://cc2glgwhr8yu1" path="res://CommonComponents/melee_component.tscn" id="4_5dpaw"]
+[ext_resource type="PackedScene" uid="uid://cdhx7tdduoexw" path="res://Common meshes/AttackClawHorizontalLeft.tscn" id="5_anmc1"]
+[ext_resource type="PackedScene" uid="uid://ckll5eni51kp1" path="res://Common meshes/AttackClawHorizontalRight.tscn" id="6_owxtr"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_pkft5"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uasft"]
+albedo_color = Color(1.1551381e-06, 0.7454939, 0.600462, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_pjgsm"]
+
+[node name="MantisBossEnemy" type="CharacterBody3D" unique_id=1589266389 groups=["Enemy"]]
+script = ExtResource("1_anmc1")
+
+[node name="HealthComponent" parent="." unique_id=581968543 instance=ExtResource("2_anmc1")]
+
+[node name="HitBoxComponent" parent="." unique_id=1495271838 instance=ExtResource("3_owxtr")]
+
+[node name="MeleeComponent" parent="." unique_id=121852746 instance=ExtResource("4_5dpaw")]
+attackScenes = Array[PackedScene]([ExtResource("5_anmc1")])
+damages = PackedFloat32Array(10)
+knockbackForces = PackedFloat32Array(5)
+cooldowns = PackedFloat32Array(1)
+
+[node name="SecondaryMeleeComponent" parent="." unique_id=1338850602 instance=ExtResource("4_5dpaw")]
+attackScenes = Array[PackedScene]([ExtResource("6_owxtr")])
+damages = PackedFloat32Array(10)
+knockbackForces = PackedFloat32Array(5)
+cooldowns = PackedFloat32Array(1)
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=2054314887]
+avoidance_enabled = true
+debug_enabled = true
+debug_use_custom = true
+debug_path_custom_color = Color(0, 1, 0, 1)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=774993414]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+shape = SubResource("CapsuleShape3D_pkft5")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1344693956]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+material_override = SubResource("StandardMaterial3D_uasft")
+mesh = SubResource("CapsuleMesh_pjgsm")

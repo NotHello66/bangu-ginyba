@@ -1,13 +1,6 @@
 [gd_scene format=3 uid="uid://cc2glgwhr8yu1"]
 
 [ext_resource type="Script" uid="uid://dblp24tfv8h5p" path="res://Scripts/MeleeComponent.cs" id="1_bpdae"]
-[ext_resource type="PackedScene" uid="uid://ciirnwesrt0as" path="res://Common meshes/AttackTorus.tscn" id="2_mya7d"]
-[ext_resource type="PackedScene" uid="uid://bisshrab8be2c" path="res://Common meshes/AttackClaw.tscn" id="3_hqr1b"]
 
 [node name="MeleeComponent" type="Node3D" unique_id=121852746]
 script = ExtResource("1_bpdae")
-torusAttackScene = ExtResource("2_mya7d")
-clawAttackScene = ExtResource("3_hqr1b")
-damage = 0.0
-knockbackForce = 0.0
-cooldown = 0.0

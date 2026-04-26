@@ -16,8 +16,15 @@ public partial class HitBoxComponent : Node3D
 		healthComponent.Damage(attack);
 		if (parent is CharacterBody3D characterBody)
 		{
-			Vector3 direction = (GlobalPosition - attack.AttackOrigin).Normalized();
-			characterBody.Velocity += direction * attack.Knockback;
+			Vector3 direction = (characterBody.GlobalPosition - attack.AttackOrigin).Normalized();
+			direction.Y = 0f;
+
+			Vector2 currentHorizontal = new Vector2(characterBody.Velocity.X, characterBody.Velocity.Z);
+			float maxKnockback = 15f;
+			if (currentHorizontal.Length() < maxKnockback)
+			{
+				characterBody.Velocity += direction * attack.Knockback;
+			}
 		}
 	}
 }
