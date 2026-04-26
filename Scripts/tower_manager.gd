@@ -1,9 +1,17 @@
 extends Node3D
 
+@export var economy_component: Node3D
+
 # Different towers
 @export var tower_scene: PackedScene
 @export var wall: PackedScene
 @export var bomb_tower: PackedScene
+
+var tower_costs = {
+	BuildingType.TOWER:      2,
+	BuildingType.WALL:       2,
+	BuildingType.BOMB_TOWER: 5
+}
 
 @export var canPlaceTower: bool = false
 @export var navigation_region_3D: NavigationRegion3D
@@ -156,6 +164,12 @@ func spawn_tower(position: Vector3):
 	var scene = get_current_scene()
 	if scene == null:
 		return
+
+	var cost = tower_costs.get(current_building, 0)
+	if economy_component == null or not economy_component.SpendGold(cost):
+		print("Not enough gold!")
+		return  # bail out early, tower is not placed
+
 	var tower = scene.instantiate()
 	navigation_region_3D.add_child(tower)
 	tower.global_position = position

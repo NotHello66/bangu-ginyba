@@ -3,40 +3,50 @@ using System;
 
 public partial class EconomyComponent : Node3D
 {
-    [Export] float startingGold = 100f;
-    public float currentGold{get; set;}
-    // Called when the node enters the scene tree for the first time.
-    public override void _Ready()
-    {
-        currentGold = startingGold;
-        GetTree().NodeAdded += OnNodeAdded;
-        var rewardUI = GetTree().Root.FindChild("rewardSystemUI", true, false);
-        if(rewardUI != null)
-        {
-            rewardUI.Connect("gold_changed", new Callable(this, nameof(OnGoldSpent)));
-        }
-    }
+	[Export] float startingGold = 100f;
+	public float currentGold{get; set;}
+	// Called when the node enters the scene tree for the first time.
+	public override void _Ready()
+	{
+		currentGold = startingGold;
+		GetTree().NodeAdded += OnNodeAdded;
+		var rewardUI = GetTree().Root.FindChild("rewardSystemUI", true, false);
+		if(rewardUI != null)
+		{
+			rewardUI.Connect("gold_changed", new Callable(this, nameof(OnGoldSpent)));
+		}
+	}
 
-    private void OnNodeAdded(Node node)
-    {
-        if (node is Enemy enemy)
-        {
-            enemy.EnemyKilled += OnEnemyKilled;
-        }
-    }
-    private void OnGoldSpent(float amount)
-    {
-        currentGold -= amount;
-        GD.Print($"Gold Spent: {amount}, Current Gold: {currentGold}");
-    }
-    private void OnEnemyKilled(float goldReward)
+	private void OnNodeAdded(Node node)
+	{
+		if (node is Enemy enemy)
+		{
+			enemy.EnemyKilled += OnEnemyKilled;
+		}
+	}
+	private void OnGoldSpent(float amount)
+	{
+		currentGold -= amount;
+		GD.Print($"Gold Spent: {amount}, Current Gold: {currentGold}");
+	}
+	private void OnEnemyKilled(float goldReward)
 	{
 		currentGold += goldReward;
 		GD.Print($"Enemy killed Current Gold: {currentGold}");
-    }
+	}
 
-    // Called every frame. 'delta' is the elapsed time since the previous frame.
-    public override void _Process(double delta)
+	// Called every frame. 'delta' is the elapsed time since the previous frame.
+	public override void _Process(double delta)
 	{
+	}
+	
+	public bool CanAfford(float cost) => currentGold >= cost;
+
+	public bool SpendGold(float cost)
+	{
+		if (!CanAfford(cost)) return false;
+		currentGold -= cost;
+		GD.Print($"Spent {cost} gold. Remaining: {currentGold}");
+		return true;
 	}
 }
