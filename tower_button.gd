@@ -9,4 +9,5 @@ func _process(delta: float) -> void:
 
 
 func _on_pressed() -> void:
+	Global.play_button()
 	tower_menu.show_menu()

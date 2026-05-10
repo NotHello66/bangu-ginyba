@@ -17,19 +17,23 @@ func _process(delta: float) -> void:
 
 
 func _on_audio_button_pressed() -> void:
+	Global.play_button()
 	audio_settings.visible = true
 	settings.visible = false
 
 func _on_controls_button_pressed() -> void:
+	Global.play_button()
 	controls_settings.visible = true
 	settings.visible = false
 
 
 func _on_graphics_button_pressed() -> void:
+	Global.play_button()
 	graphics_settings.visible = true
 	settings.visible = false
 
 
 func _on_back_button_pressed() -> void:
+	Global.play_button()
 	settings.visible = false
 	main_buttons.visible = true

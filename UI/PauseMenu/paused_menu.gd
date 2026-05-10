@@ -29,14 +29,18 @@ func show_only(node: Control) -> void:
 	node.visible = true
 
 func _on_resume_button_pressed() -> void:
+	Global.play_button()
 	_is_paused = false
 
 func _on_settings_button_pressed() -> void:
+	Global.play_button()
 	show_only(settings)
 
 func _on_main_menu_button_pressed() -> void:
+	Global.play_button()
 	get_tree().paused = false
 	get_tree().change_scene_to_file("res://UI/MainMenu/in_game_ui.tscn")
 
 func _on_exit_button_pressed() -> void:
+	Global.play_button()
 	get_tree().quit()

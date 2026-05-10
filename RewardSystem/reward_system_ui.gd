@@ -228,6 +228,7 @@ func _on_invest_slider_value_changed(value: float) -> void:
 
 
 func _on_close_button_pressed() -> void:
+	Global.play_button()
 	if not is_spinning:
 		visible = false
 		get_tree().paused = false
@@ -247,6 +248,7 @@ func _on_pull_button_pressed() -> void:
 	var item = manager.pull_item(investment)
 	if item.is_empty():
 		return
+	Global.play_spin()
 	Global.can_pull = false
 	emit_signal("gold_changed", investment)
 	update_ui()

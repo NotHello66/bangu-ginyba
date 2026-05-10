@@ -80,6 +80,7 @@ func show_announcement(text: String) -> void:
 	announcement_label.visible = false
 
 func start_low_health_warning() -> void:
+	Global.start_heartbeat()
 	var tween = create_tween()
 	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	tween.set_loops()
@@ -87,6 +88,7 @@ func start_low_health_warning() -> void:
 	tween.tween_property(low_health_overlay, "modulate:a", 0.0, 0.5)
 
 func stop_low_health_warning() -> void:
+	Global.stop_heartbeat()
 	low_health_overlay.modulate.a = 0.0
 	for t in get_tree().get_processed_tweens():
 		if t.is_valid():

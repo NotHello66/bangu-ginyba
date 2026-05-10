@@ -43,52 +43,52 @@ public partial class TowerComponent : Node3D
 	public override void _PhysicsProcess(double delta)
 	{ }
 
-    private Enemy GetClosestEnemy()
-    {
-        var enemies = GetTree().GetNodesInGroup("Enemy");
-        var spaceState = GetWorld3D().DirectSpaceState;
+	private Enemy GetClosestEnemy()
+	{
+		var enemies = GetTree().GetNodesInGroup("Enemy");
+		var spaceState = GetWorld3D().DirectSpaceState;
 
-        Enemy closestVisible = null;
-        float closestVisibleDistance = float.MaxValue;
+		Enemy closestVisible = null;
+		float closestVisibleDistance = float.MaxValue;
 
-        foreach (Node node in enemies)
-        {
-            if (node is not Enemy enemy) continue;
-            if (enemy.healthComponent.isDead) continue;
+		foreach (Node node in enemies)
+		{
+			if (node is not Enemy enemy) continue;
+			if (enemy.healthComponent.isDead) continue;
 
-            float distance = GlobalPosition.DistanceTo(enemy.GlobalPosition);
+			float distance = GlobalPosition.DistanceTo(enemy.GlobalPosition);
 
-            if (CanSeeEnemy(enemy, spaceState) && distance < closestVisibleDistance)
-            {
-                closestVisibleDistance = distance;
-                closestVisible = enemy;
-            }
-        }
+			if (CanSeeEnemy(enemy, spaceState) && distance < closestVisibleDistance)
+			{
+				closestVisibleDistance = distance;
+				closestVisible = enemy;
+			}
+		}
 
-        if (closestVisible == null) GD.Print("TOWER: no visible enemies");
+		if (closestVisible == null) GD.Print("TOWER: no visible enemies");
 
-        return closestVisible;
-    }
+		return closestVisible;
+	}
 
-    private bool CanSeeEnemy(Enemy enemy, PhysicsDirectSpaceState3D spaceState)
-    {
-        var exclude = new Godot.Collections.Array<Rid>();
+	private bool CanSeeEnemy(Enemy enemy, PhysicsDirectSpaceState3D spaceState)
+	{
+		var exclude = new Godot.Collections.Array<Rid>();
 
-        var towerBody = GetParent<StaticBody3D>();
-        if (towerBody != null)
-            exclude.Add(towerBody.GetRid());
+		var towerBody = GetParent<StaticBody3D>();
+		if (towerBody != null)
+			exclude.Add(towerBody.GetRid());
 
-        // exclude the enemy itself
-        exclude.Add(enemy.GetRid());
+		// exclude the enemy itself
+		exclude.Add(enemy.GetRid());
 
-        var query = PhysicsRayQueryParameters3D.Create(
-            GlobalPosition,
-            enemy.GlobalPosition,
-            collisionMask: 1,
-            exclude: exclude
-        );
+		var query = PhysicsRayQueryParameters3D.Create(
+			GlobalPosition,
+			enemy.GlobalPosition,
+			collisionMask: 1,
+			exclude: exclude
+		);
 
-        var result = spaceState.IntersectRay(query);
-        return result.Count == 0;
-    }
+		var result = spaceState.IntersectRay(query);
+		return result.Count == 0;
+	}
 }

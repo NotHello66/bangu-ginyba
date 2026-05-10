@@ -27,6 +27,8 @@ signal gold_changed(amount: int)
 
 var gold: int = 100:
 	set(value):
+		if value > gold:
+			play_gold()
 		gold = value
 		gold_changed.emit(gold)
 
@@ -72,3 +74,70 @@ func apply_buff(buff: String, value: int) -> void:
 			apply_buff("damage", value)
 	stats_changed.emit()
 	print("stats_changed emitted")
+
+var audio_button: AudioStreamPlayer
+var audio_spin: AudioStreamPlayer
+var audio_win: AudioStreamPlayer
+var audio_wave_start: AudioStreamPlayer
+var audio_wave_clear: AudioStreamPlayer
+var audio_heartbeat: AudioStreamPlayer
+var audio_gold: AudioStreamPlayer
+
+func _ready() -> void:
+	setup_audio()
+
+func setup_audio() -> void:
+	audio_button = _make_player("res://UI/Sounds/button_click.wav")
+	audio_spin = _make_player("res://UI/Sounds/case_opening2.wav")
+	audio_win = _make_player("res://UI/Sounds/win.wav")
+	audio_wave_start = _make_player("res://UI/Sounds/wave_start.wav")
+	audio_wave_clear = _make_player("res://UI/Sounds/win.wav")
+	audio_heartbeat = _make_player("res://UI/Sounds/heartbeat.wav")
+	audio_gold = _make_player("res://UI/Sounds/coin_pickup.wav")
+
+func _make_player(path: String) -> AudioStreamPlayer:
+	var player = AudioStreamPlayer.new()
+	add_child(player)
+	if ResourceLoader.exists(path):
+		player.stream = load(path)
+	else:
+		print("Audio missing: ", path)
+	return player
+
+func play_button() -> void:
+	if audio_button and audio_button.stream:
+		audio_button.play()
+
+func play_spin() -> void:
+	if audio_spin and audio_spin.stream:
+		audio_spin.play()
+
+func stop_spin() -> void:
+	if audio_spin:
+		audio_spin.stop()
+
+func play_win() -> void:
+	stop_spin()
+	if audio_win and audio_win.stream:
+		audio_win.play()
+
+func play_wave_start() -> void:
+	if audio_wave_start and audio_wave_start.stream:
+		audio_wave_start.play()
+
+func play_wave_clear() -> void:
+	if audio_wave_clear and audio_wave_clear.stream:
+		audio_wave_clear.play()
+
+func play_gold() -> void:
+	if audio_gold and audio_gold.stream:
+		audio_gold.play()
+
+func start_heartbeat() -> void:
+	if audio_heartbeat and audio_heartbeat.stream:
+		audio_heartbeat.stream.loop = true
+		audio_heartbeat.play()
+
+func stop_heartbeat() -> void:
+	if audio_heartbeat:
+		audio_heartbeat.stop()

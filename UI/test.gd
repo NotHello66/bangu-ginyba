@@ -16,6 +16,7 @@ func _ready() -> void:
 	wave_button.visible = true
 
 func _on_wave_started(wave: int, total: int) -> void:
+	Global.play_wave_start()
 	Global.current_wave = wave
 	hud.update_wave(wave)
 	hud.update_enemies(total)
@@ -25,6 +26,7 @@ func _on_wave_started(wave: int, total: int) -> void:
 	hud.show_announcement(" Wave %d" % wave)
 
 func _on_wave_finished() -> void:
+	Global.play_wave_clear()
 	Global.can_pull = true
 	print("Wave %d finished!" % Global.current_wave)
 	reward_button.visible = true
@@ -40,5 +42,6 @@ func _on_enemy_count_changed(remaining: int) -> void:
 
 
 func _on_wave_button_pressed() -> void:
+	Global.play_wave_start()
 	wave_button.visible = false
 	enemy_spawner.call("StartWave")

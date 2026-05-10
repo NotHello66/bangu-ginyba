@@ -7,6 +7,7 @@ func _ready() -> void:
 	reward_system_ui.visible = false
 
 func _on_pressed() -> void:
+	Global.play_button()
 	Global.add_pause("reward")
 	if reward_system_ui.visible:
 		reward_system_ui.visible = false

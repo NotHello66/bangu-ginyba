@@ -4,180 +4,180 @@ using System.Security.Cryptography.X509Certificates;
 
 public partial class PlayerController : CharacterBody3D
 {
-    // Player Stats
-    [Export] public float speed = 5.0f;
+	// Player Stats
+	[Export] public float speed = 5.0f;
 
-    [Export] public float sprintSpeed = 15.0f;
+	[Export] public float sprintSpeed = 15.0f;
 
-    //public const float JumpVelocity = 4.5f;
-    [Export] private float rotationSpeed = 5f;
+	//public const float JumpVelocity = 4.5f;
+	[Export] private float rotationSpeed = 5f;
 
-    private float theta = new float();
-    private Vector3 lastDirection = Vector3.Zero;
-    private PlayerControllerMouse MouseController;
-    public HealthComponent healthComponent;
-    private HitBoxComponent hitBoxComponent;
-    private MeleeComponent meleeComponent;
-    private Node body;
+	private float theta = new float();
+	private Vector3 lastDirection = Vector3.Zero;
+	private PlayerControllerMouse MouseController;
+	public HealthComponent healthComponent;
+	private HitBoxComponent hitBoxComponent;
+	private MeleeComponent meleeComponent;
+	private Node body;
 
-    public override void _Ready()
-    {
-        body = GetNodeOrNull<Node3D>("%Meshes");
-        MouseController = GetNodeOrNull<PlayerControllerMouse>("PlayerControllerMouse");
-        healthComponent = GetNodeOrNull<HealthComponent>("HealthComponent");
-        hitBoxComponent = GetNodeOrNull<HitBoxComponent>("HitBoxComponent");
-        meleeComponent = GetNodeOrNull<MeleeComponent>("MeleeComponent");
-    }
+	public override void _Ready()
+	{
+		body = GetNodeOrNull<Node3D>("%Meshes");
+		MouseController = GetNodeOrNull<PlayerControllerMouse>("PlayerControllerMouse");
+		healthComponent = GetNodeOrNull<HealthComponent>("HealthComponent");
+		hitBoxComponent = GetNodeOrNull<HitBoxComponent>("HitBoxComponent");
+		meleeComponent = GetNodeOrNull<MeleeComponent>("MeleeComponent");
+	}
 
-    public override void _Process(double delta)
-    {
-        //if (Input.IsActionJustPressed("debug_dealDamageToTest"))
-        //{
-        //TestingEnemy enemy = GetClosestEnemy();
-        //	if (enemy == null)
-        //	{
-        //		GD.Print("Enemy is null");
-        //		return;
-        //	}
+	public override void _Process(double delta)
+	{
+		//if (Input.IsActionJustPressed("debug_dealDamageToTest"))
+		//{
+		//TestingEnemy enemy = GetClosestEnemy();
+		//	if (enemy == null)
+		//	{
+		//		GD.Print("Enemy is null");
+		//		return;
+		//	}
 
-        //	Attack attack = new Attack(10f, 5f, GlobalPosition);
+		//	Attack attack = new Attack(10f, 5f, GlobalPosition);
 
-        //	HitBoxComponent hb = enemy.GetNodeOrNull("HitBoxComponent") as HitBoxComponent;
+		//	HitBoxComponent hb = enemy.GetNodeOrNull("HitBoxComponent") as HitBoxComponent;
 
-        //	if (hb != null)
-        //		hb.Damage(attack);
-        //}
-    }
+		//	if (hb != null)
+		//		hb.Damage(attack);
+		//}
+	}
 
-    public override void _PhysicsProcess(double delta)
-    {
-        Vector3 velocity = Velocity;
+	public override void _PhysicsProcess(double delta)
+	{
+		Vector3 velocity = Velocity;
 
-        // Add the gravity.
-        if (!IsOnFloor())
-        {
-            velocity += GetGravity() * (float)delta;
-        }
+		// Add the gravity.
+		if (!IsOnFloor())
+		{
+			velocity += GetGravity() * (float)delta;
+		}
 
-        //// Handle Jump.
-        //if (Input.IsActionJustPressed("ui_accept") && IsOnFloor())
-        //{
-        //	velocity.Y = JumpVelocity;
-        //}
+		//// Handle Jump.
+		//if (Input.IsActionJustPressed("ui_accept") && IsOnFloor())
+		//{
+		//	velocity.Y = JumpVelocity;
+		//}
 
-        // Get the input direction and handle the movement/deceleration.
-        // As good practice, you should replace UI actions with custom gameplay actions.
-        bool isSprinting = Input.IsActionPressed("sprint");
-        float currentSpeed = isSprinting ? sprintSpeed : speed;
-        Vector2 inputDir = Input.GetVector("moveLeft", "moveRight", "moveUp", "moveDown");
-        Vector3 direction = (Transform.Basis * new Vector3(inputDir.X, 0, inputDir.Y)).Normalized();
-        if (direction != Vector3.Zero)
-        {
-            lastDirection = direction;
-            velocity.X = direction.X * currentSpeed;
-            velocity.Z = direction.Z * currentSpeed;
-        }
-        else
-        {
-            velocity.X = Mathf.MoveToward(Velocity.X, 0, speed);
-            velocity.Z = Mathf.MoveToward(Velocity.Z, 0, speed);
-        }
-        var body = GetNode<Node3D>("%Meshes");
-        body.Rotation = new Vector3(body.Rotation.X, (float)Mathf.LerpAngle(body.Rotation.Y, Mathf.Atan2(lastDirection.X, lastDirection.Z), delta * rotationSpeed), body.Rotation.Z);
-        Velocity = velocity;
+		// Get the input direction and handle the movement/deceleration.
+		// As good practice, you should replace UI actions with custom gameplay actions.
+		bool isSprinting = Input.IsActionPressed("sprint");
+		float currentSpeed = isSprinting ? sprintSpeed : speed;
+		Vector2 inputDir = Input.GetVector("moveLeft", "moveRight", "moveUp", "moveDown");
+		Vector3 direction = (Transform.Basis * new Vector3(inputDir.X, 0, inputDir.Y)).Normalized();
+		if (direction != Vector3.Zero)
+		{
+			lastDirection = direction;
+			velocity.X = direction.X * currentSpeed;
+			velocity.Z = direction.Z * currentSpeed;
+		}
+		else
+		{
+			velocity.X = Mathf.MoveToward(Velocity.X, 0, speed);
+			velocity.Z = Mathf.MoveToward(Velocity.Z, 0, speed);
+		}
+		var body = GetNode<Node3D>("%Meshes");
+		body.Rotation = new Vector3(body.Rotation.X, (float)Mathf.LerpAngle(body.Rotation.Y, Mathf.Atan2(lastDirection.X, lastDirection.Z), delta * rotationSpeed), body.Rotation.Z);
+		Velocity = velocity;
 
-        MoveAndSlide();
-    }
+		MoveAndSlide();
+	}
 
-    public override void _Input(InputEvent @event)
-    {
-        if (@event is InputEventMouseButton mouseEvent && mouseEvent.Pressed && mouseEvent.ButtonIndex == MouseButton.Left)
-        {
-            Vector3 hitpos = Vector3.Zero;
-            GodotObject obj = null;
-            if (MouseController.RayCastFromMouse(out hitpos, out obj) == true)
-            {
-                //var beamScene = GD.Load<PackedScene>("res://Particles/TestingBeam.tscn");
-                //var beamInstance = beamScene.Instantiate();
-                //GetTree().CurrentScene.AddChild(beamInstance);
-                //if (beamInstance is Node3D beamNode3D)
-                //{
-                //	beamNode3D.GlobalPosition = hitpos;
-                //	GD.Print("hit");
-                //	GD.Print($"Beam spawned at: {beamNode3D.GlobalPosition}");
+	public override void _Input(InputEvent @event)
+	{
+		if (@event is InputEventMouseButton mouseEvent && mouseEvent.Pressed && mouseEvent.ButtonIndex == MouseButton.Left)
+		{
+			Vector3 hitpos = Vector3.Zero;
+			GodotObject obj = null;
+			if (MouseController.RayCastFromMouse(out hitpos, out obj) == true)
+			{
+				//var beamScene = GD.Load<PackedScene>("res://Particles/TestingBeam.tscn");
+				//var beamInstance = beamScene.Instantiate();
+				//GetTree().CurrentScene.AddChild(beamInstance);
+				//if (beamInstance is Node3D beamNode3D)
+				//{
+				//	beamNode3D.GlobalPosition = hitpos;
+				//	GD.Print("hit");
+				//	GD.Print($"Beam spawned at: {beamNode3D.GlobalPosition}");
 
-                //}
-                if (obj is Node node && node.HasMethod("on_clicked"))
-                {
-                    node.Call("on_clicked");
-                }
-            }
-        }
-        if (Input.IsActionPressed("debug_dealDamageToTest"))
-        {
-            Attack attack = new Attack(10f, 1f, GlobalPosition, 10f);
-            RangedComponent rc = GetNode<RangedComponent>("RangedComponent");
-            Enemy enemy = GetClosestEnemy();
-            rc.Fire(enemy);
-        }
-        if (Input.IsActionPressed("debug_allPlayerMelees") && meleeComponent != null)
-        {
-            meleeComponent.PerformAttack();
-        }
-    }
+				//}
+				if (obj is Node node && node.HasMethod("on_clicked"))
+				{
+					node.Call("on_clicked");
+				}
+			}
+		}
+		if (Input.IsActionPressed("debug_dealDamageToTest"))
+		{
+			Attack attack = new Attack(10f, 1f, GlobalPosition, 10f);
+			RangedComponent rc = GetNode<RangedComponent>("RangedComponent");
+			Enemy enemy = GetClosestEnemy();
+			rc.Fire(enemy);
+		}
+		if (Input.IsActionPressed("debug_allPlayerMelees") && meleeComponent != null)
+		{
+			meleeComponent.PerformAttack();
+		}
+	}
 
-    private Enemy GetClosestEnemy()
-    {
-        var enemies = GetTree().GetNodesInGroup("Enemy");
-        var spaceState = GetWorld3D().DirectSpaceState;
+	private Enemy GetClosestEnemy()
+	{
+		var enemies = GetTree().GetNodesInGroup("Enemy");
+		var spaceState = GetWorld3D().DirectSpaceState;
 
-        //Enemy closest = null;
-        //float closestDistance = float.MaxValue;
-        Enemy closestVisible = null;
-        float closestVisibleDistance = float.MaxValue;
+		//Enemy closest = null;
+		//float closestDistance = float.MaxValue;
+		Enemy closestVisible = null;
+		float closestVisibleDistance = float.MaxValue;
 
-        foreach (Node node in enemies)
-        {
-            if (node is not Enemy enemy) continue;
-            if (enemy.healthComponent.isDead) continue;
+		foreach (Node node in enemies)
+		{
+			if (node is not Enemy enemy) continue;
+			if (enemy.healthComponent.isDead) continue;
 
-            float distance = GlobalPosition.DistanceTo(enemy.GlobalPosition);
-            bool isVisible = CanSeeEnemy(enemy, spaceState);
+			float distance = GlobalPosition.DistanceTo(enemy.GlobalPosition);
+			bool isVisible = CanSeeEnemy(enemy, spaceState);
 
-            // Track the closest visible enemy separately
-            if (isVisible && distance < closestVisibleDistance)
-            {
-                closestVisibleDistance = distance;
-                closestVisible = enemy;
-            }
+			// Track the closest visible enemy separately
+			if (isVisible && distance < closestVisibleDistance)
+			{
+				closestVisibleDistance = distance;
+				closestVisible = enemy;
+			}
 
-            // fallback closest
-            //if (distance < closestDistance)
-            //{
-            //    closestDistance = distance;
-            //    closest = enemy;
-            //}
-        }
+			// fallback closest
+			//if (distance < closestDistance)
+			//{
+			//    closestDistance = distance;
+			//    closest = enemy;
+			//}
+		}
 
-        // Prefer closest visible, fall back to closest overall
-        Enemy result = closestVisible;// ?? closest;
+		// Prefer closest visible, fall back to closest overall
+		Enemy result = closestVisible;// ?? closest;
 
-        if (result == null) GD.Print("no visible enemies");
+		if (result == null) GD.Print("no visible enemies");
 
-        return result;
-    }
+		return result;
+	}
 
-    private bool CanSeeEnemy(Enemy enemy, PhysicsDirectSpaceState3D spaceState)
-    {
-        var query = PhysicsRayQueryParameters3D.Create(
-            GlobalPosition,
-            enemy.GlobalPosition,
-            collisionMask: 1,
-            exclude: new Godot.Collections.Array<Rid> { GetRid(), enemy.GetRid() }
-        );
+	private bool CanSeeEnemy(Enemy enemy, PhysicsDirectSpaceState3D spaceState)
+	{
+		var query = PhysicsRayQueryParameters3D.Create(
+			GlobalPosition,
+			enemy.GlobalPosition,
+			collisionMask: 1,
+			exclude: new Godot.Collections.Array<Rid> { GetRid(), enemy.GetRid() }
+		);
 
-        var result = spaceState.IntersectRay(query);
+		var result = spaceState.IntersectRay(query);
 
-        return result.Count == 0;
-    }
+		return result.Count == 0;
+	}
 }

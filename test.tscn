@@ -4,11 +4,11 @@
 [ext_resource type="Texture2D" uid="uid://6r00oi4kcwpv" path="res://Textures/SL-072622-51930-14.jpg" id="1_37kl0"]
 [ext_resource type="Script" uid="uid://c08x64fmrmm8g" path="res://UI/test.gd" id="1_uty7l"]
 [ext_resource type="Script" uid="uid://mc4w82onwil4" path="res://Scripts/tower_manager.gd" id="1_ykrsh"]
-[ext_resource type="PackedScene" uid="uid://chmw0r30op1h1" path="res://Common Meshes/Towers/castle.tscn" id="2_a6gra"]
-[ext_resource type="PackedScene" uid="uid://rgb0jq431ckp" path="res://Common Meshes/Towers/Wall.tscn" id="3_5tkv4"]
-[ext_resource type="PackedScene" uid="uid://cn8sntu4guw1i" path="res://Common Meshes/Towers/tower.tscn" id="3_ppyta"]
+[ext_resource type="PackedScene" uid="uid://chmw0r30op1h1" path="res://Common meshes/Towers/castle.tscn" id="2_a6gra"]
+[ext_resource type="PackedScene" uid="uid://rgb0jq431ckp" path="res://Common meshes/Towers/Wall.tscn" id="3_5tkv4"]
+[ext_resource type="PackedScene" uid="uid://cn8sntu4guw1i" path="res://Common meshes/Towers/tower.tscn" id="3_ppyta"]
 [ext_resource type="PackedScene" uid="uid://bk2tm65rltpyu" path="res://EnemySpawner/EnemySpawner.tscn" id="4_ppyta"]
-[ext_resource type="PackedScene" uid="uid://bkplvo6qm75dr" path="res://Common Meshes/Towers/BombTower.tscn" id="5_pdf00"]
+[ext_resource type="PackedScene" uid="uid://bkplvo6qm75dr" path="res://Common meshes/Towers/BombTower.tscn" id="5_pdf00"]
 [ext_resource type="PackedScene" uid="uid://dtwg1ifxprse1" path="res://UI/PauseMenu/paused_menu.tscn" id="6_g14j6"]
 [ext_resource type="PackedScene" uid="uid://p5t2hwitkh5n" path="res://Econ/Bank.tscn" id="6_mhym6"]
 [ext_resource type="PackedScene" uid="uid://brnpevcbx63ri" path="res://CommonComponents/BoundingBoxComponent.tscn" id="7_0m0f1"]
@@ -95,10 +95,21 @@ navigation_region_3D = NodePath("../NavigationRegion3D")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15720415, 3.044023)
 
 [node name="RangedComponent" parent="Player" index="4" unique_id=707547592]
+stunDuration = 1.0
 cooldown = 0.3
+
+[node name="HealthComponent" parent="Player" index="6" unique_id=581968543]
+MaxHP = 100.0
 
 [node name="EnemySlotManager" parent="Player" index="7" unique_id=2132138387]
 MaxSlots = 20
+
+[node name="MeleeComponent" parent="Player" index="9" unique_id=121852746]
+attackScenes = null
+damages = PackedFloat32Array()
+knockbackForces = PackedFloat32Array()
+cooldowns = PackedFloat32Array()
+stunDurations = PackedFloat32Array()
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=748383864]
 transform = Transform3D(0.90659547, -0.42200133, 0, -0.09707414, -0.20854668, 0.9731831, -0.41068438, -0.8822829, -0.23003279, 0, 12.917353, 0)
