@@ -135,7 +135,6 @@ func play_gold() -> void:
 
 func start_heartbeat() -> void:
 	if audio_heartbeat and audio_heartbeat.stream:
-		audio_heartbeat.stream.loop = true
 		audio_heartbeat.play()
 
 func stop_heartbeat() -> void:
