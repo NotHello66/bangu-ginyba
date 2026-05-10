@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://hb7ugsciqs2f" path="res://Enemies/MantisBossEnemy.cs" id="1_anmc1"]
 [ext_resource type="PackedScene" uid="uid://f1qjftfkuhr" path="res://CommonComponents/health_component.tscn" id="2_anmc1"]
+[ext_resource type="PackedScene" uid="uid://34425bncc0bt" path="res://Enemies/GoldPickup.tscn" id="2_owxtr"]
 [ext_resource type="PackedScene" uid="uid://chu8vv10twj0q" path="res://CommonComponents/hit_box_component.tscn" id="3_owxtr"]
 [ext_resource type="PackedScene" uid="uid://cc2glgwhr8yu1" path="res://CommonComponents/melee_component.tscn" id="4_5dpaw"]
 [ext_resource type="PackedScene" uid="uid://cdhx7tdduoexw" path="res://Common meshes/AttackClawHorizontalLeft.tscn" id="5_anmc1"]
@@ -16,6 +17,7 @@ albedo_color = Color(1.1551381e-06, 0.7454939, 0.600462, 1)
 
 [node name="MantisBossEnemy" type="CharacterBody3D" unique_id=1589266389 groups=["Enemy"]]
 script = ExtResource("1_anmc1")
+goldPickupScene = ExtResource("2_owxtr")
 
 [node name="HealthComponent" parent="." unique_id=581968543 instance=ExtResource("2_anmc1")]
 

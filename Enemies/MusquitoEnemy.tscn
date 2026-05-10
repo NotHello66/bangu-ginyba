@@ -1,10 +1,11 @@
 [gd_scene format=3 uid="uid://vdwvd5m167xn"]
 
 [ext_resource type="Script" uid="uid://bd5npeqwjh0j2" path="res://Enemies/MusquitoEnemy.cs" id="1_ofwgw"]
+[ext_resource type="PackedScene" uid="uid://34425bncc0bt" path="res://Enemies/GoldPickup.tscn" id="2_1ewfa"]
 [ext_resource type="PackedScene" uid="uid://f1qjftfkuhr" path="res://CommonComponents/health_component.tscn" id="2_o56rc"]
 [ext_resource type="PackedScene" uid="uid://chu8vv10twj0q" path="res://CommonComponents/hit_box_component.tscn" id="3_1ewfa"]
 [ext_resource type="PackedScene" uid="uid://cc2glgwhr8yu1" path="res://CommonComponents/melee_component.tscn" id="4_meaas"]
-[ext_resource type="PackedScene" uid="uid://dfhlv4x4w7bym" path="res://Common Meshes/AttackHorn.tscn" id="5_f23ud"]
+[ext_resource type="PackedScene" uid="uid://dfhlv4x4w7bym" path="res://Common meshes/AttackHorn.tscn" id="5_f23ud"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_pkft5"]
 height = 1.0
@@ -20,6 +21,7 @@ script = ExtResource("1_ofwgw")
 attackRange = 1000.0
 stopChaseDistance = 0.0
 isFlyingType = true
+goldPickupScene = ExtResource("2_1ewfa")
 
 [node name="HealthComponent" parent="." unique_id=581968543 instance=ExtResource("2_o56rc")]
 
