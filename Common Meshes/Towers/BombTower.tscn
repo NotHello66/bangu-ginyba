@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://bxn60mmq2m8ai" path="res://Common Meshes/Towers/BombTower.fbx" id="1_flwdr"]
 [ext_resource type="PackedScene" uid="uid://m465nhr8gnac" path="res://CommonComponents/ranged_component.tscn" id="2_ng6em"]
 [ext_resource type="PackedScene" uid="uid://88xe1nk2jm3e" path="res://CommonComponents/tower_component.tscn" id="3_iquk6"]
+[ext_resource type="PackedScene" uid="uid://ban1fmleya0sa" path="res://Bomb.tscn" id="3_ng6em"]
 [ext_resource type="PackedScene" uid="uid://f1qjftfkuhr" path="res://CommonComponents/health_component.tscn" id="4_u06rw"]
 [ext_resource type="PackedScene" uid="uid://chu8vv10twj0q" path="res://CommonComponents/hit_box_component.tscn" id="5_1w7fl"]
 [ext_resource type="PackedScene" uid="uid://c24fyh7td8xde" path="res://CommonComponents/enemy_slot_manager.tscn" id="6_thnxh"]
@@ -18,6 +19,7 @@ transform = Transform3D(3.4997945, -0.037933987, 0, 0.037933987, 3.4997945, 0, 0
 
 [node name="RangedComponent" parent="." unique_id=707547592 instance=ExtResource("2_ng6em")]
 transform = Transform3D(0.9999462, 0.009096159, -0.0050339745, -0.009120197, 0.99994725, -0.0047731893, 0.004990275, 0.0048188576, 0.9999759, 0.007270895, 4.920902, 0)
+projectile = ExtResource("3_ng6em")
 damage = 5.0
 knockbackForce = 3.0
 projectileSpeed = 4.0
