@@ -6,12 +6,23 @@
 [ext_resource type="PackedScene" uid="uid://chu8vv10twj0q" path="res://CommonComponents/hit_box_component.tscn" id="3_86fep"]
 [ext_resource type="PackedScene" uid="uid://m465nhr8gnac" path="res://CommonComponents/ranged_component.tscn" id="4_8ix8s"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_pkft5"]
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uasft"]
 albedo_color = Color(1, 0, 0, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_pjgsm"]
+radius = 0.3
+height = 1.5
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_uasft"]
+radius = 0.3046875
+height = 1.5014648
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2x1hl"]
+albedo_color = Color(0.6509804, 0, 0, 1)
+
+[sub_resource type="TorusMesh" id="TorusMesh_86fep"]
+inner_radius = 0.1
+outer_radius = 0.2
 
 [node name="BombardierbeetleEnemy" type="CharacterBody3D" unique_id=1589266389 groups=["Enemy"]]
 script = ExtResource("1_uasft")
@@ -23,6 +34,7 @@ goldPickupScene = ExtResource("2_uasft")
 [node name="HitBoxComponent" parent="." unique_id=1495271838 instance=ExtResource("3_86fep")]
 
 [node name="RangedComponent" parent="." unique_id=707547592 instance=ExtResource("4_8ix8s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2502439, 0.39432573)
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=2054314887]
 avoidance_enabled = true
@@ -30,11 +42,16 @@ debug_enabled = true
 debug_use_custom = true
 debug_path_custom_color = Color(0, 1, 0, 1)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=774993414]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
-shape = SubResource("CapsuleShape3D_pkft5")
-
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1344693956]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
 material_override = SubResource("StandardMaterial3D_uasft")
 mesh = SubResource("CapsuleMesh_pjgsm")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=679709447]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25219727, 0)
+shape = SubResource("CapsuleShape3D_uasft")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=1624932625]
+transform = Transform3D(-9.512619e-08, 1.4011631, 0, -2.1762335, -6.124679e-08, 0, 0, 0, 1, 0, 0.26001656, 0.27406532)
+material_override = SubResource("StandardMaterial3D_2x1hl")
+mesh = SubResource("TorusMesh_86fep")

@@ -35,7 +35,7 @@ public partial class RangedComponent : Node3D
 
     public void Fire(Node3D target)
     {
-        if (!CanAttack())
+        if (!CanAttack() || target == null)
             return;
 
         if (projectile == null)

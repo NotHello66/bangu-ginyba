@@ -5,8 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://34425bncc0bt" path="res://Enemies/GoldPickup.tscn" id="2_owxtr"]
 [ext_resource type="PackedScene" uid="uid://chu8vv10twj0q" path="res://CommonComponents/hit_box_component.tscn" id="3_owxtr"]
 [ext_resource type="PackedScene" uid="uid://cc2glgwhr8yu1" path="res://CommonComponents/melee_component.tscn" id="4_5dpaw"]
-[ext_resource type="PackedScene" uid="uid://cdhx7tdduoexw" path="res://Common meshes/AttackClawHorizontalLeft.tscn" id="5_anmc1"]
-[ext_resource type="PackedScene" uid="uid://ckll5eni51kp1" path="res://Common meshes/AttackClawHorizontalRight.tscn" id="6_owxtr"]
+[ext_resource type="PackedScene" uid="uid://cdhx7tdduoexw" path="res://Common Meshes/AttackClawHorizontalLeft.tscn" id="5_anmc1"]
+[ext_resource type="PackedScene" uid="uid://ckll5eni51kp1" path="res://Common Meshes/AttackClawHorizontalRight.tscn" id="6_owxtr"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_pkft5"]
 
@@ -14,6 +14,14 @@
 albedo_color = Color(1.1551381e-06, 0.7454939, 0.600462, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_pjgsm"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_owxtr"]
+albedo_color = Color(0, 0.74509805, 0.6, 1)
+
+[sub_resource type="TorusMesh" id="TorusMesh_5dpaw"]
+inner_radius = 0.765
+outer_radius = 0.585
+ring_segments = 17
 
 [node name="MantisBossEnemy" type="CharacterBody3D" unique_id=1589266389 groups=["Enemy"]]
 script = ExtResource("1_anmc1")
@@ -49,3 +57,8 @@ shape = SubResource("CapsuleShape3D_pkft5")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
 material_override = SubResource("StandardMaterial3D_uasft")
 mesh = SubResource("CapsuleMesh_pjgsm")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=331514569]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.19904625, 0)
+material_override = SubResource("StandardMaterial3D_owxtr")
+mesh = SubResource("TorusMesh_5dpaw")

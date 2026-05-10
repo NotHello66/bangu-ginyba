@@ -4,11 +4,11 @@
 [ext_resource type="Texture2D" uid="uid://6r00oi4kcwpv" path="res://Textures/SL-072622-51930-14.jpg" id="1_37kl0"]
 [ext_resource type="Script" uid="uid://c08x64fmrmm8g" path="res://UI/test.gd" id="1_uty7l"]
 [ext_resource type="Script" uid="uid://mc4w82onwil4" path="res://Scripts/tower_manager.gd" id="1_ykrsh"]
-[ext_resource type="PackedScene" uid="uid://chmw0r30op1h1" path="res://Common meshes/Towers/castle.tscn" id="2_a6gra"]
-[ext_resource type="PackedScene" uid="uid://rgb0jq431ckp" path="res://Common meshes/Towers/Wall.tscn" id="3_5tkv4"]
-[ext_resource type="PackedScene" uid="uid://cn8sntu4guw1i" path="res://Common meshes/Towers/tower.tscn" id="3_ppyta"]
+[ext_resource type="PackedScene" uid="uid://chmw0r30op1h1" path="res://Common Meshes/Towers/castle.tscn" id="2_a6gra"]
+[ext_resource type="PackedScene" uid="uid://rgb0jq431ckp" path="res://Common Meshes/Towers/Wall.tscn" id="3_5tkv4"]
+[ext_resource type="PackedScene" uid="uid://cn8sntu4guw1i" path="res://Common Meshes/Towers/tower.tscn" id="3_ppyta"]
 [ext_resource type="PackedScene" uid="uid://bk2tm65rltpyu" path="res://EnemySpawner/EnemySpawner.tscn" id="4_ppyta"]
-[ext_resource type="PackedScene" uid="uid://bkplvo6qm75dr" path="res://Common meshes/Towers/BombTower.tscn" id="5_pdf00"]
+[ext_resource type="PackedScene" uid="uid://bkplvo6qm75dr" path="res://Common Meshes/Towers/BombTower.tscn" id="5_pdf00"]
 [ext_resource type="PackedScene" uid="uid://dtwg1ifxprse1" path="res://UI/PauseMenu/paused_menu.tscn" id="6_g14j6"]
 [ext_resource type="PackedScene" uid="uid://p5t2hwitkh5n" path="res://Econ/Bank.tscn" id="6_mhym6"]
 [ext_resource type="PackedScene" uid="uid://brnpevcbx63ri" path="res://CommonComponents/BoundingBoxComponent.tscn" id="7_0m0f1"]
@@ -79,7 +79,7 @@ region_rect = Rect2(52, 234, 64, 77)
 [node name="Node3D" type="Node3D" unique_id=2069746429]
 script = ExtResource("1_uty7l")
 
-[node name="Castle" parent="." unique_id=521743089 instance=ExtResource("2_a6gra")]
+[node name="Castle" parent="." unique_id=521743089 groups=["SeeThru"] instance=ExtResource("2_a6gra")]
 transform = Transform3D(-1.7484555e-07, 0, 4, 0, 4, 0, -4, 0, -1.7484555e-07, -10.702402, 0, -12.019423)
 
 [node name="TowerManager" type="Node3D" parent="." unique_id=1953009979 node_paths=PackedStringArray("economy_component", "navigation_region_3D")]
@@ -93,6 +93,12 @@ navigation_region_3D = NodePath("../NavigationRegion3D")
 
 [node name="Player" parent="." unique_id=1143986027 instance=ExtResource("1_8uh7m")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15720415, 3.044023)
+
+[node name="RangedComponent" parent="Player" index="4" unique_id=707547592]
+cooldown = 0.3
+
+[node name="EnemySlotManager" parent="Player" index="7" unique_id=2132138387]
+MaxSlots = 20
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=748383864]
 transform = Transform3D(0.90659547, -0.42200133, 0, -0.09707414, -0.20854668, 0.9731831, -0.41068438, -0.8822829, -0.23003279, 0, 12.917353, 0)
@@ -114,25 +120,25 @@ material = SubResource("StandardMaterial3D_8uh7m")
 [node name="Bank" parent="NavigationRegion3D" unique_id=1323981361 instance=ExtResource("6_mhym6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.840256, 0, 0)
 
-[node name="Wall" parent="NavigationRegion3D" unique_id=444657574 instance=ExtResource("3_5tkv4")]
+[node name="Wall" parent="NavigationRegion3D" unique_id=444657574 groups=["SeeThru"] instance=ExtResource("3_5tkv4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 0.208, 24)
 
-[node name="Wall2" parent="NavigationRegion3D" unique_id=485052981 instance=ExtResource("3_5tkv4")]
+[node name="Wall2" parent="NavigationRegion3D" unique_id=485052981 groups=["SeeThru"] instance=ExtResource("3_5tkv4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0.208, 24)
 
-[node name="Wall3" parent="NavigationRegion3D" unique_id=515490632 instance=ExtResource("3_5tkv4")]
+[node name="Wall3" parent="NavigationRegion3D" unique_id=515490632 groups=["SeeThru"] instance=ExtResource("3_5tkv4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0.208, 24)
 
-[node name="Wall4" parent="NavigationRegion3D" unique_id=162896679 instance=ExtResource("3_5tkv4")]
+[node name="Wall4" parent="NavigationRegion3D" unique_id=162896679 groups=["SeeThru"] instance=ExtResource("3_5tkv4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0.208, 24)
 
-[node name="Wall5" parent="NavigationRegion3D" unique_id=950820991 instance=ExtResource("3_5tkv4")]
+[node name="Wall5" parent="NavigationRegion3D" unique_id=950820991 groups=["SeeThru"] instance=ExtResource("3_5tkv4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27, 0.208, 24)
 
-[node name="Wall6" parent="NavigationRegion3D" unique_id=38318351 instance=ExtResource("3_5tkv4")]
+[node name="Wall6" parent="NavigationRegion3D" unique_id=38318351 groups=["SeeThru"] instance=ExtResource("3_5tkv4")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 31.199867, 0.208, 18)
 
-[node name="Wall7" parent="NavigationRegion3D" unique_id=279819960 instance=ExtResource("3_5tkv4")]
+[node name="Wall7" parent="NavigationRegion3D" unique_id=279819960 groups=["SeeThru"] instance=ExtResource("3_5tkv4")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 31.2, 0.208, 8)
 
 [node name="Wall8" parent="NavigationRegion3D" unique_id=708802756 instance=ExtResource("3_5tkv4")]

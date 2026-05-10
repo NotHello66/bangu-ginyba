@@ -52,6 +52,8 @@ func _unhandled_input(event):
 				spawn_tower(preview_tower.global_position)
 				remove_preview()
 				request_navmesh_bake()
+		elif event.button_index == MOUSE_BUTTON_RIGHT and event.pressed and current_building != BuildingType.NONE:
+			current_building = BuildingType.NONE
 
 func get_current_scene() -> PackedScene:
 	match current_building:

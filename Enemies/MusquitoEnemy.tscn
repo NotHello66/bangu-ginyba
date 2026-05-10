@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://f1qjftfkuhr" path="res://CommonComponents/health_component.tscn" id="2_o56rc"]
 [ext_resource type="PackedScene" uid="uid://chu8vv10twj0q" path="res://CommonComponents/hit_box_component.tscn" id="3_1ewfa"]
 [ext_resource type="PackedScene" uid="uid://cc2glgwhr8yu1" path="res://CommonComponents/melee_component.tscn" id="4_meaas"]
-[ext_resource type="PackedScene" uid="uid://dfhlv4x4w7bym" path="res://Common meshes/AttackHorn.tscn" id="5_f23ud"]
+[ext_resource type="PackedScene" uid="uid://dfhlv4x4w7bym" path="res://Common Meshes/AttackHorn.tscn" id="5_f23ud"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_pkft5"]
 height = 1.0
@@ -15,6 +15,13 @@ albedo_color = Color(0.70073676, 0.59746575, 0, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_pjgsm"]
 height = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o56rc"]
+albedo_color = Color(0.54580015, 0.46176133, 0, 0.45882353)
+
+[sub_resource type="SphereMesh" id="SphereMesh_1ewfa"]
+radius = 0.275
+height = 0.05
 
 [node name="MusquitoEnemy" type="CharacterBody3D" unique_id=1589266389 groups=["Enemy"]]
 script = ExtResource("1_ofwgw")
@@ -45,3 +52,13 @@ shape = SubResource("CapsuleShape3D_pkft5")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1344693956]
 material_override = SubResource("StandardMaterial3D_uasft")
 mesh = SubResource("CapsuleMesh_pjgsm")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=1596448461]
+transform = Transform3D(1.7569004, -0.666305, 0, 1.7569004, 0.666305, 0, 0, 0, 1, 0.45, 0.2, 0)
+material_override = SubResource("StandardMaterial3D_o56rc")
+mesh = SubResource("SphereMesh_1ewfa")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="." unique_id=814852466]
+transform = Transform3D(1.7569003, 0.666305, 0, -1.7569003, 0.666305, 0, 0, 0, 1, -0.45, 0.2, 0)
+material_override = SubResource("StandardMaterial3D_o56rc")
+mesh = SubResource("SphereMesh_1ewfa")

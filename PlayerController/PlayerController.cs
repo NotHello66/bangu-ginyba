@@ -113,14 +113,14 @@ public partial class PlayerController : CharacterBody3D
                 }
             }
         }
-        if (Input.IsActionJustPressed("debug_dealDamageToTest"))
+        if (Input.IsActionPressed("debug_dealDamageToTest"))
         {
             Attack attack = new Attack(10f, 1f, GlobalPosition, 10f);
             RangedComponent rc = GetNode<RangedComponent>("RangedComponent");
             Enemy enemy = GetClosestEnemy();
             rc.Fire(enemy);
         }
-        if (Input.IsActionJustPressed("debug_allPlayerMelees") && meleeComponent != null)
+        if (Input.IsActionPressed("debug_allPlayerMelees") && meleeComponent != null)
         {
             meleeComponent.PerformAttack();
         }
@@ -129,29 +129,55 @@ public partial class PlayerController : CharacterBody3D
     private Enemy GetClosestEnemy()
     {
         var enemies = GetTree().GetNodesInGroup("Enemy");
+        var spaceState = GetWorld3D().DirectSpaceState;
 
-        Enemy closest = null;
-        float closestDistance = float.MaxValue;
+        //Enemy closest = null;
+        //float closestDistance = float.MaxValue;
+        Enemy closestVisible = null;
+        float closestVisibleDistance = float.MaxValue;
 
         foreach (Node node in enemies)
         {
-            if (node is Enemy enemy)
-            {
-                if (!enemy.healthComponent.isDead)
-                {
-                    float distance = GlobalPosition.DistanceTo(enemy.GlobalPosition);
+            if (node is not Enemy enemy) continue;
+            if (enemy.healthComponent.isDead) continue;
 
-                    if (distance < closestDistance)
-                    {
-                        closestDistance = distance;
-                        closest = enemy;
-                    }
-                }
+            float distance = GlobalPosition.DistanceTo(enemy.GlobalPosition);
+            bool isVisible = CanSeeEnemy(enemy, spaceState);
+
+            // Track the closest visible enemy separately
+            if (isVisible && distance < closestVisibleDistance)
+            {
+                closestVisibleDistance = distance;
+                closestVisible = enemy;
             }
+
+            // fallback closest
+            //if (distance < closestDistance)
+            //{
+            //    closestDistance = distance;
+            //    closest = enemy;
+            //}
         }
 
-        if (closest == null) GD.Print("no enemies");
+        // Prefer closest visible, fall back to closest overall
+        Enemy result = closestVisible;// ?? closest;
 
-        return closest;
+        if (result == null) GD.Print("no visible enemies");
+
+        return result;
+    }
+
+    private bool CanSeeEnemy(Enemy enemy, PhysicsDirectSpaceState3D spaceState)
+    {
+        var query = PhysicsRayQueryParameters3D.Create(
+            GlobalPosition,
+            enemy.GlobalPosition,
+            collisionMask: 1,
+            exclude: new Godot.Collections.Array<Rid> { GetRid(), enemy.GetRid() }
+        );
+
+        var result = spaceState.IntersectRay(query);
+
+        return result.Count == 0;
     }
 }

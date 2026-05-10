@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://34425bncc0bt" path="res://Enemies/GoldPickup.tscn" id="2_qte0a"]
 [ext_resource type="PackedScene" uid="uid://chu8vv10twj0q" path="res://CommonComponents/hit_box_component.tscn" id="3_qte0a"]
 [ext_resource type="PackedScene" uid="uid://cc2glgwhr8yu1" path="res://CommonComponents/melee_component.tscn" id="4_2ji8o"]
-[ext_resource type="PackedScene" uid="uid://dfhlv4x4w7bym" path="res://Common meshes/AttackHorn.tscn" id="5_2ji8o"]
+[ext_resource type="PackedScene" uid="uid://dfhlv4x4w7bym" path="res://Common Meshes/AttackHorn.tscn" id="5_2ji8o"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_pkft5"]
 
@@ -23,6 +23,7 @@ goldPickupScene = ExtResource("2_qte0a")
 [node name="HitBoxComponent" parent="." unique_id=1495271838 instance=ExtResource("3_qte0a")]
 
 [node name="MeleeComponent" parent="." unique_id=121852746 instance=ExtResource("4_2ji8o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.23297286, 0.58293414)
 attackScenes = Array[PackedScene]([ExtResource("5_2ji8o")])
 damages = PackedFloat32Array(10)
 knockbackForces = PackedFloat32Array(5)
@@ -35,10 +36,10 @@ debug_use_custom = true
 debug_path_custom_color = Color(0, 1, 0, 1)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=774993414]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.25, 0)
 shape = SubResource("CapsuleShape3D_pkft5")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1344693956]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.25, 0)
 material_override = SubResource("StandardMaterial3D_uasft")
 mesh = SubResource("CapsuleMesh_pjgsm")

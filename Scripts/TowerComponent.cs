@@ -34,7 +34,7 @@ public partial class TowerComponent : Node3D
 			return;
 		}
 		Enemy enemy = GetClosestEnemy();
-		if (isRanged)
+		if (isRanged && enemy != null)
 		{
 			rangedComponent.Fire(enemy);
 		}
@@ -43,30 +43,52 @@ public partial class TowerComponent : Node3D
 	public override void _PhysicsProcess(double delta)
 	{ }
 
-	private Enemy GetClosestEnemy()
-	{
-		var enemies = GetTree().GetNodesInGroup("Enemy");
+    private Enemy GetClosestEnemy()
+    {
+        var enemies = GetTree().GetNodesInGroup("Enemy");
+        var spaceState = GetWorld3D().DirectSpaceState;
 
-		Enemy closest = null;
-		float closestDistance = float.MaxValue;
+        Enemy closestVisible = null;
+        float closestVisibleDistance = float.MaxValue;
 
-		foreach (Node node in enemies)
-		{
-			if (node is Enemy enemy)
-			{
-				if (!enemy.healthComponent.isDead)
-				{
-					float distance = GlobalPosition.DistanceTo(enemy.GlobalPosition);
+        foreach (Node node in enemies)
+        {
+            if (node is not Enemy enemy) continue;
+            if (enemy.healthComponent.isDead) continue;
 
-					if (distance < closestDistance)
-					{
-						closestDistance = distance;
-						closest = enemy;
-					}
-				}
-			}
-		}
+            float distance = GlobalPosition.DistanceTo(enemy.GlobalPosition);
 
-		return closest;
-	}
+            if (CanSeeEnemy(enemy, spaceState) && distance < closestVisibleDistance)
+            {
+                closestVisibleDistance = distance;
+                closestVisible = enemy;
+            }
+        }
+
+        if (closestVisible == null) GD.Print("TOWER: no visible enemies");
+
+        return closestVisible;
+    }
+
+    private bool CanSeeEnemy(Enemy enemy, PhysicsDirectSpaceState3D spaceState)
+    {
+        var exclude = new Godot.Collections.Array<Rid>();
+
+        var towerBody = GetParent<StaticBody3D>();
+        if (towerBody != null)
+            exclude.Add(towerBody.GetRid());
+
+        // exclude the enemy itself
+        exclude.Add(enemy.GetRid());
+
+        var query = PhysicsRayQueryParameters3D.Create(
+            GlobalPosition,
+            enemy.GlobalPosition,
+            collisionMask: 1,
+            exclude: exclude
+        );
+
+        var result = spaceState.IntersectRay(query);
+        return result.Count == 0;
+    }
 }
