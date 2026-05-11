@@ -72,7 +72,7 @@ func _ready() -> void:
 	
 	invest_slider.min_value = 0
 	invest_slider.max_value = 500
-	invest_slider.step = 50
+	invest_slider.step = 100
 	invest_slider.value = 0
 	update_ui()
 
