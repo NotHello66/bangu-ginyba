@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://chmw0r30op1h1"]
 
 [ext_resource type="Script" uid="uid://dwwqseb0wkp47" path="res://Scripts/castle.gd" id="1_hkowa"]
-[ext_resource type="PackedScene" uid="uid://dopm74r4rn6do" path="res://Common meshes/castle1.glb" id="1_rxti2"]
+[ext_resource type="PackedScene" uid="uid://dopm74r4rn6do" path="res://Common Meshes/castle1.glb" id="1_rxti2"]
 [ext_resource type="PackedScene" uid="uid://cdni7i3slbtdd" path="res://Friendlies/MeleeSoldier.tscn" id="2_wfeyg"]
 [ext_resource type="PackedScene" uid="uid://bttcty0karyur" path="res://Friendlies/RangerSoldier.tscn" id="3_v28np"]
 [ext_resource type="FontFile" uid="uid://b3j35mctvp06h" path="res://UI/Design/MedievalSharp-Regular.ttf" id="3_wfeyg"]
@@ -88,16 +88,16 @@ shape = SubResource("ConcavePolygonShape3D_hkowa")
 visible = false
 
 [node name="TextureRect" type="TextureRect" parent="UI" unique_id=547063369]
-modulate = Color(1, 1, 1, 0)
+modulate = Color(0.34901962, 0.34901962, 0.34901962, 0.5882353)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -128.0
-offset_top = -104.0
-offset_right = 128.0
-offset_bottom = 92.0
+offset_left = -133.0
+offset_top = -118.0
+offset_right = 133.0
+offset_bottom = 111.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture1D_f66hg")
@@ -122,11 +122,13 @@ theme_override_constants/separation = 13
 
 [node name="Label1" type="Label" parent="UI/CenterContainer/VBoxContainer" unique_id=1333352046]
 layout_mode = 2
+theme_override_font_sizes/font_size = 32
 text = "UnitRecruitment"
 horizontal_alignment = 1
 
 [node name="RecruitSoldier" type="Button" parent="UI/CenterContainer/VBoxContainer" unique_id=1816354201]
 layout_mode = 2
+theme_override_font_sizes/font_size = 28
 theme_override_styles/normal = SubResource("StyleBoxTexture_6llfj")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_gvi68")
 theme_override_styles/hover = SubResource("StyleBoxTexture_iiiah")
@@ -134,6 +136,7 @@ text = "Recruit Soldier 30g"
 
 [node name="RecruitRanger" type="Button" parent="UI/CenterContainer/VBoxContainer" unique_id=2051612552]
 layout_mode = 2
+theme_override_font_sizes/font_size = 28
 theme_override_styles/normal = SubResource("StyleBoxTexture_keujt")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_kfktg")
 theme_override_styles/hover = SubResource("StyleBoxTexture_4nb3q")
@@ -141,6 +144,7 @@ text = "Recruit Ranger 50g"
 
 [node name="RecruitArcher" type="Button" parent="UI/CenterContainer/VBoxContainer" unique_id=2099063527]
 layout_mode = 2
+theme_override_font_sizes/font_size = 28
 theme_override_styles/normal = SubResource("StyleBoxTexture_cubtn")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_t7hmk")
 theme_override_styles/hover = SubResource("StyleBoxTexture_strkh")
@@ -148,6 +152,7 @@ text = "Recruit Archer 25g"
 
 [node name="backButton" type="Button" parent="UI/CenterContainer/VBoxContainer" unique_id=1301273113]
 layout_mode = 2
+theme_override_font_sizes/font_size = 28
 theme_override_styles/normal = SubResource("StyleBoxTexture_qwr4o")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_65xxm")
 theme_override_styles/hover = SubResource("StyleBoxTexture_1lpmw")

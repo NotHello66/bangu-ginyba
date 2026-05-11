@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://p5t2hwitkh5n"]
 
-[ext_resource type="PackedScene" uid="uid://b3wrolvn6x50" path="res://Common meshes/banks_temp.glb" id="1_5pm4w"]
+[ext_resource type="PackedScene" uid="uid://b3wrolvn6x50" path="res://Common Meshes/banks_temp.glb" id="1_5pm4w"]
 [ext_resource type="Script" uid="uid://emvup6s6shsp" path="res://Econ/bank.gd" id="1_ilj1t"]
 [ext_resource type="FontFile" uid="uid://bxheo3lrppx2b" path="res://UI/Design/Metamorphous-Regular.ttf" id="3_22cyf"]
 [ext_resource type="Texture2D" uid="uid://yjdg0iuxwkb7" path="res://UI/Design/planker.png" id="4_53os6"]
@@ -104,16 +104,16 @@ polygon = PackedVector2Array(2.5225255, -0.01441735, 3.1677997, -0.01441735, 2.5
 visible = false
 
 [node name="TextureRect" type="TextureRect" parent="UI" unique_id=1221820644]
-modulate = Color(1, 1, 1, 0)
+modulate = Color(0.34789982, 0.34789982, 0.34789982, 0.5882353)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -128.0
-offset_top = -160.0
-offset_right = 128.0
-offset_bottom = 160.0
+offset_left = -153.0
+offset_top = -103.0
+offset_right = 155.0
+offset_bottom = 116.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset_ratio = Vector2(0.5, 0.5)
@@ -139,16 +139,19 @@ theme_override_constants/separation = 9
 
 [node name="CurrentMoney" type="Label" parent="UI/CenterContainer/VBoxContainer" unique_id=262914363]
 layout_mode = 2
+theme_override_font_sizes/font_size = 28
 text = "Current money: 0"
 horizontal_alignment = 1
 
 [node name="NextMoney" type="Label" parent="UI/CenterContainer/VBoxContainer" unique_id=1941718237]
 layout_mode = 2
+theme_override_font_sizes/font_size = 28
 text = "Money next turn: 0"
 horizontal_alignment = 1
 
 [node name="Invest" type="Button" parent="UI/CenterContainer/VBoxContainer" unique_id=1295254571]
 layout_mode = 2
+theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxTexture_or0ij")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_w70fk")
 theme_override_styles/hover = SubResource("StyleBoxTexture_eg7xh")
@@ -156,6 +159,7 @@ text = "Invest 10g"
 
 [node name="Withdraw" type="Button" parent="UI/CenterContainer/VBoxContainer" unique_id=1444606013]
 layout_mode = 2
+theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxTexture_bs3d4")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_qtkon")
 theme_override_styles/hover = SubResource("StyleBoxTexture_jac6w")
@@ -163,7 +167,7 @@ text = "Withdraw 10g"
 
 [node name="Back" type="Button" parent="UI/CenterContainer/VBoxContainer" unique_id=334511276]
 layout_mode = 2
-theme_override_font_sizes/font_size = 9
+theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxTexture_qoiyg")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_6m1n8")
 theme_override_styles/hover = SubResource("StyleBoxTexture_uurjm")
