@@ -7,6 +7,7 @@ var Econ : Node
 var isUIOpen:bool = false
 
 func on_clicked():
+	Global.play_button()
 	print ("Castle clicked")
 	if isUIOpen == false:
 		$UI.visible = true
@@ -25,6 +26,7 @@ func _process(delta: float) -> void:
 
 
 func _on_recruit_soldier_pressed() -> void:
+	Global.play_button()
 	if Econ.currentGold >= 30:
 		var newSoldier :CharacterBody3D = meleeSoldierScene.instantiate()
 		get_tree().root.add_child(newSoldier)
@@ -33,10 +35,12 @@ func _on_recruit_soldier_pressed() -> void:
 
 
 func _on_back_button_pressed() -> void:
+	Global.play_button()
 	$UI.visible =false;
 
 
 func _on_recruit_ranger_pressed() -> void:
+	Global.play_button()
 	if Econ.currentGold >= 50:
 		var newSoldier :CharacterBody3D = rangerScene.instantiate()
 		get_tree().root.add_child(newSoldier)
@@ -45,6 +49,7 @@ func _on_recruit_ranger_pressed() -> void:
 
 
 func _on_recruit_archer_pressed() -> void:
+	Global.play_button()
 	if Econ.currentGold >= 25:
 		var newSoldier :CharacterBody3D = archerScene.instantiate()
 		get_tree().root.add_child(newSoldier)

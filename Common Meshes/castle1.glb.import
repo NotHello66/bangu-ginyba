@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://dopm74r4rn6do"
-path="res://.godot/imported/castle1.glb-54a6f7b91cac32f4873d571648e74a89.scn"
+path="res://.godot/imported/castle1.glb-a19f7469ccccba5aff014e2d4facf33b.scn"
 
 [deps]
 
-source_file="res://Common Meshes/castle1.glb"
-dest_files=["res://.godot/imported/castle1.glb-54a6f7b91cac32f4873d571648e74a89.scn"]
+source_file="res://Common meshes/castle1.glb"
+dest_files=["res://.godot/imported/castle1.glb-a19f7469ccccba5aff014e2d4facf33b.scn"]
 
 [params]
 

@@ -63,11 +63,11 @@ public partial class ProjectileComponent : Attack
 		{
 			if (impactScene != null)
 			{
-                var explosion = impactScene.Instantiate() as GpuParticles3D;
-                GetTree().Root.AddChild(explosion);
-                explosion.GlobalPosition = GlobalPosition;
-                explosion.Emitting = true;
-            }
+				var explosion = impactScene.Instantiate() as GpuParticles3D;
+				GetTree().Root.AddChild(explosion);
+				explosion.GlobalPosition = GlobalPosition;
+				explosion.Emitting = true;
+			}
 			hitbox.Damage(this);
 			QueueFree();
 		}

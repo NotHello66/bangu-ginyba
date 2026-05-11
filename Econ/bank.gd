@@ -33,6 +33,7 @@ func _process(delta: float) -> void:
 
 
 func _on_invest_pressed() -> void:
+	Global.play_button()
 	if Econ.currentGold >= 10:
 		Econ.currentGold -= 10;
 		CurrentMoney += 10;
@@ -41,6 +42,7 @@ func _on_invest_pressed() -> void:
 
 
 func _on_withdraw_pressed() -> void:
+	Global.play_button()
 	if CurrentMoney >= 10:
 		Econ.currentGold +=10;
 		CurrentMoney -= 10;
@@ -49,5 +51,6 @@ func _on_withdraw_pressed() -> void:
 		
 
 func _on_back_pressed() -> void:
+	Global.play_button()
 	$UI.visible = false;
 	isUIOpen = false;

@@ -1,8 +1,10 @@
 [gd_scene format=3 uid="uid://p5t2hwitkh5n"]
 
-[ext_resource type="PackedScene" uid="uid://b3wrolvn6x50" path="res://Common Meshes/banks_temp.glb" id="1_5pm4w"]
+[ext_resource type="PackedScene" uid="uid://b3wrolvn6x50" path="res://Common meshes/banks_temp.glb" id="1_5pm4w"]
 [ext_resource type="Script" uid="uid://emvup6s6shsp" path="res://Econ/bank.gd" id="1_ilj1t"]
 [ext_resource type="FontFile" uid="uid://bxheo3lrppx2b" path="res://UI/Design/Metamorphous-Regular.ttf" id="3_22cyf"]
+[ext_resource type="Texture2D" uid="uid://yjdg0iuxwkb7" path="res://UI/Design/planker.png" id="4_53os6"]
+[ext_resource type="Texture2D" uid="uid://ddpfuc2dtne5n" path="res://UI/Design/palletee.png" id="5_or0ij"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ilj1t"]
 size = Vector3(8.6414795, 4.5384216, 6.157654)
@@ -24,6 +26,39 @@ gradient = SubResource("Gradient_53os6")
 [sub_resource type="Theme" id="Theme_bs3d4"]
 default_font = ExtResource("3_22cyf")
 default_font_size = 12
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_or0ij"]
+texture = ExtResource("4_53os6")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_w70fk"]
+texture = ExtResource("5_or0ij")
+region_rect = Rect2(316, 160, 266, 47)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_eg7xh"]
+texture = ExtResource("5_or0ij")
+region_rect = Rect2(318, 159, 263, 49)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bs3d4"]
+texture = ExtResource("4_53os6")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qtkon"]
+texture = ExtResource("5_or0ij")
+region_rect = Rect2(318, 158, 262, 48)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jac6w"]
+texture = ExtResource("5_or0ij")
+region_rect = Rect2(316, 159, 264, 50)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qoiyg"]
+texture = ExtResource("4_53os6")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6m1n8"]
+texture = ExtResource("5_or0ij")
+region_rect = Rect2(318, 158, 263, 50)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_uurjm"]
+texture = ExtResource("5_or0ij")
+region_rect = Rect2(317, 160, 263, 50)
 
 [node name="Bank" type="StaticBody3D" unique_id=1323981361 groups=["SeeThru"]]
 script = ExtResource("1_ilj1t")
@@ -69,7 +104,7 @@ polygon = PackedVector2Array(2.5225255, -0.01441735, 3.1677997, -0.01441735, 2.5
 visible = false
 
 [node name="TextureRect" type="TextureRect" parent="UI" unique_id=1221820644]
-modulate = Color(1, 1, 1, 0.58431375)
+modulate = Color(1, 1, 1, 0)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -100,7 +135,7 @@ theme = SubResource("Theme_bs3d4")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/CenterContainer" unique_id=855227049]
 layout_mode = 2
-theme_override_constants/separation = 8
+theme_override_constants/separation = 9
 
 [node name="CurrentMoney" type="Label" parent="UI/CenterContainer/VBoxContainer" unique_id=262914363]
 layout_mode = 2
@@ -114,15 +149,24 @@ horizontal_alignment = 1
 
 [node name="Invest" type="Button" parent="UI/CenterContainer/VBoxContainer" unique_id=1295254571]
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_or0ij")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_w70fk")
+theme_override_styles/hover = SubResource("StyleBoxTexture_eg7xh")
 text = "Invest 10g"
 
 [node name="Withdraw" type="Button" parent="UI/CenterContainer/VBoxContainer" unique_id=1444606013]
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_bs3d4")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_qtkon")
+theme_override_styles/hover = SubResource("StyleBoxTexture_jac6w")
 text = "Withdraw 10g"
 
 [node name="Back" type="Button" parent="UI/CenterContainer/VBoxContainer" unique_id=334511276]
 layout_mode = 2
 theme_override_font_sizes/font_size = 9
+theme_override_styles/normal = SubResource("StyleBoxTexture_qoiyg")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_6m1n8")
+theme_override_styles/hover = SubResource("StyleBoxTexture_uurjm")
 text = "Back"
 
 [connection signal="pressed" from="UI/CenterContainer/VBoxContainer/Invest" to="." method="_on_invest_pressed"]
