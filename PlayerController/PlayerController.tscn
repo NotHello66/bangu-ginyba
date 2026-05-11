@@ -11,14 +11,15 @@
 [ext_resource type="Script" uid="uid://cbv1qp3ij15ys" path="res://PlayerController/EnemySlotManager.cs" id="9_s3jlx"]
 [ext_resource type="PackedScene" uid="uid://rtoq6dwjnfjw" path="res://RewardSystem/EconomyComponent.tscn" id="10_m11co"]
 [ext_resource type="PackedScene" uid="uid://cc2glgwhr8yu1" path="res://CommonComponents/melee_component.tscn" id="11_q15r7"]
-[ext_resource type="PackedScene" uid="uid://bisshrab8be2c" path="res://Common Meshes/AttackClaw.tscn" id="12_q15r7"]
-[ext_resource type="PackedScene" uid="uid://ciirnwesrt0as" path="res://Common Meshes/AttackTorus.tscn" id="13_tj7lp"]
+[ext_resource type="PackedScene" uid="uid://bisshrab8be2c" path="res://Common meshes/AttackClaw.tscn" id="12_q15r7"]
+[ext_resource type="PackedScene" uid="uid://ciirnwesrt0as" path="res://Common meshes/AttackTorus.tscn" id="13_tj7lp"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_71ti0"]
 radius = 0.5180664
 height = 2.1499023
 
 [node name="Player" type="CharacterBody3D" unique_id=1143986027 groups=["Player"]]
+collision_layer = 3
 script = ExtResource("1_ycagd")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=110225932]

@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class GoldPickup : Area3D
+public partial class GoldPickup : RigidBody3D
 {
     private float value;
 
@@ -8,16 +8,22 @@ public partial class GoldPickup : Area3D
 
     public override void _Ready()
     {
-        BodyEntered += OnBodyEntered;
+        Freeze = false;
+        GravityScale = 1.0f;
+        LinearDamp = 0.5f;
+        AngularDamp = 0.5f;
+
+        var pickupArea = GetNode<Area3D>("PickupArea");
+        pickupArea.BodyEntered += OnPickupAreaBodyEntered;
     }
 
-    private void OnBodyEntered(Node3D body)
+    private void OnPickupAreaBodyEntered(Node3D body)
     {
         if (body is PlayerController player)
         {
-            // Walk up the tree to find EconomyComponent
             var economy = player.GetNodeOrNull<EconomyComponent>("EconomyComponent")
-                       ?? GetTree().Root.FindChild("EconomyComponent", true, false) as EconomyComponent;
+                       ?? GetTree().Root.FindChild("EconomyComponent", true, false)
+                          as EconomyComponent;
 
             if (economy != null)
             {
