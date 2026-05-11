@@ -48,7 +48,7 @@ func update_damage(amount: int) -> void:
 	damage_label.text = "%d DMG" % amount
 
 func update_wave(wave: int) -> void:
-	wave_label.text = str(wave) + " Wawe"
+	wave_label.text = str(wave) + " Wave"
 
 func update_enemies(remaining: int) -> void:
 	enemies_label.text = "%d enemies left" % remaining
