@@ -65,7 +65,7 @@ public partial class TowerComponent : Node3D
 			}
 		}
 
-		if (closestVisible == null) GD.Print("TOWER: no visible enemies");
+		//if (closestVisible == null) GD.Print("TOWER: no visible enemies");
 
 		return closestVisible;
 	}

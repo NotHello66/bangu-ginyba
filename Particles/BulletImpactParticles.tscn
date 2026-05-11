@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://vijq5u7ser6t"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y6ohl"]
+albedo_color = Color(0.35726315, 0.299915, 0.060399465, 1)
+metallic = 0.25
+emission_enabled = true
+emission = Color(0.9365339, 0.56483, 0.17677665, 1)
+
+[sub_resource type="Curve" id="Curve_7c74e"]
+_data = [Vector2(0, 0.3370787), 0.0, 0.0, 0, 0, Vector2(0.43612337, 0.9887641), 0.0, 0.0, 0, 0, Vector2(0.9427314, 0.55056185), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_i8l5s"]
+curve = SubResource("Curve_7c74e")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ht60u"]
+resource_local_to_scene = true
+lifetime_randomness = 0.05
+emission_shape = 1
+emission_sphere_radius = 0.01
+spread = 56.111
+initial_velocity_min = 5.0
+initial_velocity_max = 5.0
+scale_curve = SubResource("CurveTexture_i8l5s")
+
+[sub_resource type="BoxMesh" id="BoxMesh_766ju"]
+size = Vector3(0.01, 0.02, 0.01)
+
+[node name="sparks" type="GPUParticles3D" unique_id=1736407273]
+material_override = SubResource("StandardMaterial3D_y6ohl")
+emitting = false
+amount = 30
+lifetime = 0.1
+one_shot = true
+randomness = 0.5
+process_material = SubResource("ParticleProcessMaterial_ht60u")
+draw_pass_1 = SubResource("BoxMesh_766ju")

@@ -11,6 +11,8 @@ public partial class ProjectileComponent : Attack
 	private Area3D area;
 	private Node3D owner;
 
+	[Export] public PackedScene impactScene;
+
 	public void Initialize(Node3D target, Node3D owner, float speed, Attack data, bool isAoe, float aoeRadius, float turnSpeed)
 	{
 		base.Initialize(data);
@@ -59,6 +61,13 @@ public partial class ProjectileComponent : Attack
 		HitBoxComponent hitbox = body.GetParent()?.GetNodeOrNull<HitBoxComponent>("HitBoxComponent") ?? body.GetNodeOrNull<HitBoxComponent>("HitBoxComponent");
 		if (hitbox != null)
 		{
+			if (impactScene != null)
+			{
+                var explosion = impactScene.Instantiate() as GpuParticles3D;
+                GetTree().Root.AddChild(explosion);
+                explosion.GlobalPosition = GlobalPosition;
+                explosion.Emitting = true;
+            }
 			hitbox.Damage(this);
 			QueueFree();
 		}
