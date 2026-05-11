@@ -6,13 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://chu8vv10twj0q" path="res://CommonComponents/hit_box_component.tscn" id="3_qte0a"]
 [ext_resource type="PackedScene" uid="uid://cc2glgwhr8yu1" path="res://CommonComponents/melee_component.tscn" id="4_2ji8o"]
 [ext_resource type="PackedScene" uid="uid://dfhlv4x4w7bym" path="res://Common Meshes/AttackHorn.tscn" id="5_2ji8o"]
+[ext_resource type="PackedScene" uid="uid://bqonnudilhhpe" path="res://Common Meshes/Skull.fbx" id="7_7aw0q"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_pkft5"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uasft"]
-albedo_color = Color(0.38039216, 0.38039216, 0.38039216, 1)
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_pjgsm"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_ae0vu"]
+radius = 0.9568753
 
 [node name="BeetleEnemy" type="CharacterBody3D" unique_id=1589266389 groups=["Enemy"]]
 script = ExtResource("1_0p62d")
@@ -36,10 +33,8 @@ debug_use_custom = true
 debug_path_custom_color = Color(0, 1, 0, 1)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=774993414]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.25, 0)
-shape = SubResource("CapsuleShape3D_pkft5")
+transform = Transform3D(1, 0, 0, 0, -0.048849814, -0.9988061, 0, 0.9988061, -0.048849814, 0, 0.25, -0.11621094)
+shape = SubResource("SphereShape3D_ae0vu")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1344693956]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.25, 0)
-material_override = SubResource("StandardMaterial3D_uasft")
-mesh = SubResource("CapsuleMesh_pjgsm")
+[node name="Skull" parent="." unique_id=1085314096 instance=ExtResource("7_7aw0q")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.006907344, -0.40772486, -0.15304804)

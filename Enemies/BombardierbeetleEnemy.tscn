@@ -5,24 +5,11 @@
 [ext_resource type="PackedScene" uid="uid://34425bncc0bt" path="res://Enemies/GoldPickup.tscn" id="2_uasft"]
 [ext_resource type="PackedScene" uid="uid://chu8vv10twj0q" path="res://CommonComponents/hit_box_component.tscn" id="3_86fep"]
 [ext_resource type="PackedScene" uid="uid://m465nhr8gnac" path="res://CommonComponents/ranged_component.tscn" id="4_8ix8s"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uasft"]
-albedo_color = Color(1, 0, 0, 1)
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_pjgsm"]
-radius = 0.3
-height = 1.5
+[ext_resource type="PackedScene" uid="uid://dq3badbbfnuj4" path="res://Common Meshes/Enemy_Flying.fbx" id="6_2x1hl"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_uasft"]
 radius = 0.3046875
-height = 1.5014648
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2x1hl"]
-albedo_color = Color(0.6509804, 0, 0, 1)
-
-[sub_resource type="TorusMesh" id="TorusMesh_86fep"]
-inner_radius = 0.1
-outer_radius = 0.2
+height = 1.9919434
 
 [node name="BombardierbeetleEnemy" type="CharacterBody3D" unique_id=1589266389 groups=["Enemy"]]
 script = ExtResource("1_uasft")
@@ -42,16 +29,9 @@ debug_enabled = true
 debug_use_custom = true
 debug_path_custom_color = Color(0, 1, 0, 1)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1344693956]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
-material_override = SubResource("StandardMaterial3D_uasft")
-mesh = SubResource("CapsuleMesh_pjgsm")
-
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=679709447]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25219727, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.49743652, 0)
 shape = SubResource("CapsuleShape3D_uasft")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=1624932625]
-transform = Transform3D(-9.512619e-08, 1.4011631, 0, -2.1762335, -6.124679e-08, 0, 0, 0, 1, 0, 0.26001656, 0.27406532)
-material_override = SubResource("StandardMaterial3D_2x1hl")
-mesh = SubResource("TorusMesh_86fep")
+[node name="Enemy_Flying" parent="." unique_id=1197199628 instance=ExtResource("6_2x1hl")]
+transform = Transform3D(0.54, 0, 0, 0, 0.54, 0, 0, 0, 0.54, 0, -0.7654946, 0)

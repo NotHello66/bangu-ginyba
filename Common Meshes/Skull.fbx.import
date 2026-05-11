@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://dopm74r4rn6do"
-path="res://.godot/imported/castle1.glb-54a6f7b91cac32f4873d571648e74a89.scn"
+uid="uid://bqonnudilhhpe"
+path="res://.godot/imported/Skull.fbx-a758f1695dea05589971fead0a891774.scn"
 
 [deps]
 
-source_file="res://Common Meshes/castle1.glb"
-dest_files=["res://.godot/imported/castle1.glb-54a6f7b91cac32f4873d571648e74a89.scn"]
+source_file="res://Common Meshes/Skull.fbx"
+dest_files=["res://.godot/imported/Skull.fbx-a758f1695dea05589971fead0a891774.scn"]
 
 [params]
 
@@ -30,7 +30,7 @@ meshes/force_disable_compression=false
 skins/use_named_skins=true
 animation/import=true
 animation/fps=30
-animation/trimming=false
+animation/trimming=true
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
@@ -38,5 +38,7 @@ materials/extract=0
 materials/extract_format=0
 materials/extract_path=""
 _subresources={}
-gltf/naming_version=2
-gltf/embedded_image_handling=1
+fbx/importer=0
+fbx/allow_geometry_helper_nodes=false
+fbx/embedded_image_handling=1
+fbx/naming_version=2

@@ -7,21 +7,11 @@
 [ext_resource type="PackedScene" uid="uid://cc2glgwhr8yu1" path="res://CommonComponents/melee_component.tscn" id="4_5dpaw"]
 [ext_resource type="PackedScene" uid="uid://cdhx7tdduoexw" path="res://Common Meshes/AttackClawHorizontalLeft.tscn" id="5_anmc1"]
 [ext_resource type="PackedScene" uid="uid://ckll5eni51kp1" path="res://Common Meshes/AttackClawHorizontalRight.tscn" id="6_owxtr"]
+[ext_resource type="PackedScene" uid="uid://bgblcn1qecdi0" path="res://Common Meshes/Crab.fbx" id="8_5dpaw"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_pkft5"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uasft"]
-albedo_color = Color(1.1551381e-06, 0.7454939, 0.600462, 1)
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_pjgsm"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_owxtr"]
-albedo_color = Color(0, 0.74509805, 0.6, 1)
-
-[sub_resource type="TorusMesh" id="TorusMesh_5dpaw"]
-inner_radius = 0.765
-outer_radius = 0.585
-ring_segments = 17
+radius = 0.71191406
+height = 1.4238281
 
 [node name="MantisBossEnemy" type="CharacterBody3D" unique_id=1589266389 groups=["Enemy"]]
 script = ExtResource("1_anmc1")
@@ -50,15 +40,8 @@ debug_use_custom = true
 debug_path_custom_color = Color(0, 1, 0, 1)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=774993414]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.06225586, 0)
 shape = SubResource("CapsuleShape3D_pkft5")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1344693956]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
-material_override = SubResource("StandardMaterial3D_uasft")
-mesh = SubResource("CapsuleMesh_pjgsm")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=331514569]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.19904625, 0)
-material_override = SubResource("StandardMaterial3D_owxtr")
-mesh = SubResource("TorusMesh_5dpaw")
+[node name="Crab" parent="." unique_id=1350488444 instance=ExtResource("8_5dpaw")]
+transform = Transform3D(0.63, 0, 0, 0, 0.63, 0, 0, 0, 0.63, 0, -0.5146637, 0)
