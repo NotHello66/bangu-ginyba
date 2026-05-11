@@ -58,10 +58,14 @@ public partial class MeleeComponent : Node3D
 
 	public void PerformAttack()
 	{
-		for (int i = 0; i < attackScenes.Length; i++)
+        //GD.Print("melee1");
+		//GD.Print("attackScenes.Length: " + attackScenes.Length);
+        for (int i = 0; i < attackScenes.Length; i++)
 		{
-			if (timers[i] >= GetCooldown(i))
+            //GD.Print("melee2");
+            if (timers[i] >= GetCooldown(i))
 			{
+				//GD.Print("melee3");
 				timers[i] = 0f;
 				Vector3 facingRotation = GetFacingRotation();
 

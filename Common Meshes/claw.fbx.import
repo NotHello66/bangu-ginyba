@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://dpy6dgc78uw8b"
-path="res://.godot/imported/claw.fbx-39c4fd8e35a21ac3911ecb29a5b12496.scn"
+path="res://.godot/imported/claw.fbx-5b16674cf049754a513248d2e646bd9e.scn"
 
 [deps]
 
-source_file="res://Common meshes/claw.fbx"
-dest_files=["res://.godot/imported/claw.fbx-39c4fd8e35a21ac3911ecb29a5b12496.scn"]
+source_file="res://Common Meshes/claw.fbx"
+dest_files=["res://.godot/imported/claw.fbx-5b16674cf049754a513248d2e646bd9e.scn"]
 
 [params]
 

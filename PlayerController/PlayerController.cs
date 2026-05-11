@@ -122,6 +122,7 @@ public partial class PlayerController : CharacterBody3D
 		}
 		if (Input.IsActionPressed("debug_allPlayerMelees") && meleeComponent != null)
 		{
+			GD.Print("player melee");
 			meleeComponent.PerformAttack();
 		}
 	}

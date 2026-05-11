@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://cartidrjmub5e"
-path="res://.godot/imported/ArcherTower.fbx-7159c1461edb4f5d1adfe2f98b808e50.scn"
+path="res://.godot/imported/ArcherTower.fbx-410fb86d7837f3a2cf16c2d1ecc003c0.scn"
 
 [deps]
 
-source_file="res://Common meshes/Towers/ArcherTower.fbx"
-dest_files=["res://.godot/imported/ArcherTower.fbx-7159c1461edb4f5d1adfe2f98b808e50.scn"]
+source_file="res://Common Meshes/Towers/ArcherTower.fbx"
+dest_files=["res://.godot/imported/ArcherTower.fbx-410fb86d7837f3a2cf16c2d1ecc003c0.scn"]
 
 [params]
 
